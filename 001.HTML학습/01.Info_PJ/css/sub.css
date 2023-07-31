@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* 서브페이지용 CSS sub.css */
+
+/* 공통외부CSS 합치기 */
+@import url(./common.css);
+
+/* 서브타이틀 */
+h2.stit{
+    color: black;
+    font-size: 38px;
+    font-family: "Nanum Pen Script", cursive;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px #27e3694d;
+    text-align: center;
+}
+div.prlogo img{
+    width: 20%;
+}
+figure img{
+    width: 100%;
+    margin: 0px;
+}
+figcaption{
+    font-size: 13px;
+    text-align: center;
+}

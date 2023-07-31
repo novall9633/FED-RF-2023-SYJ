@@ -4,20 +4,17 @@
         <meta charset="UTF-8" />
         <!-- viewport : 모바일에서 실제픽셀로 변환함 -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>요약뉴스</title>
+        <title>요약뉴스 - TV/연예</title>
         <!-- CSS 인터널방식 코딩영역 -->
-        <style></style>
-        <!-- 메인용 외부 CSS 호출하기 -->
-        <!-- <link rel="stylesheet" href="./css/common.css"> -->
-        <link rel="stylesheet" href="./css/main.css">
-
+        <!-- 서브용 외부 CSS 불러오기 -->
+        <link rel="stylesheet" href="./css/sub.css" />
     </head>
     <body>
         <!-- # = id, . = 클래스-->
         <!-- 1. 상단영역 : 제목, 메뉴 -->
         <header id="top" class="bx">
             <!-- 1-1.제목 -->
-            <h1>네이버 요약 뉴스</h1>
+            <h1>네이버 요약 뉴스 - TV/연예</h1>
             <!-- 1-2.GNB메뉴 -->
             <!-- GNB(Global Navigation Bar) -->
             <nav id="gnb">
@@ -38,7 +35,53 @@
         </header>
         <!-- 2. 메인영역 : 컨텐츠 -->
         <main id="cont" class="bx">
-            <img class="cimg" src="./images/mainImg.jpg" alt="메인이미지" />
+            <!-- 2-1. 서브타이틀 -->
+            <h2 class="stit">TV/연예 뉴스</h2>
+            <!-- 2-2. 언론사로고 -->
+            <div class="prlogo">
+                <img src="./images/prlogo5.png" alt="스포츠조선" />
+            </div>
+            <!-- 2-3. 기사제목 -->
+            <h3 class="atit">이준호 악플러 300만원 벌금형 확정..JYP "선처 없다"[공식]</h3>
+            <!-- 2-4. 기사사진 -->
+            <figure class="afig">
+                <!-- 이미지 -->
+                <img src="./images/afig5_1.jpg" alt="이준호에게 악성 댓글을 단 악플러가 벌금 300만 원을 선고받았다." />
+                <!-- 이미지설명 -->
+                <figcaption>
+                    [스포츠조선 이유나 기자]이준호에게 악성 댓글을 단 악플러가 벌금 300만 원을 선고받았다.
+                </figcaption>
+            </figure>
+            <!-- 2-5 기사 내용 -->
+            <section class="acont">
+                <p>
+                    앞서 JYP엔터테인먼트는 소속 아티스트 이준호에 대한 무분별한 악플을 지속 게재한 악플러를 고소했다.
+                    서울서부지방법원은 최근 이준호에 대한 허위사실을 지속적으로 유포하고 아티스트의 인격을 심각히
+                    훼손시키는 글을 수차례 작성한 가해자에게 정보통신망법 이용 촉진 및 정보보호 등에 관한 법률
+                    위반(명예훼손)죄를 인정하여 300만 원의 벌금형에 처했다.
+                </p>
+
+                <p>
+                    해당 법원은 "피고인은 온라인 커뮤니티에 피해자(이준호)에 대한 불만을 품고 사실이 아닌 내용을 수차례
+                    걸쳐 게시하였다. 이로써 피고인은 피해자를 비방할 목적으로 정보통신망을 통하여 공연히 허위 사실을
+                    적시하여 피해자의 명예를 훼손하였다"라고 피고인의 명예훼손 혐의를 인정했다.
+                </p>
+
+                <p>
+                    이준호 대상 악플러 법적 조치 결과를 알린 JYP엔터테인먼트는 "모니터링 루트를 강화하고 복수의
+                    고소대리인 로펌들을 추가로 선정하여 더욱 강력한 대응을 하고 있다. 당사는 앞으로도 아티스트에 대한
+                    근거 없는 허위 사실 유포 및 악성 게시글들을 좌시하지 않고 선처 없는 강력한 조치를 이어나갈 것이다.
+                    언제나 아티스트를 응원해 주시고 사랑해 주시는 팬 여러분들께 감사의 말씀드리며, 아티스트의 소속사로서
+                    아티스트의 안전과 권익 보호를 가장 우선시하여, 이를 저해하는 행위에 대해서는 법적 제재를 포함 가용한
+                    모든 조치를 동원하여 강경히 대응할 것임을 약속드린다"라고 밝혔다.
+                </p>
+            </section>
+            <!-- 2-6 기자 정보 -->
+            <div class="rpt">이유나(lyn@sportschosun.com)</div>
+            <!-- 2-7 기사 원문 -->
+            <h5>
+                <a href="https://entertain.naver.com/read?oid=076&aid=0004037470" target="_blank">기사원문</a>
+            </h5>
         </main>
         <!-- 3. 하단영역 : 회사 정보 -->
         <footer id="info" class="bx">

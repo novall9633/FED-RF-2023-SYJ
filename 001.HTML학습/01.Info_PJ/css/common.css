@@ -1,0 +1,184 @@
+@charset "utf-8";
+/* 맨위에 utf-8 인코딩 표시 필수 */
+
+/* CSS 영역내 주석문 */
+
+/* 웹폰트 CDN(Content Delivery Network) */
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@200;300;900&display=swap");
+
+/* 
+                웹폰트 font-family 이름
+                font-family: 'Nanum Brush Script', cursive;
+                font-family: 'Nanum Pen Script', cursive;
+                font-family: 'Noto Serif KR', serif;
+            */
+/* 
+            @import url(주소) 
+             - 외부CSS를 불러올 떄 사용하는 형식
+             - 외부CSS 파일을 하나로 합칠 때 많이 사용
+            */
+
+/* 
+              [ 모든 요소 공통 디자인요소 : 박스모델 ]
+              1. 크기 : width 가로, height 세로
+              2. 경계선 : border
+              3. 내부여백 : padding
+              4. 외부여백 : margin
+              (여백 공통 방향 : top,bottom,left,right)
+
+              _______________________________________
+
+              [ CSS 속성셋팅 형식 ]
+              선택자{
+                속성:값;
+              }
+              [ CSS 선택자 ]
+              1. 타입선택자 : 태그명 (div,p,a 등)
+              2. id선택자 : #id명
+              3. class선택자 : .class명
+              4. 자손선택자 : 띄어쓰기 (div a)
+              5. 직계자식선택자 : 오른쪽꺽쇠 (div > a)
+              6. 종속선택자 : 요소명#id명 / 요소명.class명
+              (div.mymy -> div인데 클래스가 mymy)
+              7. 형제선택자 : 요소+요소(a+a)
+               -> 앞에 요소가 있는 형제요소를 선택
+              8. 그룹선택자 : 선택자,선택자 (html,body,p)
+               -> 여러 요소를 동시에 선택함
+
+            */
+
+/* 
+            요소의 초기화 
+             - 기존에 기본셋팅값중 마진/패딩 초기화
+            */
+html,
+body,
+h1,
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+/* 레이아웃 박스 공통 디자인 */
+.bx {
+    /* 크기 : w800 -> 가로크기 */
+    width: 600px;
+    /* 외곽선 : bd -> 두께 종류 색상*/
+    /* border: 4px double darkgoldenrod; */
+    border: 4px dashed darkgoldenrod;
+    /* 패딩 : p */
+    padding: 20px;
+    /* 마진 : m */
+    margin: 0 auto;
+    /* 양쪽마진을 auto로 쓰면 등분할되어 박스가 중앙위치함 */
+    /* 
+                [ 마진/패딩 공통 개수별 정의 ]
+                margin: 4방향;
+                margin: 위아래 양쪽;
+                margin: 위 양쪽 아래;
+                margin: 위 오른 아래 위(시계방향);
+
+              */
+
+    /* 둥근 모서리 */
+    border-radius: 15px; /* bora */
+}
+
+/* 상단, 하단만 중앙정렬 */
+#top,
+#info {
+    /* 텍스트 중앙 : tac */
+    text-align: center;
+}
+
+/* 메인이미지 */
+.cimg {
+    width: 100%; /* w100p */
+    /* 
+                    100%의 기준은 싸고 있는 블록박스의 content영역을 말함(보더/패딩 제외 내부영역)
+                */
+}
+
+/* #gnb > a + a:hover {
+                text-decoration: overline;
+            } */
+
+/* 1.상단영역 */
+#top {
+    background-color: floralwhite;
+}
+/* 타이틀 */
+#top h1 {
+    color: #5ec79a;
+    font-size: 60px;
+    font-weight: normal; /* fwn 글자 두께 기본 */
+    font-family: "Nanum Brush Script", cursive;
+    /* 
+                    font-family 글씨체
+                    값 - 콤마로 구분하여 우선순위 적용함
+                    (상위체가 없으면 하위체를 적용, 이도없으면 브라우저 기본체로 표시)
+                */
+    /* 
+                    text-shadow : 글자그림자
+                    값 - x축 y축 블러(경계흐림) 색
+                    -> 콤마로 다중 그림자 사용 가능
+                */
+    text-shadow: 2px 2px 2px #17db4879;
+}
+/* 메뉴링크 */
+#gnb a {
+    color: black;
+    text-decoration: none; /* tdn */
+    font-size: 25px; /* fz */
+    font-family: "Nanum Pen Script", cursive; /* ff */
+    vertical-align: -5px; /* va-4 */
+    /* 
+                vertical-align : 인라인요소간 세로정렬
+                값 - top/bottom/middle/baseline/수치
+                */
+}
+/* 가상클래스 :hover 마우스오버시 */
+/* a+a는 앞에 a요소가 있는 형제 a요소를 선택, 결과적으로 첫번째 a요소가 선택되지 않는다. */
+#gnb a + a:hover {
+    color: red;
+    /* 글자데코 : 윗줄 물결모양 */
+    text-decoration: overline;
+    text-decoration-style: wavy;
+}
+
+/* 로고이미지 */
+#gnb img {
+    vertical-align: -4px;
+}
+/* 2.메인영역 */
+#cont {
+    margin: 20px auto;
+    font-family: "Noto Serif KR", serif;
+}
+/* 3.하단영역 */
+#info {
+    background-color: #ccc;
+}
+/* 회사주소 */
+#info address {
+    /* 기본글자 이탤릭 스타일 없애기 */
+    font-style: normal;
+    font-family: "Noto Serif KR", serif;
+    color: black;
+    font-weight: 200;
+}
+/* 대표자 span */
+span.utxt {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: coral;
+}
+/* 종속선택자로 같은 이름의 클래스인데 다른 디자인으로 변경하여 셋팅하기                 */
+b.utxt {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: #17db4879;
+}
+nav a {
+    font-size: 20px;
+}
