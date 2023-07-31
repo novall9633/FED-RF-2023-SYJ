@@ -9,6 +9,21 @@
         <style>
             /* CSS 영역내 주석문 */
 
+            /* 웹폰트 CDN(Content Delivery Network) */
+            @import url("https://fonts.googleapis.com/css2?family=Nanum+Brush+Script+KR:wght@200;800&family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@200;300;900&display=swap");
+
+            /* 
+                웹폰트 font-family 이름
+                font-family: 'Nanum Brush Script', cursive;
+                font-family: 'Nanum Pen Script', cursive;
+                font-family: 'Noto Serif KR', serif;
+            */
+            /* 
+            @import url(주소) 
+             - 외부CSS를 불러올 떄 사용하는 형식
+             - 외부CSS 파일을 하나로 합칠 때 많이 사용
+            */
+
             /* 
               [ 모든 요소 공통 디자인요소 : 박스모델 ]
               1. 크기 : width 가로, height 세로
@@ -32,14 +47,27 @@
               6. 종속선택자 : 요소명#id명 / 요소명.class명
               (div.mymy -> div인데 클래스가 mymy)
 
-
             */
+
+            /* 
+            요소의 초기화 
+             - 기존에 기본셋팅값중 마진/패딩 초기화
+            */
+            html,
+            body,
+            h1,
+            h2 {
+                margin: 0;
+                padding: 0;
+            }
+
             /* 레이아웃 박스 공통 디자인 */
             .bx {
                 /* 크기 : w800 -> 가로크기 */
                 width: 800px;
                 /* 외곽선 : bd -> 두께 종류 색상*/
-                border: 4px double darkgoldenrod;
+                /* border: 4px double darkgoldenrod; */
+                border: 4px dashed darkgoldenrod;
                 /* 패딩 : p */
                 padding: 20px;
                 /* 마진 : m */
@@ -55,30 +83,96 @@
               */
                 /* 텍스트 중앙 : tac */
                 text-align: center;
+
+                /* 둥근 모서리 */
+                border-radius: 15px; /* bora */
+                
             }
             /* 메인이미지 */
             .cimg {
                 width: 100%;
                 /* w100p */
             }
-            #gnb>a{
-              text-decoration: none;
-            }
-            #gnb>a+a:hover{
-              text-decoration: overline;
-            }
+
+            /* #gnb > a + a:hover {
+                text-decoration: overline;
+            } */
 
             /* 1.상단영역 */
             #top {
-                background-color: lightblue;
+                background-color: floralwhite;
             }
-            header nav{
-
+            /* 타이틀 */
+            #top h1 {
+                color: #5ec79a;
+                font-size: 40px;
+                font-weight: normal; /* fwn 글자 두께 기본 */
+                font-family: "Nanum Brush Script", cursive;
+                /* 
+                    font-family 글씨체
+                    값 - 콤마로 구분하여 우선순위 적용함
+                    (상위체가 없으면 하위체를 적용, 이도없으면 브라우저 기본체로 표시)
+                */
+                /* 
+                    text-shadow : 글자그림자
+                    값 - x축 y축 블러(경계흐림) 색
+                    -> 콤마로 다중 그림자 사용 가능
+                */
+                text-shadow: 2px 2px 2px #17db4879;
+            }
+            /* 메뉴링크 */
+            #gnb a {
+                color: black;
+                text-decoration: none; /* tdn */
+                font-size: 25px; /* fz */
+                font-family: "Nanum Pen Script", cursive; /* ff */
+                vertical-align: -5px; /* va-4 */
+                /* 
+                vertical-align : 인라인요소간 세로정렬
+                값 - top/bottom/middle/baseline/수치
+                */
+            }
+            /* 가상클래스 :hover 마우스오버시 */
+            /* a+a는 앞에 a요소가 있는 형제 a요소를 선택, 결과적으로 첫번째 a요소가 선택되지 않는다. */
+            #gnb a + a:hover {
+                color: red;
+                /* 글자데코 : 윗줄 물결모양 */
+                text-decoration: overline;
+                text-decoration-style: wavy;
             }
 
+            /* 로고이미지 */
+            #gnb img {
+                vertical-align: -4px;
+            }
             /* 2.메인영역 */
             #cont {
                 margin: 20px auto;
+                font-family: "Noto Serif KR", serif;
+            }
+            /* 3.하단영역 */
+            #info {
+                background-color: #ccc;
+            }
+            /* 회사주소 */
+            #info address {
+                /* 기본글자 이탤릭 스타일 없애기 */
+                font-style: normal;
+                font-family: "Noto Serif KR", serif;
+                color: black;
+                font-weight: 200;
+            }
+            /* 대표자 span */
+            span.utxt {
+                text-decoration: underline;
+                text-decoration-style: dashed;
+                text-decoration-color: coral;
+            }
+            /* 종속선택자로 같은 이름의 클래스인데 다른 디자인으로 변경하여 셋팅하기                 */
+            b.utxt {
+                text-decoration: underline;
+                text-decoration-style: wavy;
+                text-decoration-color: #17db4879;
             }
         </style>
     </head>
@@ -93,7 +187,7 @@
             <nav id="gnb">
                 <a href="index.html">
                     <!-- 상대경로 -->
-                    <img src="images/logo.png" alt="네이버로고" style="width: 50px" />
+                    <img src="images/logo.png" alt="네이버로고" style="width: 26px" />
                     <!-- style속성으로 CSS를 셋팅하는 방법은 인라인방식이라고 함 -->
 
                     <!-- 절대상대경로 -->
@@ -101,10 +195,8 @@
                     <!-- 절대경로 -->
                     <!-- <img src="https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png" alt="네이버로고"> -->
                 </a>
-                <a id="sub" href="sub1.html">정치</a>
-                <a id="sub" href="sub2.html">경제</a>
-                <a id="sub" href="sub3.html">사회</a>
-                <a id="sub" href="sub4.html">IT/과학</a>
+                <a id="sub" href="sub1.html">정치</a> | <a id="sub" href="sub2.html">경제</a> |
+                <a id="sub" href="sub3.html">사회</a> | <a id="sub" href="sub4.html">IT/과학</a> |
                 <a id="sub" href="sub5.html">TV/연예</a>
             </nav>
         </header>
@@ -116,11 +208,23 @@
         <footer id="info" class="bx">
             <address>
                 서울시 강남구 역삼동 119 대호B 8F<br />
-                대표: 신용진<br />
-                전화: 010-2222-3333
+                대표: <span class="utxt">신용진</span>
+                <br />
+                전화: <b class="utxt">010-2222-3333</b>
             </address>
         </footer>
         <!-- 
+        [ 웹 표준이란? ]
+        - 모든 브라우저에서 하나의 소스로 동일한 디스플레이 및 기능이 작동하도록 정한 웹 코딩의 표준안이다.
+
+        [ 웹접근성이란? ]
+        - 평등의 원칙! 즉, 장애인 차별금지법에 따라 이미지(alt 속성), 동영상(자막) 등에 설명을 추가하여 정보제공에 차별이 없도록 하는 것
+
+        [ img요소 : 이미지 연결 요소 ]
+        - 필수 속성
+        1) src : 이미지경로(source)
+        2) alt : 이미지 설명(웹 접근성)(alternative text - 대체텍스트)
+        
         [ 레이아웃을 위한 블록요소 ]
         div : 영역을 나누고 묶어주는 요소
 
