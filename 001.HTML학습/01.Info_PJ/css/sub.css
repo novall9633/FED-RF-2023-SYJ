@@ -171,17 +171,18 @@ h2.st5{
     border-radius: 50%; /* 원형 */
     /* 가로정렬 중앙 */
     text-align: center;
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     border: 1px solid rgb(202, 103, 73);
     /* 줄간격으로 세로 글자 중앙 
     - 높이 값과 같음*/
-    line-height: 70px;
+    line-height: 100px;
     
     /* a 요소 기본 글자색 변경, 밑줄 없앰 */
     color: #000;
     text-decoration: none;
     box-shadow: inset 0px 0px 3px 1px gray;
+    font-style: 20px;
 }
 /* 마우스 오버시 변경 */
 .alink a:hover{
