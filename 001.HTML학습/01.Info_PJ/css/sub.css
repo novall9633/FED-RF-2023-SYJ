@@ -4,6 +4,11 @@
 /* 공통외부CSS 합치기 */
 @import url(./common.css);
 
+/* 서브페이지 공통 글자 설정 */
+#cont{
+    font-family: 'Noto Serif KR', serif;
+}
+
 /* 서브타이틀 */
 h2.stit{
     color: black;
@@ -12,15 +17,177 @@ h2.stit{
     font-weight: normal;
     text-shadow: 1px 1px 1px #27e3694d;
     text-align: center;
+    
+    border-radius: 10px;
+    
+    /* outline: 4px solid ; */
+    
+    /* 
+        [ outline 요소 ]
+        box모델의 필수속성은 아니지만 박스의 외곽선을 표현해주며 박스자체에 크기에 영향을 주지 않음
+        outline : 두께 종류 색상
+        -> border와 셋팅이 같음
+        단, border-radius 둥근 모서리는 border만 적용되었으나 outline도 됨
+        -> 주로 사용되는 예는 input 입력창에서 포커스가 갈 경우 외곽선표시가 됨
+    */
+    padding: 40px;
+    
+    /* 배경넣기 한번에 쓰기 */
+    /* background: url(../images/afig4_1.jpg) no-repeat center/cover; */
+    /* background: 색이반고윙/크 : 배경색 이미지 반복 고정 위치 / 크기 */
+
+    /* 반복여부 bgr */
+    background-repeat: no-repeat;
+    /* 배경위치 : 가로 세로  bgp*/
+    background-position: center;
+    /* 배경크기 : 가로 세로 ( cover - 박스채우기) bgz */
+    background-size: cover;
+
+    margin-bottom: 30px;
+
+    /* 박스그림자 */
+    box-shadow: 
+    inset 0 0 5px 3px, 
+    0 0 4px 1px;
+    /* 
+        [ box-shadow 속성 bsh]
+        - 박스 외부/내부 그림자 설정속성
+        - 값 : x축 y축 blur(경계선) spread 색
+        text-shadow 와 달리 spread 속성이 있음
+        이것은 그림자를 켜지게 함
+        - 내부 그림자 옵션은 inset
+        - 그림자 다중설정 : 콤마로 연속사용 가능
+    */
 }
-div.prlogo img{
-    width: 20%;
+
+/* 정치 배경이미지 */
+h2.st1{
+    /* 배경 넣기 : 속성별 쓰기 */
+    background-image: url(../images/afig1_1.jpg);
+    background-position-y: -80px;
+    color: rgb(55, 168, 80);
 }
-figure img{
+/* 경제 배경이미지 */
+h2.st2{
+    /* 배경 넣기 : 속성별 쓰기 */
+    background-image: url(../images/afig2_1.jpg);
+    background-position-y: -24px;
+    color: blue;
+}
+/* 사회 배경이미지 */
+h2.st3{
+    /* 배경 넣기 : 속성별 쓰기 */
+    background-image: url(../images/afig3_1.jpg);
+    color: white;
+}
+/* IT/과학 배경이미지 */
+h2.st4{
+    /* 배경 넣기 : 속성별 쓰기 */
+    background-image: url(../images/afig4_1.jpg);
+    color: aqua;
+}
+
+/* TV/연예 배경이미지 */
+/* .st5의 적용우선순위를 높이기 위해 부모요소를 써줌 */
+h2.st5{
+    /* 배경 넣기 : 속성별 쓰기 */
+    background-image: url(../images/afig5_1.jpg);
+    /* 배경 위치 top */
+    background-position-y: -120px;
+    color: rgb(202, 103, 73);
+}
+
+/* 언론사 로고 */
+.prlogo img{
+    height: 32px;
+    /* 이미지는 기본 비율을 가지고 있어서 가로,세로 중 한 쪽만 크기를 주면 나머지 방향은 자동으로 비율을 유지함
+    가로,세로를 다 주면 비율이 깨짐
+    */
+}
+
+/* 기사타이틀 */
+.atit{
+    font-size: 30px;
+    text-align: center;
+}
+
+/* 기사이미지 박스 */
+.afig{
+    margin-bottom: 40px;
+}
+
+/* 기사이미지 */
+.afig img{
     width: 100%;
     margin: 0px;
 }
-figcaption{
-    font-size: 13px;
+
+/* 기사이미지 설명 */
+.afig figcaption{
+    font-size: 15px;
     text-align: center;
+    color: #767678;
+}
+
+/* 기사 문단 */
+.acont p{
+    font-size: 17px;
+    color: #303038;
+    /* 자간 : ls */
+    letter-spacing: 2px;
+    /* 단어간격 : ws */
+    word-spacing: 1px;
+    /* 양쪽정렬 : taj */
+    text-align: justify;
+    /* 줄간격 : lh */
+    line-height: 1.56;
+    /* 
+    글자 라인간 간격을 조정함 숫자만 쓰면 배수(글자 높이 값에 대한 배수) 단위를 쓰면 단위에 맞게 줄간격 조정됨
+    -> 줄간격의 응용은 버튼 등의 글자를 세로 중앙에 오게 할 때 박스 높이 값만큼 준다.
+     */
+}
+
+/* 유튜브 동영상박스 */
+.mvbx{
+    height: 550px;
+    /* 
+        div와 같은 block요소는 width 설정을 하지 않으면 width:auto로 자동 설정됨. 이는 싸고 있는 박스 컨텐트 영역을 자동으로 채워준다.
+    */
+}
+
+.mvbx iframe{
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* 기사원문 */
+.alink{
+    text-align: right;
+}
+.alink a{
+    /* 디자인 적용 위해 display 변경하기 */
+    display: inline-block;
+    border-radius: 50%; /* 원형 */
+    /* 가로정렬 중앙 */
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    border: 1px solid rgb(202, 103, 73);
+    /* 줄간격으로 세로 글자 중앙 
+    - 높이 값과 같음*/
+    line-height: 70px;
+    
+    /* a 요소 기본 글자색 변경, 밑줄 없앰 */
+    color: #000;
+    text-decoration: none;
+    box-shadow: inset 0px 0px 3px 1px gray;
+}
+/* 마우스 오버시 변경 */
+.alink a:hover{
+    color: rgb(132, 156, 135);
+    background-color: floralwhite;
+    box-shadow: 
+    0px 0px 10px 5px burlywood 
+    ,inset 0px 0px 10px 1px gray;
 }

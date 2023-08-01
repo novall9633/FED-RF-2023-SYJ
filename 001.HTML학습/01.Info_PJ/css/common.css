@@ -54,15 +54,20 @@
 html,
 body,
 h1,
-h2 {
+h2,
+figure {
     margin: 0;
     padding: 0;
 }
 
 /* 레이아웃 박스 공통 디자인 */
 .bx {
-    /* 크기 : w800 -> 가로크기 */
-    width: 600px;
+    /* 크기 : w900 -> 가로크기 */
+    /* width: 900px */
+    /* 최대 가로 크기 900의 의미는 900px보다 안커지고 작을 경우 auto로 전환(부모박스 크기로 맞춤) : maw900 */
+    max-width: 900px;
+    /* 최소 가로 크기를 설정하면 최소크기보다 작아지지 않는다 */
+    /* min-width: 700px; */
     /* 외곽선 : bd -> 두께 종류 색상*/
     /* border: 4px double darkgoldenrod; */
     border: 4px dashed darkgoldenrod;
@@ -140,7 +145,7 @@ h2 {
 /* 가상클래스 :hover 마우스오버시 */
 /* a+a는 앞에 a요소가 있는 형제 a요소를 선택, 결과적으로 첫번째 a요소가 선택되지 않는다. */
 #gnb a + a:hover {
-    color: red;
+    color: #5ec79a;
     /* 글자데코 : 윗줄 물결모양 */
     text-decoration: overline;
     text-decoration-style: wavy;
@@ -157,7 +162,7 @@ h2 {
 }
 /* 3.하단영역 */
 #info {
-    background-color: #ccc;
+    background-color: floralwhite;
 }
 /* 회사주소 */
 #info address {
