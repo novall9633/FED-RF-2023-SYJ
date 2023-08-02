@@ -188,7 +188,7 @@ h2.st5{
 
 /* 인용블럭 영역 */
 .bqbx{
-    padding: 20px;
+    padding: 20px 0;
     margin: 20px 0;
     border-top: 2px dashed #767678 ;
     border-bottom: 2px dashed #767678;
@@ -222,6 +222,8 @@ h2.st5{
     border-top: 2px dashed #767678;
     border-bottom: 2px dashed #767678;
     padding: 15px 0;
+    font-style: 15px;
+    line-height: 2;
 }
 .desc div{
     padding: 15px 0;
