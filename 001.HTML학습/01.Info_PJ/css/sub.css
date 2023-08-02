@@ -146,7 +146,32 @@ h2.st5{
     -> 줄간격의 응용은 버튼 등의 글자를 세로 중앙에 오게 할 때 박스 높이 값만큼 준다.
      */
 }
+/* 강조 em요소 디자인변경 */
+.acont p em{
+    /* 이텔릭해제 */
+    font-style: normal;
+    /* 글자색변경 */
+    color : rgb(207, 92, 182);
+    /* 글자 두껍게 */
+    font-weight: bold;
+    /* 글자 그림자 */
+    text-shadow: 2px 2px 2px red;
+}
+/* mark요소 디자인변경하기 */
+.acont p mark{
+    display : block;
+    width: 65%;
+    background-color: #ebebeb;
+    text-align: center;
+    margin: 15px auto;
+    padding: 20px 50px;
+    font-size: 20px;
+    border-top: 2px solid grey;
+    border-bottom: 2px solid grey;
+    color: rgb(205, 95, 185);
+    font-family: 'Courier New', Courier, monospace;
 
+}
 /* 유튜브 동영상박스 */
 .mvbx{
     height: 550px;
@@ -161,6 +186,47 @@ h2.st5{
     height: 100%;
 }
 
+/* 인용블럭 영역 */
+.bqbx{
+    padding: 20px;
+    margin: 20px 0;
+    border-top: 2px dashed #767678 ;
+    border-bottom: 2px dashed #767678;
+    font-size: 15px;
+}
+.bqbx blockquote{
+    padding: 15px 0;
+    line-height: 2;
+}
+/* 인용블럭 이미지 */
+.bqbx img{
+    float: right;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+/* article 제목공통 - .atbx */
+.atbx h5{
+    display: inline-block;
+    /* 배경색 */
+    background-color: #ebebeb;
+    /* 패딩 */
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px #0000004d;
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+/* 주해박스 */
+.desc{
+    border-top: 2px dashed #767678;
+    border-bottom: 2px dashed #767678;
+    padding: 15px 0;
+}
+.desc div{
+    padding: 15px 0;
+    
+}
 /* 기사원문 */
 .alink{
     text-align: right;
