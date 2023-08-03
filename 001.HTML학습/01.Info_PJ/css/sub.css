@@ -324,3 +324,124 @@ article.work{
     margin: 20px 0;
     padding: 20px 0;
 }
+
+/* 뉴스 파트 공통 a요소 */
+.nbx a{
+    /* 글자크기 fz */
+    font-size: 17px;
+    /* 줄간격 lh */
+    line-height: 2.5;
+    /* 글자색 c */
+    color: #222;
+    /* 밑줄없앰 tdn */
+    text-decoration: none;
+}
+/* 공통 a마우스 오버 */
+.nbx a:hover{
+    color: yellowgreen;
+    text-shadow: 1px 1px 1px #000;
+}
+
+/* 뉴스 타이틀 공통 */
+.nbx h3{
+    font-family: "Nanum Pen Script", cursive;
+    font-weight: normal;
+    font-size: 30px;
+    background-image: linear-gradient(to right, lightblue, transparent);
+    padding: 10px;
+}
+
+/* 한줄 말줄임표시하기 공통처리 */
+.nbx li, .nbx dd, .nbx td{
+    /* 1. 줄바꿈 방지: wh */
+    white-space: nowrap;
+    /* 2. 넘치는 컨텐츠 숨기기: oh */
+    overflow: hidden;
+    /* 3. 넘치는 글자 말 줄임 표시: tv  */
+    text-overflow: ellipsis;
+    /* 
+        추가) 여러줄일때 말 줄임은 아래와 같음
+        1. display:-webkit-box;
+        2. -webkit-line-clamp: 2; 라인수
+        3. -webkit-box-orient: vertical;
+        4. overflow: hidden;
+        5. text-overflow: ellipsis;
+        단, 박스 높이값을 글자가 보일만큼 조절해야함
+        ->>> white-space: nowrap 이 없음
+    */
+}
+
+/* 주요뉴스 ul 앞에 */
+.cnews ul li::before{
+    content: '(☞ﾟヮﾟ)☞';
+}
+/* 주요뉴스 ul 뒤에 */
+.cnews ul li::after{
+    content: url(../images/prlogo5.png);
+}
+
+/* 
+[ CSS 가상요소 : before, after ]
+- 모든 요소는 맨앞과 맨뒤에 가상요소를 사용할 수 있다.
+- 맨 앞은 before, 맨뒤에는 after
+- 필수 속성 : content
+- 이미지는 url() 사용  
+*/
+
+/* 주요뉴스 li별 글자색 바꾸기 */
+.cnews li:first-child a{
+    color: red;
+}
+.cnews li:nth-child(2) a{
+    color: blue;
+}
+.cnews li:last-child a{
+    color: green;
+}
+.cnews ul li:nth-child(){
+    color: #CCC;
+}
+
+.snews dl dt{
+    font-family: "Nanum Pen Script", cursive;
+    font-size: 42px;
+    /* background-image: linear-gradient(35deg,rgb(186, 221, 191),rgb(173, 175, 68),rgb(61, 151, 179)); */
+    background-color: lightblue;
+    display: inline-block;
+    padding: 15px;
+    border: 4px dashed #dfe9e1;
+    border-radius: 50%;
+    margin-top: 35px;
+}
+
+/* dd 앞에 가상요소로 블릿 넣기 */
+.snews dd::before{
+    content: '🐱‍🏍';
+}
+
+/* 분야별 뉴스 dt별 글자색, 배경색 변경 */
+.snews dt:first-of-type{
+    color: red;
+    background-color: lightcoral;
+    border-color: lightblue;
+}
+.snews dt:nth-of-type(2){
+    color: blue;
+    background-color: lightcyan;
+    border-color: lightgray;
+}
+.snews dt:last-of-type{
+    color: green;
+    background-color: lightskyblue;
+    border-color: lightyellow;
+}
+/*
+ [ 자식요소 선택 가상클래스 : 자식요소 종류가 같아야함! ]
+    요소:first-child -> 첫번째 자식요소
+    요소:nth-child(n) -> n번째 자식요소
+    요소:last-child -> 마지막째 자식요소
+[ 여러종류가 섞여 있을 경우 형제 선택하기 ]
+    요소:first-of-type -> 같은 요소 중 첫번째
+    요소:nth-of-type(n) -> 같은 요소 중 n번째
+    요소:last-of-type -> 같은 요소 중 마지막째
+     */
