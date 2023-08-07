@@ -24,16 +24,16 @@ header img{
 }
 .gnb ul li{
     height: 100%;
+    margin: 30px;
 }
 .menu li{
     display: inline-block;
-    /* float: left; */
     color: white;
     font-size: 25px;
-    margin: 5px 0 0;
+    margin: 5px 0px;
     /* min-width: 20px; */
 }
-.menu li:hover{
+.gnb li:hover{
     border-bottom: 1px solid red;
 }
 .sn{
