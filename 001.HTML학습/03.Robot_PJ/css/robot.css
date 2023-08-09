@@ -51,7 +51,7 @@ body *{
 /* 2-1. 로봇박스 */
 .box-robot{
     /* 패딩 : 위, 양쪽, 아래 */
-    padding: 200px 0 50px;
+    padding: 200px 0 528px;
     /* 마진 탑 */
     margin-top: 30px;
 }
@@ -191,11 +191,33 @@ body *{
 /* 2-1-2. 몸통 */
 .body{
     position: relative;
-    /* 부모자격 - 하위직계자식 div */
-    width: 250px;
+    /* 부모자격 - 하위직계자식 div앱솔루트 */
+    width: 220px;
     height: 400px;
     margin: 0 auto;
     margin-top: 50px;
+}
+/* 몸통의 가상요소로 상체만들기 */
+.body::before{
+    content: '';
+    display: block;
+    position: absolute;
+    top: -8px;
+    left: -21px;
+    width: 262px;
+    height: 200px;
+    background-image: linear-gradient(to top, #b0e0f7, #b2bfe2);
+}
+/* 몸통의 가상요소로 하체만들기 */
+.body::after{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: -21px;
+    width: 262px;
+    height: 140px;
+    background-image: linear-gradient(to top, #8d827f, #f8f6f6);
 }
 
 /* 목 */
@@ -212,22 +234,39 @@ body *{
     width: 50px;
     height: 200px;
 }
+/* 팔 하단부분 공통 */
+.arm span{
+    position: absolute;
+    top: 100%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    /* 부모는? .arm  */
+}
 /* 왼팔 */
 .arm1{
-    left: -50px;
+    left: -70px;
 }
 /* 오른팔 */
 .arm2{
-    right: -50px;
+    right: -70px;
 }
+
+/* 다리 공통 */
 .leg{
     width: 70px;
     height: 250px;
-}
-/* 다리 공통 */
-.leg{
     /* 부모박스 높이만큼 나감! 아랫쪽 바깥에 위치 */
     top: 100%;
+}
+/* 다리 하단부분 공통 */
+.leg span{
+    position: absolute;
+    top: 100%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    /* 부모는? .leg  */
 }
 /* 왼다리 */
 .leg1{
@@ -246,7 +285,7 @@ body *{
 }
 /* 왼어깨 */
 .shdr1{
-    left: -65px;
+    left: -85px;
     border-radius: 50% 30% 0 50%;
     /* 
         [ 둥근모서리 값설정 ]
@@ -258,7 +297,7 @@ body *{
 }
 /* 오른어깨 */
 .shdr2{
-    right: -65px;
+    right: -85px;
     border-radius: 30% 50% 50% 0;
 }
 /* TV */
