@@ -169,16 +169,17 @@
             height: 10px;
             /* 배경색변경 */
             background-color: royalblue;
-            /* 트랜지션 원본(양방향/돌아올때) */
-            transition: 
-            left 5s ease-in-out .5s,
-            /* left는 5초간 처음과 끝에 천천히 0.5초기다림 */
-            width 3s ease-out 1s,
-            /* width는 3초간 끝에 천천히 1초기다림 */
-            height 1s ease-in 2s,
-            /* height는 1초간 처음에 천천히 2초기다림 */
-            background-color 3s linear 3s;
-            /* 배경색은 3초간 등속도로 3초기다림 */
+            /* 트랜지션 원본(돌아올때) */
+            transition:
+            left 3s ease-in-out 7s,
+            /* left는 3초간 처음과 끝에 천천히 7초기다림 */
+            width 2s ease-out 5s,
+            /* width는 2초간 끝에 천천히 5초기다림 */
+            height 1s ease-in 4s,
+            /* height는 1초간 처음에 천천히 4초기다림 */
+            background-color 3s linear 1s;
+            /* 배경색은 3초간 등속도로 1초기다림 */
+            
             
         }
         /* 체크박스가 체크되면 그 다음 형제요소를 변경하여
@@ -190,8 +191,17 @@
             width: 500px;
             height: 300px;
             /* 배경색변경 */
-            background-color: olivedrab;
-            
+            background-color: red;
+            /* 트랜지션(진행할 때) */
+            transition: 
+            left 3s ease-in-out 1s,
+            /* left는 3초간 처음과 끝에 천천히 1초기다림 */
+            width 2s ease-out 4s,
+            /* width는 2초간 끝에 천천히 4초기다림 */
+            height 1s ease-in 6s,
+            /* height는 1초간 처음에 천천히 6초기다림 */
+            background-color 3s linear 7s;
+            /* 배경색은 3초간 등속도로 7초기다림 */
         }
 
 
