@@ -10,7 +10,7 @@ body{
 body *{
     outline: 2px dashed yellow;
 }
-.bowl:checked{
+.ball1{
     content: '';
     position: absolute;
     top: 100%;
@@ -20,9 +20,9 @@ body *{
 }
 
 
-.bowl img:hover{
+.ball1 img:hover{
     transform: translateY(-700px) rotate(20000deg) scale(.2);
     transition-duration: 3s;
-    transition-timing-function: ease-in;
+    transition-timing-function: cubic-bezier(1, -0.46, 1, 1);
     transform-origin: center center;
 }

@@ -73,7 +73,9 @@ body *{
 
     z-index: 99;
     /* 가장위 */
+
 }
+
 /* 1-2. 링크 타이틀 */
 /* 1-3. 탑 이동 버튼 */
 
@@ -86,10 +88,14 @@ body *{
 }
 /* 2-1. 로봇박스 */
 .box-robot{
+    position: fixed;
+    width: 100%;
     /* 패딩 : 위, 양쪽, 아래 */
-    padding: 200px 0 650px;
+    padding: 200px 0 600px;
     /* 마진 탑 */
-    margin-top: 30px;
+    /* margin-top: 30px; */
+    /* 처음에 트랜스폼 변경설정 */
+    transform: translate(33%, -21%) scale(.2);
 }
 /* 2-1-1. 머리 */
 .head{
@@ -275,6 +281,8 @@ body *{
     width: 50px;
     height: 200px;
     border-radius: 50px;
+    /* 트랜스폼 회전축 변경 */
+    transform-origin: 30% top;
 }
 /* 가상요소로 팔 관절만들기 */
 .arm::after{
@@ -321,6 +329,7 @@ body *{
 /* 왼팔 */
 .arm1{
     left: -70px;
+    transform: rotate(165deg);
 }
 /* 오른팔 */
 .arm2{
@@ -360,6 +369,8 @@ body *{
     /* 부모박스 높이만큼 나감! 아랫쪽 바깥에 위치 */
     top: 100%;
     border-radius: 20%;
+    /* 애니를 위한 트랜스폼 기준축 변경 */
+    transform-origin: top;
 }
 /* 가상요소로 다리 관절만들기 */
 .leg::after{
@@ -390,7 +401,7 @@ body *{
     box-sizing: border-box;
     border: 5px solid #000;
     z-index: 1;
-
+    
 }
 
 /* 다리 하단부분 공통 */
@@ -436,6 +447,7 @@ body *{
 /* 왼다리 */
 .leg1{
     left: 10px;
+    transform: scaley(1);
 }
 /* 오른다리 */
 .leg2{
