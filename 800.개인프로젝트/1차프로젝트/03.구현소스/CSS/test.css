@@ -10,7 +10,7 @@ body{
 body *{
     outline: 2px dashed yellow;
 }
-.ball1{
+.bowl:checked{
     content: '';
     position: absolute;
     top: 100%;
@@ -20,7 +20,7 @@ body *{
 }
 
 
-.ball1 img:hover{
+.bowl img:hover{
     transform: translateY(-700px) rotate(20000deg) scale(.2);
     transition-duration: 3s;
     transition-timing-function: ease-in;
