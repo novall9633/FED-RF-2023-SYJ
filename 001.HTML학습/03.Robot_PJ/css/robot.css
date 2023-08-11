@@ -194,7 +194,7 @@ body *{
     background: url(../images/nose.png) no-repeat center/cover;
 }
 /* 입 */
-.mouse{
+.mouth{
     /* 위치 */
     bottom: 23px;
     left: 56px;
@@ -481,16 +481,26 @@ body *{
     top: 7%;
     left: 50%;
     /* left방향 중앙이동 */
-    transform: translate(-50%);
+    transform: translate(-50%) scale(1);
     width: 200px;
     height: 140px;
+    z-index: 10;
 
     /* 배경이미지 */
     background: 
     url(../images/tv.jpg) no-repeat 0/100%;
     border: 2px solid #222;
     box-shadow: inset 0 0 10px #000;
+
+    /* 트랜지션 : 속시이지 */
+    transition: 1.2s ease-in-out;
 }
+
+/* TV가 커지는 클래스 */
+.tv.on{
+    transform: translate(-50%) scale(5);
+}
+
 /* 스크린 */
 .screen{
     position: absolute;
@@ -513,6 +523,22 @@ body *{
     width: 173px;
     height: 100%;
     /* opacity: .5; */
+
+    /* 아이프레임 기본보더 없앰 */
+    border: none;
+}
+
+/* 동영상 선택버튼 */
+.box-btn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 90px;
+}
+.box-btn button{
+    width: 100%;
+
 }
 /* 2-2. 로봇 설명박스 */
 

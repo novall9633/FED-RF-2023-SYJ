@@ -21,8 +21,8 @@ body *{
 
 
 .ball1 img:hover{
-    transform: translateY(-700px) rotate(20000deg) scale(.2);
+    transform: translateY(-750px) rotate(20000deg) scale(.2);
     transition-duration: 3s;
-    transition-timing-function: cubic-bezier(1, -0.46, 1, 1);
+    transition-timing-function: cubic-bezier(1, 1, 1, 1);
     transform-origin: center center;
 }
