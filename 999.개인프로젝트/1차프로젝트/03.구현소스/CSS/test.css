@@ -27,7 +27,7 @@ body *{
 
 @keyframes radious {
     25%{transform: translate(30px, -187.5px) rotate(5000deg) scale(.8);}
-    50%{transform: translate(50px, -375px) rotate(5000deg) scale(.6)}
-    75%{transform: translate(70px, -562.5px) rotate(5000deg) scale(.4)}
-    100%{transform: translate(20px, -740px) rotate(5000deg) scale(.2)}
+    50%{transform: translate(50px, -375px) rotate(4999deg) scale(.6)}
+    75%{transform: translate(70px, -562.5px) rotate(4998deg) scale(.4)}
+    100%{transform: translate(20px, -740px) rotate(4997deg) scale(.2)}
 }
