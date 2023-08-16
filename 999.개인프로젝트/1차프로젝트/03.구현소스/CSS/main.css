@@ -18,9 +18,14 @@ header{
 ul,ol{
     list-style: none;
 }
-header img{
-    vertical-align: middle;
+header .logo{
+    position: absolute;
+    /* vertical-align: middle; */
+    text-align: center;
     float: left;
+}
+.gnb{
+    margin: 0 auto;
 }
 .gnb ul li{
     height: 100%;
