@@ -113,7 +113,7 @@
 
 /* 로봇 애니 호출 */
 .box-robot{
-    /* transform-origin: bottom; */
+    transform-origin: top;
     animation: robot-ani 5s linear 3s forwards;
 }
 

@@ -84,19 +84,23 @@ body *{
     /* 첫번째 자식요소 블록박스에 마진탑을 준 경우 그 마진값은 부모요소 바깥쪽으로 나감!(기본성질)
     마진탑을 포함하려면 부모요소에 overflow:hidden을 셋팅해야함
     + 하단 마진도 부모요소 바깥으로 나감 */
-    overflow: hidden;
+    /* overflow: hidden; */
+
+    padding-top: 860px;
+    /* 자식요소인 .box-robot이 fixed 포지션이 됨에 따라 상단부분이 없어졌으므로 패딩으로 로봇영역을 채운다 */
 }
 /* 2-1. 로봇박스 */
 .box-robot{
     position: fixed;
+    /* top값을 안주면 젠틀픽스드이므로 패딩/static요소를 존중하므로 위치값을 줘서 화면을 기준한다. */
+    top: 0;
     width: 100%;
     /* 패딩 : 위, 양쪽, 아래 */
     padding: 200px 0 600px;
     /* 마진 탑 */
     /* margin-top: 30px; */
     /* 처음에 트랜스폼 변경설정 */
-    transform: translate(33%, -21%) scale(.2);
-}
+    transform: translate(20%, 2%) scale(.2);
 /* 2-1-1. 머리 */
 .head{
     /* 부모 자격 - 하위 앱솔루트 자식들 */
@@ -253,18 +257,21 @@ body *{
     height: 200px;
     background-image: linear-gradient(to top, #b0e0f7, #b2bfe2);
     border-radius: 40px;
+    /* 클립패스 : 부분만 보이기 */
+    clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
 }
 /* 몸통의 가상요소로 하체만들기 */
 .body::after{
     content: '';
     display: block;
     position: absolute;
-    bottom: -28px;
+    bottom: -114px;
     left: -21px;
     width: 262px;
-    height: 140px;
+    height: 221px;
     background-image: linear-gradient(to top, #8d827f, #f8f6f6);
     border-radius: 40px;
+    clip-path: polygon(84% 9%, 17% 9%, -18% 327%,50% 60%, 105% 287%);
 }
 
 /* 목 */
