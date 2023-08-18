@@ -9,6 +9,13 @@
     /* 다중열 개수 */
         column-count: 2;
     }
+    .link-title:after{
+        bottom: -2.4vw;
+        left: -2.2vw;
+    }
+    .tv.on{
+        transform: translate(-50%) scale(4);
+    }
 }
 /* 800px 이하 미디어쿼리 끝 */
 
@@ -27,6 +34,9 @@
     /* 버튼 a요소 */
     .btn-top a{
     font: 22px/70px 'Black Ops One';
+    }
+    .tv.on{
+        transform: translate(-50%) scale(2.8);
     }
 }
 /* 500px 이하 미디어쿼리 끝 */
