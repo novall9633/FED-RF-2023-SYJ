@@ -1,49 +1,144 @@
 @charset "utf-8";
 
-html,body,.gnb{
+html,
+body,
+h1 {
     margin: 0;
     padding: 0;
 }
-
+a{
+    text-decoration: none;
+}
 header{
     position: fixed;
     background-color: black;
+    opacity: .9;
     width: 100%;
-    height: 150px;
-    text-align: center;
 }
-ul,ol{
+/* header {
+    position: fixed;
+    background-color: black;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    opacity: 0.8;
+} */
+ul,
+ol,
+li {
+    margin: 0;
+    padding: 0;
     list-style: none;
 }
+ul::after,
+ol::after,
+.clb::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.part-box{
+    float: left;
+    width: 100%;
+}
 
-header .logo img{
+.logo{
+    line-height: 100px;
+}
+.logo img{
+    position: absolute;
+    width: min(173px,14vw);
+}
+
+/* header .logo img {
     display: inline-block;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 10%;
-    height: 50%;
-    /* vertical-align: middle; */
-    text-align: center;
-    float: left;
-}
+    top: 23%;
+    left: 3%;
+    width: 12%;
+    height: 40%;
+} */
 .gnb{
-    margin: 0 auto;
+    padding: 0 min(100px, 8vw);
 }
-.gnb ul li{
+/* 최상위 직계 li만 적용 */
+.gnb>ul>li {
+    position: relative;
+    /* 부모자격 - .sub-menu */
+    float: left;
+    /* 나는 왼쪽 너는 오른쪽으로 올라와 */
+}
+
+/* 네비게이션 링크 a */
+.gnb a {
+    color: #fff;
+    text-decoration: none;
+    font-size: min(20px,1.2vw);
+    padding: 0px min(32px,2vw);
+    line-height: 80px;
+}
+
+
+/* 서브메뉴 
+- 높이값 0으로 숨길 때 숨길박스에 보더나 패딩이 있으면 완전히 숨길수 없다.
+따라서 보더, 패딩은 없어야함
+*/
+.sub-menu{
+    position: absolute;
+    left: 50%;
+    /* 가로방향 메뉴 정중앙 이동 */
+    transform: translateX(-50%);
+    width: min(200px,18vw);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    /* 박스글로우 효과 */
+    box-shadow: inset 0 0 5px lightblue;
+
+    /* 숨기기 높이값 0 */
+    height: 0;
+    /* 넘치는 요소 숨기기 */
+    overflow: hidden;
+    /* 투명하게 */
+    opacity: 0;
+
+    /* 트랜지션 */
+    transition: .4s ease-in-out;
+}
+/* 상위메뉴 li에 마우스 오버시 서브메뉴 보이기 애니 */
+.gnb>ul:hover>li .sub-menu{
+    /* height: calc(40px*5); */
+    /* height: auto; 
+    - 자동 높이값은 애니메이션 불가*/
+    opacity: 1;
+}
+
+/* 서브 메뉴별 개수로 높이값 차등설정 */
+.gnb>ul:hover>li .sub-menu{
+    height: calc(40px*7);
+}
+.sub-menu li{
+    /* width: 100%; */
+    /* float설정이 있어도 한줄에 하나씩옴 
+    - float 설정이 없으면 안줘도 됨
+    */
+    text-align: center;
+}
+/* 서브메뉴 a */
+.sub-menu a{
+    display: block;
+    width: 100%;
     height: 100%;
-    margin: 30px;
+    padding: 0;
+    line-height: 40px;
+    font-size: min(16px, 1.6vw);
+    /* 반투명 */
+    opacity: .8;
+    /* 트랜지션 */
+    transition: .3s;
 }
-.menu li{
-    display: inline-block;
-    color: white;
-    font-size: 25px;
-    margin: 5px 0px;
-    /* min-width: 20px; */
+/* 서브오버시 효과 */
+.sub-menu a:hover{
+    opacity: 1;
+    transform: scale(1.1);
 }
-.gnb li:hover{
-    border-bottom: 1px solid red;
-}
-.sn{
-    float: right;
-}
+
