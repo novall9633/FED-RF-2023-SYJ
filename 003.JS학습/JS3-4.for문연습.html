@@ -30,9 +30,11 @@
                 /* 크기줄임 */
             }
         </style>
-        <!-- JS코드구역 -->
-        <script>
-</script>
+        <!-- 외부JS불러오기 -->
+        <script src="./js/for_ex.js" defer></script>
+        <!-- 외부 JS호출은 src 속성에 외부JS 경로를 쓴다
+        주의 : script 사이에 데이터는 작성하지 않는다 
+        defer를 사용하면 defer(지연)된다. 즉, html body 내부 요소가 로딩 후 실행한다-->
     </head>
 
     <body>
@@ -47,7 +49,7 @@
         개발자가 임의로 만들수 있는 속성은 시작할때 data- 로 쓴다!
         형식:
         <요소 data-내가만든이름="값">
-     -->
+        -->
 
         <!-- 현재 미니언즈 개수표시 -->
         <h2 class="stxt">현재 미니언즈 그룹개수 : <span>0</span>개</h2>
