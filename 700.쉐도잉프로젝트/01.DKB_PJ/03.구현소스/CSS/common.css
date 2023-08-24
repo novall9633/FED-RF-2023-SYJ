@@ -45,7 +45,6 @@
     display: block;
     padding: 28px 16px;
     white-space: nowrap;
-    font-weight: bold;
 }
 /* gnb li오버시 a */
 .gnb ul>li:hover>a{

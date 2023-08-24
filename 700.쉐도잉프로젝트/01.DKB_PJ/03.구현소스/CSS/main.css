@@ -40,7 +40,7 @@ float에 의한 망가짐 방지 */
     /* 보더/패딩 포함박스 */
     box-sizing: border-box;
     /* 내부 패딩 */
-    padding: 15px;
+    /* padding: 15px; */
     /* 임시 보이게 보더 */
     border: 2px dotted blue;
     /* 높이값이 속박스에 있을 경우 채우기 셋팅 - 높이값이 파티션 박스에 있으면 안씀 */
@@ -75,11 +75,73 @@ float에 의한 망가짐 방지 */
 }
 /****************************** 2. 캐릭터 소개 ******************************/
 #banner{
-    background: url(../images/bgbg_mainvisual2.jpg) no-repeat center/auto 100%;}
+    background: url(../images/bg_mainvisual2.jpg) no-repeat center/auto 100%;}
 .banner .partbox{
     height: 530px;
 }
-/****************************** 3. 메인영역 : .group-part ******************************/
+
+/****************************** 3. 도깨비 메뉴박스  ******************************/
+#dokebi-menu{
+    /* 스티키 포지션 - 상단스크롤 걸림 */
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+}
+.dokebi-menu ul{
+    /* 플렉스박스 */
+    display: flex;
+    /* 진행방향정렬 */
+    justify-content: flex-start;
+    padding: 12px 0;
+}
+/* 도깨비 메뉴 상위메뉴a */
+.dokebi-menu ul>li>a{
+    color: #999;
+    font-size: 1.8rem;
+    display: block;
+    padding: 9px 24px;
+    white-space: nowrap;
+}
+/* 도깨비 메뉴 li오버시 a */
+.dokebi-menu ul>li:hover>a{
+    color: #222;
+}
+/* 하위 메뉴가 있는 li만 하위 표시하기 */
+.dokebi-menu ul>li.be-sub>a::after{
+    content: '⊻';
+    display: inline-block;
+    margin-left: 3px;
+    
+}
+/* 현재 선택된 메뉴 a클래스 */
+.dokebi-menu ul>li.on>a{
+    background-color: red;
+    border-radius: 30px;
+    color: #fff;
+}
+
+/* 도깨비 서브메뉴 */
+.dokebi-sub-menu{
+    position: absolute;
+    border: 1px solid red;
+    border-radius: 30px;
+    width: 180px;
+    font-size: 1.8rem;
+    background-color: #fff;
+
+    /* 처음에 숨김 */
+    display: none;
+}
+/* 상위 li에 마우스 오버시 서브 보이기 */
+.dokebi-menu ul>li:hover .dokebi-sub-menu{
+    display: block;
+}
+/* 도깨비 서브메뉴 a */
+.dokebi-sub-menu a{
+    display: block;
+    padding: 10px 15px;
+}
+/****************************** 4. 메인영역 : .group-part ******************************/
 #main{
     background-color: burlywood;
 }

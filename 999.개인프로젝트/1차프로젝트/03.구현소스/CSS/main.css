@@ -6,17 +6,53 @@ h1 {
     margin: 0;
     padding: 0;
 }
+.col-1 {
+    width: 8.33%;
+}
+.col-2 {
+    width: 16.66%;
+}
+.col-3 {
+    width: 25%;
+}
+.col-4 {
+    width: 33.33%;
+}
+.col-5 {
+    width: 41.66%;
+}
+.col-6 {
+    width: 50%;
+}
+.col-7 {
+    width: 58.33%;
+}
+.col-8 {
+    width: 66.66%;
+}
+.col-9 {
+    width: 75%;
+}
+.col-10 {
+    width: 83.33%;
+}
+.col-11 {
+    width: 91.66%;
+}
+.col-12 {
+    width: 100%;
+}
 /* 공사중 */
-/* body * {
+body * {
     outline: 5px dashed green;
-} */
-a{
+}
+a {
     text-decoration: none;
 }
-header{
+header {
     position: fixed;
     background-color: black;
-    opacity: .9;
+    opacity: 0.9;
     width: 100%;
 }
 /* header {
@@ -41,19 +77,20 @@ ol::after,
     display: block;
     clear: both;
 }
-.part-box{
+.part-box {
     float: left;
-    width: 100%;
+    /* width: 100%; */
 }
 
-.logo{
+.logo {
     position: relative;
     line-height: 100px;
 }
-.logo img{
+.logo img {
     position: absolute;
-    top: 50%;
-    width: min(173px,14vw);
+    top: 24px;
+    left: 30px;
+    width: min(173px, 14vw);
 }
 
 /* header .logo img {
@@ -64,11 +101,11 @@ ol::after,
     width: 12%;
     height: 40%;
 } */
-.gnb{
-    padding: 0 min(50%, 23vw);
+.gnb {
+    padding: 0 0 0 min(18%, 12vw);
 }
 /* 최상위 직계 li만 적용 */
-.gnb>ul>li {
+.gnb > ul > li {
     position: relative;
     /* 부모자격 - .sub-menu */
     float: left;
@@ -81,11 +118,12 @@ ol::after,
 .gnb a {
     color: #fff;
     text-decoration: none;
-    font-size: min(20px,1.2vw);
-    padding: 0px min(32px,2vw);
+    font-size: min(20px, 1.2vw);
+    padding: 0px min(32px, 2vw);
     line-height: 80px;
 }
-.gnb>ul>li:hover{
+/* 상위메뉴 오버시 레드 */
+.gnb > ul > li > a:hover {
     color: red;
 }
 
@@ -93,12 +131,12 @@ ol::after,
 - 높이값 0으로 숨길 때 숨길박스에 보더나 패딩이 있으면 완전히 숨길수 없다.
 따라서 보더, 패딩은 없어야함
 */
-.sub-menu{
+.sub-menu {
     position: absolute;
     left: 50%;
     /* 가로방향 메뉴 정중앙 이동 */
     transform: translateX(-50%);
-    width: min(150px,9vw);
+    width: min(150px, 9vw);
     background-color: rgba(0, 0, 0, 0.9);
     /* 박스글로우 효과 */
     box-shadow: inset 0 0 5px lightblue;
@@ -111,24 +149,24 @@ ol::after,
     opacity: 0;
 
     /* 트랜지션 */
-    transition: .4s ease-in-out;
+    transition: 0.4s ease-in-out;
 }
 /* 상위메뉴 li에 마우스 오버시 서브메뉴 보이기 애니 */
-.gnb>ul:hover>li .sub-menu{
+.gnb > ul:hover > li .sub-menu {
     /* height: auto; 
     - 자동 높이값은 애니메이션 불가*/
     opacity: 1;
 }
 
 /* 서브 메뉴별 개수로 높이값 차등설정 */
-.gnb>ul:hover>li .sub-menu{
-    height: calc(40px*7);
+.gnb > ul:hover > li .sub-menu {
+    height: calc(40px * 7);
 }
-li{
+li {
     text-align: center;
 }
 /* 서브메뉴 a */
-.sub-menu a{
+.sub-menu a {
     display: block;
     width: 100%;
     height: 100%;
@@ -136,14 +174,26 @@ li{
     line-height: 40px;
     font-size: min(16px, 1.6vw);
     /* 반투명 */
-    opacity: .9;
+    opacity: 0.9;
     /* 트랜지션 */
-    transition: .3s;
+    transition: 0.3s;
 }
 /* 서브오버시 효과 */
-.sub-menu a:hover{
+.sub-menu a:hover {
     opacity: 1;
     background-color: red;
-    
 }
 
+/* snb 메뉴 */
+.sn {
+    /* position: relative; */
+}
+.sn a {
+    position: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    font-size: 0.85em;
+    padding: 0 10px;
+}
