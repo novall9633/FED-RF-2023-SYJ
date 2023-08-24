@@ -6,6 +6,10 @@ h1 {
     margin: 0;
     padding: 0;
 }
+/* 공사중 */
+/* body * {
+    outline: 5px dashed green;
+} */
 a{
     text-decoration: none;
 }
@@ -43,10 +47,12 @@ ol::after,
 }
 
 .logo{
+    position: relative;
     line-height: 100px;
 }
 .logo img{
     position: absolute;
+    top: 50%;
     width: min(173px,14vw);
 }
 
@@ -59,7 +65,7 @@ ol::after,
     height: 40%;
 } */
 .gnb{
-    padding: 0 min(100px, 8vw);
+    padding: 0 min(50%, 23vw);
 }
 /* 최상위 직계 li만 적용 */
 .gnb>ul>li {
@@ -67,6 +73,8 @@ ol::after,
     /* 부모자격 - .sub-menu */
     float: left;
     /* 나는 왼쪽 너는 오른쪽으로 올라와 */
+    width: min(150px, 9vw);
+    height: 103px;
 }
 
 /* 네비게이션 링크 a */
@@ -77,7 +85,9 @@ ol::after,
     padding: 0px min(32px,2vw);
     line-height: 80px;
 }
-
+.gnb>ul>li:hover{
+    color: red;
+}
 
 /* 서브메뉴 
 - 높이값 0으로 숨길 때 숨길박스에 보더나 패딩이 있으면 완전히 숨길수 없다.
@@ -88,8 +98,7 @@ ol::after,
     left: 50%;
     /* 가로방향 메뉴 정중앙 이동 */
     transform: translateX(-50%);
-    width: min(200px,18vw);
-    border-radius: 10px;
+    width: min(150px,9vw);
     background-color: rgba(0, 0, 0, 0.9);
     /* 박스글로우 효과 */
     box-shadow: inset 0 0 5px lightblue;
@@ -106,7 +115,6 @@ ol::after,
 }
 /* 상위메뉴 li에 마우스 오버시 서브메뉴 보이기 애니 */
 .gnb>ul:hover>li .sub-menu{
-    /* height: calc(40px*5); */
     /* height: auto; 
     - 자동 높이값은 애니메이션 불가*/
     opacity: 1;
@@ -116,11 +124,7 @@ ol::after,
 .gnb>ul:hover>li .sub-menu{
     height: calc(40px*7);
 }
-.sub-menu li{
-    /* width: 100%; */
-    /* float설정이 있어도 한줄에 하나씩옴 
-    - float 설정이 없으면 안줘도 됨
-    */
+li{
     text-align: center;
 }
 /* 서브메뉴 a */
@@ -132,13 +136,14 @@ ol::after,
     line-height: 40px;
     font-size: min(16px, 1.6vw);
     /* 반투명 */
-    opacity: .8;
+    opacity: .9;
     /* 트랜지션 */
     transition: .3s;
 }
 /* 서브오버시 효과 */
 .sub-menu a:hover{
     opacity: 1;
-    transform: scale(1.1);
+    background-color: red;
+    
 }
 

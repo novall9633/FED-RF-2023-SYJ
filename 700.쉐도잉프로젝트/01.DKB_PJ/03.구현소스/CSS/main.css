@@ -1,5 +1,10 @@
 @charset "utf-8";
 /* 도꺠비 PJ : 메인페이지 CSS - main.css */
+
+@import url(./reset.css);
+@import url(./core.css);
+@import url(./common.css);
+
  /* 기본 초기화 */
  html,body,h1,h2,h3,h4{
     margin: 0;
@@ -70,8 +75,7 @@ float에 의한 망가짐 방지 */
 }
 /****************************** 2. 캐릭터 소개 ******************************/
 #banner{
-    background-color: blanchedalmond;
-}
+    background: url(../images/bgbg_mainvisual2.jpg) no-repeat center/auto 100%;}
 .banner .partbox{
     height: 530px;
 }
