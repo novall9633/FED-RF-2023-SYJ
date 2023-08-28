@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>JS4-1. 배열변수와 객체</title>
         <style>
+            /* 동영상 주변 암전효과 박스 */
             body::before {
                 content: "";
                 display: none;
@@ -15,6 +16,7 @@
                 height: 100vh;
                 background-color: rgba(0, 0, 0, 0.592);
             }
+            /* body에 클래스on 설정시 보임 */
             body.on::before {
                 display: block;
             }
@@ -34,6 +36,8 @@
                 font-size: 24px;
             }
         </style>
+        <!-- 객체JS 불러오기 -->
+        <script src="./js/JS4-1.object.js"></script>
         <!-- JS코드구역 -->
         <script>
             // 로딩구역////////////////////////////
@@ -392,7 +396,7 @@
                 **************************************************************/
 
                 // 자신만의 오브젝트!
-                const shin_Obj = {};
+                let shin_Obj = {};
                 // 오브젝트 형만 만들고 할당은 아래에서
                 // 1. 영화제목
                 shin_Obj.title = '말아톤';
@@ -406,10 +410,9 @@
                 shin_Obj.ratings = '전체 관람가';
                 // 6. 예고편
                 shin_Obj.trailer = function(){
-                    console.log('예고편','cGmNECt6lb4');
+                    console.log('예고편','mGgYQOiUq4s');
                     // 플레이어함수 호출
-                    playMovie('cGmNECt6lb4');
-
+                    playMovie('mGgYQOiUq4s');
                 }/////////////trailer함수////////////////
                 
 
@@ -447,16 +450,154 @@
 
                 showMovieInfo();
 
-                /****************************************************************** 
-                    함수명 : playMovie
-                    기능 : 영화 예고편 화면 띄우기
-                ******************************************************************/
-               function playMovie(mcode){ // mcode - 영화아이디
-                    // 함수 호출 및 전달값 확인
-                    console.log('난진짜야');
-               }///////////////////////playMovie함수///////////////////////////////
+                
+                
+                // 초이스버튼 링크걸기
+
+            // 대상선정 : .choice button
+            let choice = document.querySelectorAll('.choice button');
+            console.log('초이스:',choice);
+
+            // 초이스 개수
+            let choice_cnt = choice.length;
+            
+            // for문으로 버튼들을 click이벤트 설정함
+            for(let i=0;i<choice_cnt;i++){
+                choice[i].onclick = function(){
+                    // 1. 버튼 텍스트
+                    let btxt = this.innerText;
+                    console.log('난누구?',btxt);
+
+                    // 할당전 이전 영화객체
+                    console.log(shin_Obj);
+
+                    // 2. 버튼텍스트에 해당하는 객체를 기존 객체에 덮어쓰기
+                    switch(btxt){
+                        case "탐쌤초이스":
+                            shin_Obj = tom_obj;
+                            break;
+                        case "이조은님초이스":
+                            shin_Obj = zoe_obj;
+                            break;
+                        case "이동엽님초이스":
+                            shin_Obj = nick_obj;
+                            break;
+                        case "신용진님초이스":
+                            shin_Obj = shin_obj;
+                            break;
+                        case "최수진님초이스":
+                            shin_Obj = csj_obj;
+                            break;
+                        case "유혜경님초이스":
+                            shin_Obj = hg_obj;
+                            break;
+                        case "박서진님초이스":
+                            shin_Obj = seo_obj;
+                            break;
+                        case "박정현님초이스":
+                            shin_Obj = jh_obj;
+                            break;
+                        case "김민정님초이스":
+                            shin_Obj = kmj_obj;
+                            break;
+                        case "임경은님초이스":
+                            shin_Obj = lke_obj;
+                            break;
+                        case "안주현님초이스":
+                            shin_Obj = an_obj;
+                            break;
+                        case "김윤민님초이스":
+                            shin_Obj = kimyoonmin_obj;
+                            break;
+                        case "최지민님초이스":
+                            shin_Obj = cake_obj;
+                            break;
+                        case "문승준님초이스":
+                            shin_Obj = Moon_Obj;
+                            break;
+                        case "최진구님초이스":
+                            shin_Obj = tonyFilm;
+                            break;
+                        case "유승환님초이스":
+                            shin_Obj = yu_obj;
+                            break;
+                        case "김내우님초이스":
+                            shin_Obj = naewoo_Obj;
+                            break;
+                        }
+                        // 할당후 영화객체
+                        console.log(shin_Obj);
+                        // 3. 객체 셋팅함수 호출
+                        showMovieInfo();
+                    };///////////// click 이벤트 함수///////////////
+                }
                 
             } ///////////// loadFn 함수 /////////////////////////////////
+            /****************************************************************** 
+                함수명 : playMovie
+                기능 : 영화 예고편 화면 띄우기
+            ******************************************************************/
+           function playMovie(mcode){ // mcode - 영화아이디
+                // 함수 호출 및 전달값 확인
+                console.log('난진짜야');
+
+                // 1.동영상 박스 대상선정 : #mvbox
+                let mybox = document.querySelector('#mvbox');
+
+                // 2. 영화박스에 아이프레임 넣기
+                mvbox.innerHTML = `
+                    <div id="mv">
+                        <!--유튜브 아이프레임 -->
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${mcode}?autoplay=1" allow="autoplay"></iframe>
+                        <!--닫기버튼-->
+                        <button class="cbtn">x</button>
+                    </div>
+                `;
+
+                // 3. 삽입된 동영상 박스 CSS 설정하기
+                let mv = document.querySelector('#mv');
+                let css = mv.style;
+                css.position = 'fixed';
+                css.top = '50%';
+                css.left = '50%';
+                css.transform = 'translate(-50%,-50%)';
+                css.width = '700px';
+                css.height = '450px';
+                css.backgroundColor = '#000';
+                
+
+                // 4. 닫기 버튼 CSS 설정하기
+                let cbtn = document.querySelector('.cbtn');
+                cbtn.style.cssText = `
+                    position : absolute;
+                    top : 0;
+                    right : -70px;
+                    width : 50px;
+                    height : 50px;
+                    border : none;
+                    color : #fff;
+                    background-color : blue;
+                    font-size : 40px;
+                    font-weight : bold;
+                    border-radius : 50%;
+                    cursor : pointer;
+                    line-height : 50px;
+                    `;
+                
+                // 아이프레임 보더 없앰
+                mv.querySelector('iframe').style.border='none';
+                
+                // 5. 닫기버튼 클릭시 #mv 제거하기
+                cbtn.onclick = function(){
+                    mv.remove();
+                    // remove()함수는 DOM 메서드로 선택요소를 제거한다.
+                    document.body.classList.remove('on');
+                }; ////////click이벤트 함수 ///////////
+
+                // 6. body요소에 클래스 on 주기
+                // 동영상 배경 암전효과
+                document.body.classList.add('on');
+           }///////////////////////playMovie함수///////////////////////////////
         </script>
     </head>
 
@@ -469,5 +610,28 @@
         <div class="cont"></div>
         <div class="cont"></div>
         <div class="cont"></div>
+        <div class="cont choice">
+            <!-- 영화초이스 버튼박스 -->
+            <button>탐쌤초이스</button>
+            <button>이조은님초이스</button>
+            <button>이동엽님초이스</button>
+            <button>신용진님초이스</button>
+            <button>최수진님초이스</button>
+            <button>유혜경님초이스</button><br>
+            <button>박서진님초이스</button>
+            <button>박정현님초이스</button>
+            <button>김민정님초이스</button>
+            <button>임경은님초이스</button>
+            <button>안주현님초이스</button>
+            <button>김윤민님초이스</button><br>
+            <button>최지민님초이스</button>
+            <button>문승준님초이스</button>
+            <button>최진구님초이스</button>
+            <button>유승환님초이스</button>
+            <button>김내우님초이스</button>
+        </div>
+
+        <!-- 영화 예고편 동영상용 박스 -->
+        <aside id="mvbox" ></aside>
     </body>
 </html>
