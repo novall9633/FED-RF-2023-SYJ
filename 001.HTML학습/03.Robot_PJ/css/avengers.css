@@ -33,9 +33,9 @@ body{
     color: #fff;
 }
 /* 공사중 */
-body *{
+/* body *{
     outline: 2px dashed yellow;
-}
+} */
 
 
 /*********** 공통 클래스 ***********/
@@ -77,8 +77,11 @@ body *{
     left: calc(50% - 150px/2);
     /* 부모는? .avengers-box 정중앙! */
 
+    /* transform: translate(-200%, -150%); */
+
     width: 150px;
     height: 150px;
+    
 }
 /* 어벤저스 이미지 */
 .hero img{    
@@ -96,4 +99,70 @@ body *{
             유사한 효과를 준다! 
     */
     border-radius: 50%;
+    box-shadow: 0 0 20px 10px lightgreen;
+}
+/* 어벤저스 설명박스 */
+.txt {
+    position: absolute;
+    top: 50%;
+    right: 110%;
+    transform: translateY(25%);
+    /* transform: translateY(-50%); */
+    width: 320px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    background-color: rgb(255 255 255 / 50%);
+    border-radius: 15px;
+    text-shadow: 1px 1px 1px #000;
+    
+    /* 숨기기 설정 */
+    height: 0;
+    overflow: hidden;
+
+    /* 트랜지션 */
+    transition: .4s ease-in-out;
+}
+/* 상위박스 .hero 오버시 설명 보이기 */
+.hero:hover .txt{
+    height: 200px;
+    transform :translateY(-50%);
+}
+
+/* 패딩과 보더는 하위박스에 주고 완전히 숨기기 */
+.txt>div{
+    padding: 2rem;
+}
+
+/* 설명박스위치 오른쪽 클래스 */
+.txt.right{
+    right: auto;
+    left: 110%;
+}
+
+.txt h3 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: cyan;
+}
+
+/* .hero 순서별 위치값셋팅 */
+.hero:nth-child(1){
+    /* 개별위치이동값 */
+    transform: translate(-150%, -110%);
+}
+.hero:nth-child(2){
+    /* 개별위치이동값 */
+    transform: translate(-150%, 110%);
+}
+.hero:nth-child(3){
+    /* 개별위치이동값 */
+    transform: translate(0%, 250%);
+}
+.hero:nth-child(4){
+    /* 개별위치이동값 */
+    transform: translate(150%, 110%);
+}
+.hero:nth-child(5){
+    /* 개별위치이동값 */
+    transform: translate(150%, -110%);
 }
