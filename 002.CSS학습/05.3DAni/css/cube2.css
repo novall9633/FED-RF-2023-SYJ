@@ -30,11 +30,11 @@ body{
     position: fixed;
     /* 2.화면과 같은 크기설정 */
     width: 100vw;
-    height: 200vh;
+    height: 100vh;
     /* 3.스크롤셋팅 */
     overflow: auto;
     /* 4.원근설정 */
-    perspective: 180vh;
+    perspective: 80vh;
     
 }
 
