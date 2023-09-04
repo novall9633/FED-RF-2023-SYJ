@@ -21,6 +21,8 @@ let pg_num = 0;
 let sts_wheel = 0;
 // 1-3. 전체 페이지수
 let total_pg = 7;
+// 1-4. 전체 .page요소
+let ele_page;
 
 // 새로고침시 첫페이지로 리셋하기
 // 브라우저 스크롤바 위치 캐싱때문에
@@ -45,9 +47,11 @@ const qsa = x => document.querySelectorAll(x);
 function loadFn(){
     // 호출확인
     console.log('로딩완료');
+    // .page요소 담기
+    ele_page = qsa('.page');
 
     // 전체 페이지 수 할당
-    total_pg = qsa('.page').length;
+    total_pg = ele_page.length;
     console.log('전체페이지수:',total_pg)
 }/////////loadFn함수////////////////////////////
 
@@ -172,6 +176,7 @@ function movePage(dir){ //dir은 방향값(1-아랫쪽, 0-윗쪽)
     // 함수호출확인
     console.log('이동방향은?',dir);
 
+
     // 1. 페이지번호 변경 반영하기//////
     // 1은(true) 아랫방향, 0은 윗방향
     // 1값은 true, 0값은 false로 처리됨
@@ -188,6 +193,6 @@ function movePage(dir){ //dir은 방향값(1-아랫쪽, 0-윗쪽)
     // 3. 페이지 이동하기//////////
     // offsetTop은 선택요소의 top 위치값 리턴함
     // window.scrollTo(0,window.innerHeight*pg_num); 
-    window.scrollTo(0,qsa('.page')[pg_num].offsetTop);
-    console.log('여기야!',qsa('.page')[pg_num].offsetTop);
+    window.scrollTo(0,ele_page[pg_num].offsetTop);
+    console.log('여기야!',ele_page[pg_num].offsetTop);
 }/////movePage함수 /////////////
