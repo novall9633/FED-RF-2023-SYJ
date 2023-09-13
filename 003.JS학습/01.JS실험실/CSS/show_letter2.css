@@ -1,0 +1,82 @@
+@charset "utf-8";
+/* 글자등장1 CSS - show_letter.css */
+body {
+    background-color: darkslateblue;
+}
+/* 글자스테이지 */
+.stage-letters {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: 2px dashed yellow;
+
+    /* 글자설정 */
+    font-size: 40px;
+    color: #fff;
+    white-space: nowrap;
+}
+
+/* 글자개별박스 셋팅 */
+.stage-letters span {
+    display: block;
+    /* 트랜스폼 적용위해 */
+}
+/* 글자등장 스타일1 */
+.style1 span{
+    /* 현재위치로 부터 이동 */
+    transform: translate(500%, -300%);
+    /* 투명도 0 */
+    opacity: 0;
+    /* 트랜지션: 속시이지 */
+    transition: 0.3s ease-in;
+}
+/* 등장클래스 .on */
+.style1.on span{
+    /* 현재위치로 부터 이동 */
+    transform: translate(0, 0);
+    /* 투명도 1 */
+    opacity: 1;
+    /* 트랜지션: 속시이지 */
+    transition: 0.3s ease-in;
+}
+/* 글자등장 스타일2 */
+.style2 span{
+    /* 현재위치로 부터 이동 */
+    transform: translate(0, 50%);
+    /* 투명도 0 */
+    opacity: 0;
+    /* 트랜지션: 속시이지 */
+    transition: 0.3s ease-in;
+}
+/* 등장클래스 .on */
+.style2.on span{
+    /* 현재위치로 부터 이동 */
+    transform: translate(0, 0);
+    /* 투명도 1 */
+    opacity: 1;
+    /* 트랜지션: 속시이지 */
+    transition: 0.3s ease-in;
+    
+}
+/* 글자등장 스타일3 */
+.style3 span{
+    /* 현재위치로 부터 이동 */
+    transform: translate(0, 50%) translateZ(500px);
+    /* 투명도 0 */
+    opacity: 0;
+    /* 트랜지션: 속시이지 */
+    transition: 0.05s ease-in;
+}
+/* 등장클래스 .on */
+.style3.on span{
+    /* 현재위치로 부터 이동 */
+    transform: translate(0, 0) translateZ(0);
+    /* 투명도 1 */
+    opacity: 1;
+    /* 트랜지션: 속시이지 */
+    transition: 0.04s ease-in;
+}

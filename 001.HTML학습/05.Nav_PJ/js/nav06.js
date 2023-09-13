@@ -22,3 +22,31 @@ const domFn = {
   console.log('대상',gnbBox);
   
   // ul>li>a{1차}+.smenu>aside.smbx>h2>(.stit{2차}+a{전체보기})+.swrap>dl>dt+dd>a{요기}
+  // 3. 객체 데이터로 html 코드 만들기
+  let hcode ='';
+  for(let x in mdata){
+    console.log(x);
+    hcode+=
+    `
+    <ul>
+    <li>
+        <a href="">${x}</a>
+        <div class="smenu">
+            <aside class="smbx">
+                <h2>
+                    <div class="stit">2차</div>
+                    <a href="">전체보기</a>
+                    <div class="swrap">
+                        <dl>
+                            <dt></dt>
+                            <dd><a href="">요기</a></dd>
+                        </dl>
+                    </div>
+                </h2>
+            </aside>
+        </div>
+    </li>
+</ul>
+    `
+  }/////////////////forin/////////////////
+  console.log('코드:',hcode);
