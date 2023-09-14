@@ -56,12 +56,17 @@ function moveSlide(){
     // 2. 바운딩 값으로 대상 left 위치로 변경하기
     // 움직일 대상 : 스티키 박스인 -> .slidePg
     // 움직이기 시작은 바운딩값이 0 이하일 때 부터 
-    if(bTop<=0 && bTop>=-3000){
+    // (1)윗쪽(0초과)일 때 처음위치 재설정하기
+    if(bTop > 0){
+        target.style.left = '0px';
+    }//(2) 움직이기 시작은 바운딩 값이 0이하일 때부터
+    // 한계는 -3000px
+    else if(bTop<=0 && bTop>=-3000){
         target.style.left = bTop + 'px';
     }
-    // 윗쪽(0초과)일 때 처음위치 재설정하기
-    else if(bTop > 0){
-        target.style.left = '0px';
+    // (3) 마지막 한계 이후엔 한계값으로 셋팅
+    else{
+        target.style.left = '-3000px';
     }
 
 };///////////////moveSlide함수/////////////
