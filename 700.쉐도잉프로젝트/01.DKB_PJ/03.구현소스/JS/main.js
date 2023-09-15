@@ -33,7 +33,7 @@ function loadFn(){
     // 모든 캐릭터 설명박스는 이벤트 버블링 막기
     // -> 여기서 마우스휠 됨
     desc_box.forEach(ele=>{ //ele는 요소자신
-        ele.onwheel = e => event.stopPropagation();
+        ele.onwheel = e => e.stopPropagation();
     });
 
     /************************************************* 
@@ -65,3 +65,78 @@ function loadFn(){
     liveBox.innerHTML = hcode;
 
 };///////////////loadFn함수///////////////////
+
+////////////////////////////////////////////////////////////////
+// [ GNB 서브메뉴 셋팅하기  ]
+// 구조 : div.smenu > aside.smbx > h2{1차메뉴}+(ol>li>a{2차메뉴})
+
+// 1. 대상선정 : .gnb > ol > li
+// 서브메뉴 넣을 li는 하위 a 요소의 텍스트가 gnbData 속성명 1차 메뉴와 일치하는 경우 하위 메뉴를 넣어준다 
+const gnbList = domFn.qsa('.gnb>ul>li')
+
+console.log('메뉴 :',gnbList,"/데이터",gnbData);
+// 3. 대상에 하위 메뉴 태그 만들기
+gnbList.forEach(ele=>{
+    // 1. 하위 a요소 텍스트 읽기
+    let atxt = domFn.qsEl(ele,'a').innerText;
+    // 2. GNB 데이터 읽기
+    let gData = gnbData[atxt]
+    // console.log('텍스트:',atxt,gData);
+    // 3. 해당 서브가 있을 경우 태그 만들어넣기
+    // ${Array.isArray(gData)} 로 배열여부 확인함
+    // 배열값은 태그를 만들어 그자리에 출력 : 배열.map.join('')
+    if(gData){ // 데이터가 없으면 undefined -> false 처리
+        console.log("만들어!",atxt);
+        ele.innerHTML += `
+        <div class="smenu">
+            <aside class="smbx">
+                <h2>${atxt}</h2>
+                <ol>
+                    ${gData.map(val=>`
+                    <li>
+                        <a href="#">${val}</a>
+                    </li>
+                    `).join('')}
+                </ol>
+            </aside>
+        </div>`
+    }///////////////////////if/////////////
+
+}); //////// forEach /////
+/*********************************************************** 
+    [ 상위메뉴 li오버시 하위메뉴 보이기 ]
+    이벤트 대상 : .gnb>ul>li
+    변경 대상 : .smenu
+***********************************************************/
+// 1. 대상 선정
+const gnb = domFn.qsa('.gnb>ul>li');
+const smenu = domFn.qsa('.smenu');
+// console.log(gnb);
+
+// 2. 이벤트 설정하기
+// 이벤트 종류 : mouseover / mouseout
+gnb.forEach(ele=>{
+    // 서브메뉴가 있을 때만 이벤트 설정하기
+    // if문에서 undefined/null은 false 처리됨
+    if(domFn.qsEl(ele,'.smenu')){
+        domFn.addEvt(ele,'mouseover',overFn);
+        domFn.addEvt(ele,'mouseout',outFn);
+    }
+});
+
+// 3. 함수 만들기
+function overFn(){+
+    console.log('오버',this);
+    // 하위 .smenu 높이값 알아오기
+    let hv = domFn.qsEl(this,'.smbx').clientHeight;
+    // console.log("높이값 : ",hv);
+    // 2. 하위 서브메뉴박스 만큼 .smenu 높이값 주기
+    domFn.qsEl(this,'.smenu').style.height = hv + 'px';
+}//////////overFn/////////////////
+
+function outFn(){
+    console.log('아웃',this);
+    // 서브메뉴 박스 높이값 0 만들기
+    domFn.qsEl(this,'.smenu').style.height ='0px';
+
+}

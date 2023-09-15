@@ -5,7 +5,9 @@
 
 /************* 1. 상단영역 *************/
 #header {
-    background-color: lightblue;
+    /* background-color: lightblue; */
+    position: relative;
+    z-index: 999; /* 상단 위치 */
 }
 .header .partbox {
     height: 120px;
@@ -56,6 +58,47 @@
     display: inline-block;
     margin-left: 3px;
     
+}
+/* 서브메뉴 박스 */
+.smenu {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    background-color: #fff;
+    overflow : hidden;
+    height: 0;
+
+    /* 트랜지션 */
+    transition: .4s ease-in-out;
+}
+/* 상위메뉴 오버시 서브 메뉴 보이기 */
+
+/* 서브메뉴 속박스 */
+aside.smbx {
+    max-width: 1000px;
+    margin: 0 auto;
+    outline: 4px dashed green;
+}
+
+.smbx h2 {
+    font-size: 3.2rem;
+}
+
+.smbx ol {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.6rem;
+    /* gap: 0 76px; */
+    line-height: 3;
+    padding-bottom: 20px;
+}
+.smbx ol li{
+    /* 가로크기 제한 - 한줄에 4개*/
+    flex-basis: 25%;
+    /* 글자 말 줄임 셋팅 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 /************* 2. 메인영역 *************/
 #main {
