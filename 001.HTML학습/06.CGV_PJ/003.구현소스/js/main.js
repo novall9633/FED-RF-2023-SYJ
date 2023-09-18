@@ -64,3 +64,25 @@ pmenu.forEach((ele)=>{
         console.log('na',me,domFn.qsEl(me,'li'),mtit,mvCode[mtit],"\n부모",ele.parentElement);
     });////////////addEvt//////////////////
 }); ////////forEach문
+
+/////////// 맵버튼 클릭시 /////////
+// 대상 : 이벤트:.btn-map, 변경 : .gmap
+// 변경 내용 : 맵 버튼 클릭시 .gmap에 클래스 on넣기
+// 닫기 버튼 클릭시 .gmap에 클래스 on빼기
+// 1. 대상선정 
+const btnMap = domFn.qs('.btn-map');
+const gmap = domFn.qs('.gmap');
+const cbtn = domFn.qs('.cbtn');
+
+
+// 2. 이벤트 설정 및 함수구현
+// 2-1. 맵버튼 클릭시
+domFn.addEvt(btnMap,'click',()=>{
+    gmap.classList.add('on');
+    document.body.classList.add('on');
+});///////click이벤트함수//////////
+// 2-2. 닫기버튼 클릭시
+domFn.addEvt(cbtn,'click',()=>{
+    gmap.classList.remove('on');
+    document.body.classList.remove('on');
+});///////click이벤트함수//////////
