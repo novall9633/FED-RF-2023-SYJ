@@ -303,7 +303,7 @@ body{
 
     /* 글자셋팅 */
     font-family: 'Cute Font', cursive;
-    font-size: min(1.3vw,14px);
+    font-size: min(3.2vw,14px);
     /* 줄바꿈방지 */
     white-space: nowrap;
 
@@ -312,7 +312,7 @@ body{
 }
 /* 영화정보박스 제목만 변경 */
 .mv-info li:first-child {
-    font-size: min(1.5vw,17px);
+    font-size: min(3.5vw,17px);
     color: aqua;
 }
 /* 상위 li에 오버시 영화정보박스 보이기 */
