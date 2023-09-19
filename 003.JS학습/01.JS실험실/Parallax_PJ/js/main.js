@@ -60,7 +60,7 @@ function scrollFn(){
     // console.log("ghcnf");
     // 1. 대상1 : 글자박스 패럴렉스 호출
     txtBox.forEach(ele=>moveEl(dFn.getBCR(ele),ele,setH2));
-    // 1. 대상2 : 아이콘 패럴렉스 호출
+    // 2. 대상2 : 아이콘 패럴렉스 호출
     icon.forEach(ele=>moveEl(dFn.getBCR(ele),ele,setH1));
 }///////////////////scrollFn///////////////////////////
 
