@@ -178,72 +178,116 @@
             // 객체 확인
             console.log(mi);
 
-            //   html 코드 변수
-            let hcode = "";
+            //////////////////// 로드구역 ///////////////////////
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("로딩완료");
 
-            // 0. 배열에 할당된 객체를 순회하기
-            let addCode = "";
+        /* DOM선택 함수 */
+        const qs = (x) => document.querySelector(x);
+        const qsa = (x) => document.querySelectorAll(x);
+        // 화살표함수 원형 : () => {}
+        /* 
+                선언적 함수로 만들면?
+                function qs(x) {
+                    return document.querySelector(x)
+                }
+            */
 
-            // mi는 생성자함수로 만들어진 객체가 배열에 담긴 것
-            // for of로 배열을 순회함
-            for (let y of mi) {
-                console.log(y);
-                addCode = makeCode(y);
-            } //////////for of 문 //////////////
-            console.log(addCode);
+        // 0. 배열에 할당된 객체를 순회하기
+        let addCode = "";
 
-            // 1. 페이지 요소에 코드 넣기
-            qs(".wrap").innerHTML = addCode;
+        // mi는 생성자함수로 만들어진 객체가 배열에 담긴것!
+        // for of로 배열을 순횐함!
+        for (let y of mi) {
+          console.log(y);
+          addCode += makeCode(y);
+        } //////// for of문 //////////
+        
+        console.log(addCode);
 
-            // 2. 각코드 생성 후 개별 박스 클릭시 
-            // 객체 메서드 호출하여 메시지 창 띄우기
-            // 대상
-            // 이벤트 설정
-            // 기능구현
+        // 1. 페이지 요소에 코드 넣기
+        qs(".wrap").innerHTML = addCode;
 
-            // 코드 생성 함수 : 단일객체로 코드 구성함
-            function makeCode(mvi) {
-                return  `
-                <section class="cbx">
-                                <div class="minfo">
-                                    <!-- 1. 포스터 -->
-                                    <div class="photo">
-                                        <img src="${mvi.포스터}" alt="${mvi.제목}의 포스터">  
-                                    </div>
-                                    <div class="cont">
-                                        <!-- 2. 제목 -->
-                                        <h2 class="tit">
-                                            ${mvi.제목}</h2>
-                                        <!-- 3. 개요 -->
-                                        <h3 class="sum">
-                                            ★장르 : ${mvi.개요}</h3>
-                                        <!-- 4. 감독 -->
-                                        <h3 class="dir">
-                                            ★감독 : ${mvi.감독}</h3>
-                                        <!-- 5. 출연 -->
-                                        <h3 class="act">
-                                            ★출연 : ${mvi.출연}</h3>
-                                    </div>
-                                </div>
-                    
-                                <!-- 영화 한마디 -->
-                                <h2 class="showtit">♥ 영화한마디!</h2>
-                                <!-- 6. 문구 -->
-                                <div class="show">${wrapSpan(mvi.문구)}</div>
-                            </section>
-                `;
-            } ////////makeCode함수.////////////////
+        // 2. 각 코드 생성후 개별박스 클릭시
+        // 객체 메서드 호출하여 메시지 창 띄우기!
+        // 대상: .cbx
+        const cbx = qsa('.cbx');
+        // 이벤트 설정
+        cbx.forEach((ele,idx)=>{
+            ele.onclick = () => {
+                alert(mi[idx].함수());
+            }; ////// click ///////
+        })
+        // 기능구현
 
-            // 3. 영화한마디 처리함수 : 한글자씩 span싸기
-            function wrapSpan(txt) {
-                let hcode = "";
-                for (let x of txt) {
-                    if (x == " ") "&nbsp;nbsp;";
-                    else hcode += `<span>${x}</span>`;
-                } ////////for of////////
-                // 결과리턴 : 만들어진 코드
-                return hcode;
-            } //////////wrapspan///////////////////
+
+
+        // 코드 생성함수 : 단일객체로 코드 구성함!
+        function makeCode(mvi) {
+          return `
+            <section class="cbx">
+                <div class="minfo">
+                    <!-- 1. 포스터 -->
+                    <div class="photo">
+                        <img src="${mvi["포스터"]}" 
+                        alt="${mvi["제목"]}의 포스터">  
+                    </div>
+                    <div class="cont">
+                        <!-- 2. 제목 -->
+                        <h2 class="tit">
+                            ${mvi["제목"]}</h2>
+                        <!-- 3. 개요 -->
+                        <h3 class="sum">
+                            ★장르 : ${mvi["개요"]}</h3>
+                        <!-- 4. 감독 -->
+                        <h3 class="dir">
+                            ★감독 : ${mvi["감독"]}</h3>
+                        <!-- 5. 출연 -->
+                        <h3 class="act">
+                            ★출연 : ${mvi["출연"]}</h3>
+                    </div>
+                </div>
+    
+                <!-- 영화 한마디 -->
+                <h2 class="showtit">♥ 영화한마디!</h2>
+                <!-- 6. 문구 -->
+                <div class="show">
+                    ${wrapSpan(mvi["문구"])}
+                </div>
+            </section>
+            
+            `;
+        } /////// makeCode 함수 ////////////
+
+        // 3. 영화한마디 처리함수 : 한글자씩 span싸기
+        function wrapSpan(txt) {
+          let hcode = "";
+          for (let x of txt) {
+            if (x == " ") hcode += "&nbsp;&nbsp;";
+            else hcode += `<span>${x}</span>`;
+          } ///// for of //////
+
+          // 결과리턴 : 만들어진 코드
+          return hcode;
+        } ///////////// wrapSpan 함수 ///////
+
+        /************************************************* 
+                [ 객체를 위한 for in 문 ]
+
+                - 구문: 
+                for(변수 in 객체){코드}
+
+                - 작동원리:
+                객체의 개수만큼 순서대로 속성명과 속성값을 가져옴
+
+                - 변수는 객체의 속성명이다!
+
+                - 객체의 값을 사용하려면 for in 문 안에
+                    객체[변수] 로 쓰면됨!
+
+            *************************************************/
+      }); //////////////// 로드구역 ///////////////////////
+      /////////////////////////////////////////////////////
         </script>
     </head>
     <body>
