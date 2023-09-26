@@ -6,7 +6,7 @@ import dFn from "./dom.js";
 // 부드러운 스크롤 모듈
 import { startSS,setPos } from "./smoothScroll20.js";
 // 데이터 모듈
-import { gridData, gnbData, previewData } from "./data_drama.js";
+import { gridData, gnbData, previewData, clipData } from "./data_drama.js";
 
 startSS();
 
@@ -211,4 +211,30 @@ preBox.forEach((ele,idx)=>{
         <p>${preNewData[idx].story}</p>
     </div>
     `
-})
+});//////////////////forEach///////////////////////
+
+//////////////////////////////////////////////////////////
+/////////////////최신 동영상 영역 데이터 뿌리기////////////
+
+// 대상 : .clip-box
+const clipBox = dFn.qs(".clip-box");
+console.log(clipBox);
+
+// 생성할 데이터
+let clipCode = '';
+
+// 데이터 매칭하여 태그만들기
+// 배열데이터이므로 forEach 사용
+clipData.forEach(val=>{
+    clipCode += `
+    <li>
+    <iframe src="https://www.youtube.com/embed/${val.mvid}"></iframe>
+    <h4>${val.subtit}</h4>
+    <h3>${val.title}</h3>
+    </li>
+    `;
+}); /////forEach/////////
+console.log(clipCode);
+
+// 코드넣기
+clipBox.innerHTML = `<ul>${clipCode}</ul>`;

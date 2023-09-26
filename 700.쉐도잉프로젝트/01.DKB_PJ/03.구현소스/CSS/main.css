@@ -394,9 +394,34 @@ float에 의한 망가짐 방지 */
     grid-row: 2/3;
 }
 /******************** 최신동영상파트 ********************/
-.main .group-part-05 .partbox{
-    height: 376px;
+.clip-box {
+    overflow: hidden;
 }
+.clip-box ul {
+    display: flex;
+    gap: 0 2%;
+}
+
+.clip-box li {
+    flex-basis: calc(25% - 2%);
+    flex-shrink: 0;
+}
+
+.clip-box iframe {
+    width: 100%;
+}
+
+.clip-box h4 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.clip-box h3 {
+    font-size: 15px;
+    font-weight: normal;
+    color: #555;
+}
+
 /****************************** 6. 하단영역 ******************************/
 #footer{
     background-color: darksalmon;
