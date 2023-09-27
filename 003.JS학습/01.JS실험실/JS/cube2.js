@@ -1,4 +1,9 @@
 // 회전제어 JS //////////////
+import dFn from "./dom.js";
+
+// 데이터 제이슨 불러오기 : 어서써 타입 제이슨
+import mvData from './data_moving.json' assert{type:'json'};
+// console.log(mvData);
 
 /************************************* 
     [구현내용]
@@ -8,24 +13,15 @@
     - 단위 각도: 360도 / 9개 = 40도 
     - CSS 이징적용 : ease-out
 
+    [ 캐릭터별 고유 번호 만들기 ]
+    - 전역변수를 만들어 고유번호 저장
+    - 스크롤 방향에 따른 고유번호 증감
+    - 고유번호를 순환하여 항상 고정 번호 만들기
+    -> 9개니까 0~8까지의 고유번호가 순환한다.
+
+
 *************************************/
 
-// DOM 함수 객체 //////////////
-const domFn = {
-    // 요소선택함수 ////////
-    qs: (x) => document.querySelector(x),
-    qsEl: (el, x) => el.querySelector(x),
-    qsa: (x) => document.querySelectorAll(x),
-    qsaEl: (el, x) => el.querySelectorAll(x),
-  
-    // 이벤트셋팅함수
-    addEvt: (ele, evt, fn) => ele.addEventListener(evt, fn),
-}; /////// domFn 객체 /////////////
-
-
-// 1. 대상 선정 : .cube
-const cube = domFn.qs('.cube');
-console.log(cube);
 
 // 0. 변수세팅
 // 단위 각도
@@ -36,9 +32,23 @@ let stsWheel = 0;
 const TIME_WHEEL = 250;
 // 휠 단위수(휠 할 때 증감하는 수)
 let numWheel = 0;
+// 캐릭터 고유 번호
+let catNum = 0;
+// 캐릭터 번호 한계수(9개니까 한계수 8)
+const LIMIT_CNT = 8;
+// 캐릭터 정보함수 호출 타임아웃용 변수
+let autoT;
+
+
+// 1. 대상 선정 : .cube
+const cube = dFn.qs('.cube');
+// 정보표시박스 : .cat-info
+const infoBox = dFn.qs('.cat-info');
+console.log(cube,infoBox);
+
 
 ///2. 이벤트 설정하기
-domFn.addEvt(window,'wheel',rotateMem)
+dFn.addEvt(window,'wheel',rotateMem)
 
 // 3. 함수 만들기 ///////
 function rotateMem(){
@@ -53,10 +63,15 @@ function rotateMem(){
     // 2. 방향에 따른 휠 단위수 증감하기
     if(delta<0){
         // 휠 단위수 증가
-        numWheel++;
+        numWheel--;
+        // 캐릭터 고유번호 증가(한계수에서 끝번호로 순환)
+        catNum++;
+        if(catNum>LIMIT_CNT) catNum=0;
     }else{
         // 휠 단위수 감수
-        numWheel--;
+        numWheel++;
+        catNum--;
+        if(catNum<0) catNum=LIMIT_CNT;
     }
     
     // 3. 회전대상 요소에 각도 적용하기
@@ -64,5 +79,32 @@ function rotateMem(){
 
     cube.style.transform = `rotateY(${numWheel*DEG}deg)`;
     // 확인
-    console.log("wheel~",delta,numWheel);
+    // console.log("wheel~",delta,numWheel);
+
+    // 4. 캐릭터가 정지한지 0.5초후 정보를 셋팅함
+    // 타임아웃 실행 쓰나미 방지 지우기
+    clearTimeout(autoT);
+    // .5초후 캐릭터 정보 셋팅함수 호출
+    autoT = setTimeout(showInfo,500);
+
+    // 5. 기본 캐릭터정보 박스 클래스 on지우기
+    infoBox.classList.remove('on');
 }/////////////rotateMem 함수/////////////////////
+
+
+/************************************************************* 
+ 함수명 : showInfo
+ 기능 : 캐릭터 정보를 화면에 표시한다.
+ *************************************************************/
+
+function showInfo(){
+    console.log("보여줄게....",mvData[catNum]);
+
+    // 정보 표시박스에 h2,p 요소 정보와 함께 넣기
+    infoBox.innerHTML = `
+    <h2>${mvData[catNum].name}</h2>
+    <p>${mvData[catNum].desc}</p>
+    `
+    // 등장클래스 on 주기
+    infoBox.classList.add('on');
+}///////////////showInfo//////////////////////////////////////
