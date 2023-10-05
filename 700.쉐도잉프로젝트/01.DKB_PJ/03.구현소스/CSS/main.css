@@ -25,7 +25,7 @@ body>div>*{
 /* 공통 레이아웃 클래스 */
 /* 속박스 */
 .inbox{
-    max-width: 1200px;
+    max-width: 1360px;
     margin: 0 auto;
 }
 /* 클리어 설정 가상요소
@@ -44,7 +44,7 @@ float에 의한 망가짐 방지 */
     /* 내부 패딩 */
     /* padding: 15px; */
     /* 임시 보이게 보더 */
-    border: 2px dotted blue;
+    /* border: 2px dotted blue; */
     /* 높이값이 속박스에 있을 경우 채우기 셋팅 - 높이값이 파티션 박스에 있으면 안씀 */
     height: 100%;
 }
@@ -70,7 +70,7 @@ float에 의한 망가짐 방지 */
 확장형은 반드시 파트박스에 높이값을 설정한다.*/
 /****************************** 1. 상단영역 ******************************/
 #header{
-    background-color: beige;
+    /* background-color: beige; */
 }
 .header .partbox{
     height: 120px;
@@ -107,7 +107,7 @@ float에 의한 망가짐 방지 */
     width: calc(95%/4);
     /* 개별박스 비율 설정 : height 설정 안함 */
     aspect-ratio: 2/1.2;
-    outline: 2px solid red;
+    /* outline: 2px solid red; */
 }
 /* 캐릭터 컨텐츠박스 */
 .cat-content{
@@ -470,7 +470,7 @@ float에 의한 망가짐 방지 */
 }
 /****************************** 6. 하단영역 ******************************/
 #footer{
-    background-color: darksalmon;
+    /* background-color: darksalmon; */
 }
 .footer .partbox{
     height: 100px;

@@ -4,9 +4,9 @@
 // Dom함수
 import dFn from "./dom.js";
 // 부드러운 스크롤 모듈
-import { startSS,setPos } from "./smoothScroll20.js";
+import { startSS, setPos } from "./smoothScroll20.js";
 // 데이터 모듈
-import { gridData, gnbData, previewData, clipData } from "./data_drama.js";
+import { gridData, gnbData, previewData, clipData, linkData } from "./data_drama.js";
 
 startSS();
 
@@ -15,13 +15,14 @@ startSS();
 // 이벤트 객체의 이벤트 버블링 막아주는 메서드임
 
 // 대상선정 : .desc-box
-let desc_box = document.querySelectorAll('.desc-box');
+let desc_box = document.querySelectorAll(".desc-box");
 console.log(desc_box);
 
 // 모든 캐릭터 설명박스는 이벤트 버블링 막기
 // -> 여기서 마우스휠 됨
-desc_box.forEach(ele=>{ //ele는 요소자신
-    ele.onwheel = e => e.stopPropagation();
+desc_box.forEach((ele) => {
+    //ele는 요소자신
+    ele.onwheel = (e) => e.stopPropagation();
 });
 
 /************************************************* 
@@ -29,72 +30,79 @@ desc_box.forEach(ele=>{ //ele는 요소자신
     - 배열데이터를 이용하여 HTML 코드 구성
 *************************************************/
 // 1.대상선정 : .grid-box (.live-box/.poster-box)
-const gridBox = dFn.qsa('.grid-box');
-console.log("대상:",gridBox);
+const gridBox = dFn.qsa(".grid-box");
+console.log("대상:", gridBox);
 
 // 2. 대상 코드 넣기 함수 호출설정 하기 ////////
-gridBox.forEach((ele,idx)=>{makeGrid(ele,idx)});
+gridBox.forEach((ele, idx) => {
+    makeGrid(ele, idx);
+});
 // 3. 그리드 스타일 데이터 생성하기 함수
-function makeGrid(ele,idx){ //ele = 대상요소, idx= 순번(데이터 순번)
+function makeGrid(ele, idx) {
+    //ele = 대상요소, idx= 순번(데이터 순번)
     // 1. 현장포토 데이터를 기반으로 HTML 코드 만들기
-    let hcode = '<ul>';
+    let hcode = "<ul>";
     // 반복코드 만들기///
     // 현장포토 데이터 - data_drama.js에서 가져오기
-    gridData[idx].forEach(val=>{
+    gridData[idx].forEach((val) => {
         // html변수에 계속 넣기
         // 폴더경로는 idx가 0이면 "live_photo", 1이면 'poster_img'
         hcode += ` <li>
         <figure>
-            <img src="images/${idx?'poster_img':"live_photo"}/${val.imgName}.jpg" alt="${val.title}">
+            <img src="images/${idx ? "poster_img" : "live_photo"}/${val.imgName}.jpg" alt="${val.title}">
             <figcaption>${val.title}</figcaption>
         </figure>
     </li>
-        `
+        `;
     });
-    hcode += '</ul>';
-    
+    hcode += "</ul>";
+
     // console.log(hcode);
-    
+
     // 2. 대상박스에 html코드 넣기
     ele.innerHTML = hcode;
-};/////////// makeGrid
+} /////////// makeGrid
 
 ////////////////////////////////////////////////////////////////
 // [ GNB 서브메뉴 셋팅하기  ]
 // 구조 : div.smenu > aside.smbx > h2{1차메뉴}+(ol>li>a{2차메뉴})
 
 // 1. 대상선정 : .gnb > ol > li
-// 서브메뉴 넣을 li는 하위 a 요소의 텍스트가 gnbData 속성명 1차 메뉴와 일치하는 경우 하위 메뉴를 넣어준다 
-const gnbList = dFn.qsa('.gnb>ul>li')
+// 서브메뉴 넣을 li는 하위 a 요소의 텍스트가 gnbData 속성명 1차 메뉴와 일치하는 경우 하위 메뉴를 넣어준다
+const gnbList = dFn.qsa(".gnb>ul>li");
 
-console.log('메뉴 :',gnbList,"/데이터",gnbData);
+console.log("메뉴 :", gnbList, "/데이터", gnbData);
 // 3. 대상에 하위 메뉴 태그 만들기
-gnbList.forEach(ele=>{
+gnbList.forEach((ele) => {
     // 1. 하위 a요소 텍스트 읽기
-    let atxt = dFn.qsEl(ele,'a').innerText;
+    let atxt = dFn.qsEl(ele, "a").innerText;
     // 2. GNB 데이터 읽기
-    let gData = gnbData[atxt]
+    let gData = gnbData[atxt];
     // console.log('텍스트:',atxt,gData);
     // 3. 해당 서브가 있을 경우 태그 만들어넣기
     // ${Array.isArray(gData)} 로 배열여부 확인함
     // 배열값은 태그를 만들어 그자리에 출력 : 배열.map.join('')
-    if(gData){ // 데이터가 없으면 undefined -> false 처리
-        console.log("만들어!",atxt);
+    if (gData) {
+        // 데이터가 없으면 undefined -> false 처리
+        console.log("만들어!", atxt);
         ele.innerHTML += `
         <div class="smenu">
             <aside class="smbx">
                 <h2>${atxt}</h2>
                 <ol>
-                    ${gData.map(val=>`
+                    ${gData
+                        .map(
+                            (val) => `
                     <li>
                         <a href="#">${val}</a>
                     </li>
-                    `).join('')}
+                    `
+                        )
+                        .join("")}
                 </ol>
             </aside>
-        </div>`
-    }///////////////////////if/////////////
-
+        </div>`;
+    } ///////////////////////if/////////////
 }); //////// forEach /////
 /*********************************************************** 
     [ 상위메뉴 li오버시 하위메뉴 보이기 ]
@@ -102,36 +110,35 @@ gnbList.forEach(ele=>{
     변경 대상 : .smenu
 ***********************************************************/
 // 1. 대상 선정
-const gnb = dFn.qsa('.gnb>ul>li');
-const smenu = dFn.qsa('.smenu');
+const gnb = dFn.qsa(".gnb>ul>li");
+const smenu = dFn.qsa(".smenu");
 // console.log(gnb);
 
 // 2. 이벤트 설정하기
 // 이벤트 종류 : mouseover / mouseout
-gnb.forEach(ele=>{
+gnb.forEach((ele) => {
     // 서브메뉴가 있을 때만 이벤트 설정하기
     // if문에서 undefined/null은 false 처리됨
-    if(dFn.qsEl(ele,'.smenu')){
-        dFn.addEvt(ele,'mouseover',overFn);
-        dFn.addEvt(ele,'mouseout',outFn);
+    if (dFn.qsEl(ele, ".smenu")) {
+        dFn.addEvt(ele, "mouseover", overFn);
+        dFn.addEvt(ele, "mouseout", outFn);
     }
 });
 
 // 3. 함수 만들기
-function overFn(){+
-    console.log('오버',this);
+function overFn() {
+    +console.log("오버", this);
     // 하위 .smenu 높이값 알아오기
-    let hv = dFn.qsEl(this,'.smbx').clientHeight;
+    let hv = dFn.qsEl(this, ".smbx").clientHeight;
     // console.log("높이값 : ",hv);
     // 2. 하위 서브메뉴박스 만큼 .smenu 높이값 주기
-    dFn.qsEl(this,'.smenu').style.height = hv + 'px';
-}//////////overFn/////////////////
+    dFn.qsEl(this, ".smenu").style.height = hv + "px";
+} //////////overFn/////////////////
 
-function outFn(){
-    console.log('아웃',this);
+function outFn() {
+    console.log("아웃", this);
     // 서브메뉴 박스 높이값 0 만들기
-    dFn.qsEl(this,'.smenu').style.height ='0px';
-
+    dFn.qsEl(this, ".smenu").style.height = "0px";
 }
 // 0. 새로고치면 스크롤바 위치캐싱후 맨위로 이동
 setTimeout(() => {
@@ -140,14 +147,14 @@ setTimeout(() => {
     // 부드러운 스크롤 위치값 반영!
     setPos(0);
     // 안하면 원래 위치로 스크롤시 튐!
-  }, 400);
-  // 0. 스크롤바 트랙을 잡고 위치이동시 위치값 반영
-  dFn.addEvt(window, "mouseup", () => setPos(window.scrollY));
-  //////// mouseup /////////////
-  
-  // 0. 키보드 방향키 이동시 위치값 반영
-  dFn.addEvt(window, "keyup", () => setPos(window.scrollY));
-  //////// mouseup /////////////
+}, 400);
+// 0. 스크롤바 트랙을 잡고 위치이동시 위치값 반영
+dFn.addEvt(window, "mouseup", () => setPos(window.scrollY));
+//////// mouseup /////////////
+
+// 0. 키보드 방향키 이동시 위치값 반영
+dFn.addEvt(window, "keyup", () => setPos(window.scrollY));
+//////// mouseup /////////////
 
 //   ////////////////////////////////////////////////////
 ///인트로 동영상 클릭시 플레이하기//////
@@ -156,17 +163,17 @@ setTimeout(() => {
 // -> 가상요소 플레이버튼 클릭시
 // 이벤트 버블링으로 본 박스가 반응함
 // 1. 대상 선정하기
-const mvBox= dFn.qs('.intro-mv-img');
+const mvBox = dFn.qs(".intro-mv-img");
 
 // 2. 이벤트 설정하기
-dFn.addEvt(mvBox,'click',showMv);
+dFn.addEvt(mvBox, "click", showMv);
 
 // 이벤트 연결 상태변수
-let stsShowMv = 0; 
+let stsShowMv = 0;
 
 // 3. 함수 만들기
-function showMv(){
-    if(stsShowMv) return;
+function showMv() {
+    if (stsShowMv) return;
     stsShowMv = 1;
     console.log("showMv");
     // 동영상 넣기
@@ -175,43 +182,39 @@ function showMv(){
         <video src='./images/intro-mv.mp4' controls autoplay></video>
     `;
     // 가상요소 플레이버튼 없애기 위해 .off지우기
-    this.classList.remove('off');
-
-};/////////showMv함수//////////////
-
-
-
+    this.classList.remove("off");
+} /////////showMv함수//////////////
 
 /////////////////////////////////////////////
 // 오름차순 데이터를 내림차순으로 변경하여 화면에 뿌리기
 
 // 1. 데이터 정렬 변경하기
-let preNewData = previewData.sort((x,y)=>{
+let preNewData = previewData.sort((x, y) => {
     // x,y는 배열값 앞뒤를 계속 가지고 들어옴
     // 배열값 중 idx 속성값을 가져와서 숫자형변환 사용()
-    let a = Number(x.idx)
-    let b = Number(y.idx)
+    let a = Number(x.idx);
+    let b = Number(y.idx);
 
     /// 배열 순서 변경 메서드인 sort()내부에 return값을 사용하여 순서를 변경한 새로운 배열을 만들어준다
     return a == b ? 0 : a > b ? -1 : 1;
-    // 
+    //
 });
 console.log(preNewData);
 // 2. 화면 대상에 태그 만들어 넣기
 // 대상 선정 : .preview-box>div
-const preBox = dFn.qsa('.preview-box>div');
+const preBox = dFn.qsa(".preview-box>div");
 console.log(preBox);
 
 // 3. 대상을 순회하여 태그 넣기
 // 데이터 : 역순정렬을 한 미리보기 데이터 넣기
-preBox.forEach((ele,idx)=>{
+preBox.forEach((ele, idx) => {
     ele.innerHTML = `
     <div>
         <h3>${preNewData[idx].title}</h3>
         <p>${preNewData[idx].story}</p>
     </div>
-    `
-});//////////////////forEach///////////////////////
+    `;
+}); //////////////////forEach///////////////////////
 
 //////////////////////////////////////////////////////////
 /////////////////최신 동영상 영역 데이터 뿌리기////////////
@@ -221,11 +224,11 @@ const clipBox = dFn.qs(".clip-box");
 console.log(clipBox);
 
 // 생성할 데이터
-let clipCode = '';
+let clipCode = "";
 
 // 데이터 매칭하여 태그만들기
 // 배열데이터이므로 forEach 사용
-clipData.forEach(val=>{
+clipData.forEach((val) => {
     clipCode += `
     <li>
     <div class="clip-mv-box">
@@ -252,7 +255,7 @@ const clipList = dFn.qs(".clip-box ul");
 
 // 3. 변수셋팅
 // 3-1. 리스트개수
-const CNT_LIST = dFn.qsaEl(clipList,"li").length;
+const CNT_LIST = dFn.qsaEl(clipList, "li").length;
 // 3-2. 화면당 리스트 노출 개수
 const LIMIT_LIST = 4;
 // 3-3. 이동 한계수
@@ -265,46 +268,96 @@ let mvNum = 0;
 // console.log(btnClip,clipList,"이동 한계수 : ",LIMIT_MOVE);
 
 // 4. 이벤트셋팅하기 /////////////////////////////////////
-btnClip.forEach(ele=>{
-    dFn.addEvt(ele,'click',moveClip)
+btnClip.forEach((ele) => {
+    dFn.addEvt(ele, "click", moveClip);
 }); ///////////////////forEach/////////////
 
 // 5. 함수 만들기 /////////////////
-function moveClip(){
+function moveClip() {
     // 1. 오른쪽 버튼 여부
-    let isR = this.classList.contains('fa-chevron-right');
+    let isR = this.classList.contains("fa-chevron-right");
     // 2. 버튼별 이동분기
-    if(isR){ //오른쪽 버튼
+    if (isR) {
+        //오른쪽 버튼
         // 이동한계수를 체크하여 이동수를 증가시킴
         mvNum++;
         // 마지막한계수를 넘어가면 마지막 수에 고정
-        if(mvNum > LIMIT_MOVE){
+        if (mvNum > LIMIT_MOVE) {
             // 마지막 수 고정
             mvNum = LIMIT_MOVE;
             // 마지막 버튼 숨기기
-            btnClip[1].style.display = 'none';
+            btnClip[1].style.display = "none";
+        } else {
+            btnClip[0].style.display = "block";
         }
-        else{
-            btnClip[0].style.display = 'block';
-        }
-    }/////////////////////if/////////////
-    else{ //왼쪽 버튼
+    } /////////////////////if/////////////
+    else {
+        //왼쪽 버튼
         mvNum--; // 이동한계수를 체크하여 이동수를 감소시킴
         // 처음한계수를 넘어가면 0에 고정
-        if(mvNum< 0){
+        if (mvNum < 0) {
             // 0에 고정
-            mvNum=0;
+            mvNum = 0;
             // 첫번째 버튼 숨기기
-            btnClip[0].style.display = 'none';
-        }
-        else{
+            btnClip[0].style.display = "none";
+        } else {
             // 마지막 버튼보이기
-            btnClip[1].style.display = 'block';
+            btnClip[1].style.display = "block";
         }
-            
-        
-    }//////////////////////else//////////////////////////
+    } //////////////////////else//////////////////////////
     // 이동반영하기 : - 단위수*이동수%
-    clipList.style.left = -(BLOCK_NUM * mvNum)+'%';
-    console.log('나냐',this);
-}////////////////////////moveClip함수///////////////////////
+    clipList.style.left = -(BLOCK_NUM * mvNum) + "%";
+    console.log("나냐", this);
+} ////////////////////////moveClip함수///////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// 하단링크 콤보 박스 바인딩하기 ////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+// 1. 요구사항 - 콤보박스에 맞는 데이터를 바인딩한다
+// 2. 데이터 - linkData
+// console.log(linkData);
+// 3. 대상선정 : 바인딩할 콤보박스
+// #brand, #corp
+const brandBox = dFn.qs("#brand");
+const corpBox = dFn.qs("#corp");
+// console.log(brandBox,corpBox);
+
+// 4. 데이터 바인딩하기
+// 4-1. 브랜드 바로가기 콤보박스 : 단순바인딩(option만)
+// 데이터 대상 : linkData.brand
+brandBox.innerHTML = "";
+linkData.brand.forEach((val) => {
+    brandBox.innerHTML += `<option value="${val}">${val}</option>`;
+});
+// 4-2. 계열사 바로가기 콤보박스 : 복합바인딩(optgroup>option)
+// 데이터는 객체형이므로 속성만 모아 배열로 변환하여 forEach를 사용한다.
+const corpData = Object.keys(linkData.corp);
+
+// 내부초기화
+corpBox.innerHTML = '';
+// console.log(corpData);
+
+// 내부에 option태그를 만들어서 리턴하는 함수
+
+
+corpData.forEach((val) => {
+    corpBox.innerHTML += `
+    <optgroup label="${val}">
+        ${linkData.corp[val].map(v=>`
+        <option value="${v}">${v}</option>
+        `).join('')}
+    </optgroup>
+    `;
+});///////////////////forEach////////////////////////
+
+// 내부의 option요소는 배열데이터.map().join('')을 사용
+// map()은 배열을 재구성하여 다시 같은 자리에 리턴하여 만들어지고 새로운 배열을 변수에 담거나 그자리에 리턴한다.
+// 이때 배열값을 문자열값으로 변환하는 join()을 사용하여 연결자를 빈값으로 처리하면 배열의 구분자 콤마가 없는 태그로만 연결된 순수한 태그 결과 문자열이 만들어진다.
+
+/******************************** 
+    [ 복합 바인딩 요소 구성 형식 ]
+    <optgroup label="Swedish Cars">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+    </optgroup>
+********************************/

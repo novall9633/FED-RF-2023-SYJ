@@ -56,10 +56,64 @@
             background: url(./images/man.jpg) no-repeat top/cover;
             /* 원형박스 */
             border-radius: 50%;
+            
         }
-        
+        /* circle부모 svg */
+        .svg1>svg{
+             /* 트랜스폼 적용되나? 
+             -> 하위 벡터요소에는 일반 트랜스폼 적용안됨 부모요소인 svg는 적용됨*/
+            transform: rotate(-90deg);
+        }
 
         /* circle 설정 */
+        .c1{
+            /* 채우기색 - 기본색 검정
+                투명 - transparent
+                없음 - none (뚫린 상태)
+            */
+            /* fill: red; */
+            /* fill: transparent; */
+            fill: none;
+            /* 선 색 - 기본은 안나옴 */
+            stroke: red;
+            /* 선 두께 - 기본값은 1px 단위를 안쓰면 모두 px단위 선두께는 선의 중심선으로부터 생김 */
+            stroke-width: 20;
+
+            /* 선끝처리 : stroke-linecap 
+                1) butt : 끝에 중심선이 보임(기본값)
+                2) square : 끝에 사각형으로 덮음
+                3) round : 끝에 둥근모양으로 덮음
+            */
+
+            stroke-linecap: round;
+            /* 
+            [ 대쉬선 속성 : stroke-dasharray ]
+            - 선,공백 순으로 대쉬선 셋팅함
+            - 선부터 전체 채우기 위해 일단 50%를 주고 선, 공백이 몇조각 나는지 센다
+            - 여기서는 50%를 주면 6조각이 나옴
+            50% * 6은 300%로 계산하여 선으로 모두 채우기가 됨
+            */
+            stroke-dasharray: 300%;
+            /* 
+                [ 대쉬어레이 시작위치 밀기 : stroke-dashoffset ]
+                - 특정 숫자값을 주면 px만큼 밀어준다
+                - 계산된 stroke-dasharray 선채우기 값으로 밀어주면 공백부터 시작됨
+            */
+            stroke-dashoffset: 900;
+            /* 
+                [ SVG 라인 애니메이션의 원리 ]
+                - 대쉬설정을 공백부터 시작하여 stroke-dashoffset값을 0으로 변경할 때 애니메이션 설정으로 하여 선이 그려지는 효과의 애니가 완성된다.
+
+            */
+            /* 트랜지션 : 속시이지 */
+            transition: stroke-dashoffset .8s ease-in-out;
+            /* 트랜스폼 적용되나? */
+            /* transform: rotate(-90deg); */
+        }
+        /* 오버시 선 보이기 */
+        .svg1:hover .c1{
+            stroke-dashoffset: 0;
+        }
         
         
 
@@ -68,14 +122,47 @@
             background: url(./images/black.jpg) no-repeat top/cover;
         }
         /* 사각형 svg - rect */
+        .rt1{
+            fill: none;
+            stroke: black;
+            stroke-width: 20;
+            stroke-linecap: round;
+            /* 대쉬선 */
+            stroke-dasharray: 15%;
+            stroke-dashoffset: 102%;
+            /* 트랜지션 */
+            transition: .6s;
+        }
+        .svg2:hover .rt1{
+            stroke-dashoffset: 0;
+        }
+
+        
         
 
         /* 3. 닥스박스 : 다각형(6각형) */
         .svg3{
             background: url(./images/doc.jpg) no-repeat top/cover;
+            /* 다각형 클리핑 적용하기 */
+            clip-path: polygon(0 0, 100% 0, 90% 50%, 100% 100%, 0% 100%, 10% 50%);
         }
 
         /* 다각형 */
+        .pg1{
+            fill: none;
+            stroke: lightgreen;
+            stroke-width: 20;
+            stroke-linecap: round;
+            /* 대쉬선 */
+            stroke-dasharray: 380%;
+            stroke-dashoffset: 380%;
+            /* 트랜지션 */
+            transition: .6s;
+        }
+        /* 오버시 선 보이기 */
+        .svg3:hover .pg1{
+            stroke-dashoffset: 0;
+        }
         
         
 
@@ -93,24 +180,41 @@
     </style>
 </head>
 <body>
-    
+    <!-- 전체 랩핑박스 -->
     <div class="wrap">
         <!-- 1.아이언맨 : 원 -->
         <section>
-            
+            <div class="cbx svg1">
+                <svg>
+                    <circle class="c1" cx="150" cy="150" r="140" />
+                    <!-- <circle class="c1" cx="150" cy="150" r="140" transform="rotate(-90,150,150)" /> -->
+                </svg>
+            </div>
         </section>
         <!-- 2. 블랙위도우 : 사각형 -->
         <section>
-            
+            <div class="cbx svg2">
+                <svg>
+                    <rect class="rt1" width="280" height="280" x="10" y="10" />
+                </svg>
+            </div>
         </section>
         <!-- 3.닥스박스 : 다각형(6각형) -->
         <section>
-            
+            <div class="cbx svg3">
+                <svg>
+                    <polygon class="pg1" points="10,10 290,10 260,150 290,290 10,290 40,150" />
+                </svg>
+            </div>
         </section>
         
         <!-- 4.완다박스 : 자유도형 -->
         <section>
-            
+            <div class="cbx svg4">
+                <svg>
+
+                </svg>
+            </div>
         </section>
     </div>
 
