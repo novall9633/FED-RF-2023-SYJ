@@ -46,10 +46,10 @@ class Gogh extends React.Component {
         return(
             <React.Fragment>
                 <h2>안녕 나는 고흐그림이야!</h2>
-                <MakeImg iname="01.png" alt="고흐1" />
-                <MakeImg iname="02.png" alt="고흐2" />
-                <MakeImg iname="03.png" alt="고흐3" />
-                <MakeImg iname="04.png" alt="고흐4" />
+                <MakeImg iname="01.png" ialt="고흐1" />
+                <MakeImg iname="02.png" ialt="고흐2" />
+                <MakeImg iname="03.png" ialt="고흐3" />
+                <MakeImg iname="04.png" ialt="고흐4" />
 
                 {/* 홀로태그는 반드시 스스로 닫아준다 */}
             </React.Fragment>
@@ -69,7 +69,7 @@ function IronMan(){
     return(
         <div>
             <h2>안녕! 나는 아이언맨이야!</h2>
-            <MakeImg iname="ab1.jpg" alt="아이언맨" />
+            <MakeImg iname="ab1.jpg" ialt="아이언맨" />
         </div>
     );
 }////////////////////////IronMan 컴포넌트 //////////////
@@ -77,7 +77,7 @@ function IronMan(){
 // 이미지 생성 컴포넌트 //////////////
 function MakeImg(props){
     return(
-        <img src={"./images/"+props.iname} alt={props.alt} />
+        <img src={"./images/"+props.iname} alt={props.ialt} />
     );
 }
 
@@ -97,9 +97,9 @@ ReactDOM.render(<IronMan />, document.querySelector('#root2'));
 function Favorite(props){
     return(
         <h2>
-            내 좋아하는 색은 {props.color}이데이 <br />
-            그리고 좋아하는 음식은 {props.food}데이! <br />
-            취미는 {props.hobby}이데이! 알겠나????
+            내 좋아하는 색은 {props.color}이다 <br />
+            그리고 좋아하는 음식은 {props.food}이다! <br />
+            취미는 {props.hobby}입니다! 알겠나????
         </h2>
     );
 } ////////////////Favorite 컴포넌트 //////////////////////
@@ -113,7 +113,7 @@ ReactDOM.render(<Favorite color="빨간색" food="피자" hobby="게임"/>,docum
 // 컴포넌트 재사용하기
 // #root4에 다른 사람의 좋아하는 색, 음식, 취미를 출력한다.
 
-ReactDOM.render(<Favorite color="검은색" food="족발이" hobby="볼링"/>,document.querySelector('#root4'));
+ReactDOM.render(<Favorite color="검은색" food="족발" hobby="볼링"/>,document.querySelector('#root4'));
 
 /****************************************************************************** 
     컴포넌트 내부에서 다른 컴포넌트를 호출할 수 있다
