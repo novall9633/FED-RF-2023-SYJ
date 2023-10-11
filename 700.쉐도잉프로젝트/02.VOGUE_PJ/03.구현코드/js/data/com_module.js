@@ -48,7 +48,7 @@ export default {
     <!-- 1-2.로고박스 -->
     <h1 class="logo">
         <a href="#">
-            <img src="./03.구현코드/images/mlogo.png" alt="메인로고" />
+            <img src="./images/mlogo.png" alt="메인로고" />
         </a>
     </h1>
     <!-- 1-3.GNB박스 -->
@@ -90,7 +90,7 @@ export default {
     footerArea: `
     <!-- 3-1.하단로고 -->
     <div class="blogo">
-        <img src="./03.구현코드/images/footer_logo.png" alt="하단로고">
+        <img src="./images/footer_logo.png" alt="하단로고">
     </div>
     <!-- 3-2.회사주소 -->
     <address class="addr">
