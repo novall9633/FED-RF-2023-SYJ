@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07.드래그기본</title>
+    <style>
+        body{
+            height: 100vh;
+            background: url(./images/drag_bg.jpg) center top/auto 100%;
+        }
+        .dtg{
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #f00;
+            display: inline-block;
+            cursor: grab;
+            /* grab은 편손, grabbing은 쥔손 */
+        }
+        .dtg1{
+            background: url(./images/1.png) no-repeat center top/cover;
+        }
+        .dtg2{
+            background: url(./images/2.png) no-repeat center center/cover;
+        }
+        .dtg3{
+            background: url(./images/3.jpg) no-repeat center top/cover;
+        }
+        .dtg4{
+            background: url(./images/4.jpg) no-repeat center center/cover;
+        }
+        .dtg5{
+            background: url(./images/5.jpg) no-repeat center top/cover;
+        }
+        .dtg6{
+            background: url(./images/6.jpg) no-repeat center center/cover;
+            transform: rotateY(180deg);
+        }
+        .dtg7{
+            background: url(./images/7.jpg) no-repeat center top/cover;
+        }
+        .dtg8{
+            background: url(./images/8.png) no-repeat center center/cover;
+        }
+        .dtg9{
+            background: url(./images/9.jpg) no-repeat center top/cover;
+        }
+        .dtg10{
+            background: url(./images/10.jpg) no-repeat center center/cover;
+        }
+        .dtg11{
+            background: url(./images/11.jpg) no-repeat center center/cover;
+        }
+        </style>
+        <script src="./JS/drag.js" type="module"></script>
+</head>
+<body>
+    <div class="dtg dtg1"></div>
+    <div class="dtg dtg2"></div>
+    <div class="dtg dtg3"></div>
+    <div class="dtg dtg4"></div>
+    <div class="dtg dtg5"></div>
+    <div class="dtg dtg6"></div>
+    <div class="dtg dtg7"></div>
+    <div class="dtg dtg8"></div>
+    <div class="dtg dtg9"></div>
+    <div class="dtg dtg10"></div>
+    <div class="dtg dtg11"></div>
+</body>
+</html>
