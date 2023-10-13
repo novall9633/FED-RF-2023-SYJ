@@ -60,3 +60,70 @@ ReactDOM.render(<Developer isDev={true} isrc={devImg[0]} ialt="개발자공유" 
 // 컴포넌트 호출하기2 : 비개발자 찍기
 ReactDOM.render(<Developer isDev={false} isrc={devImg[1]} ialt="주먹왕마동석" itit="개발자가 뭡니까" />,document.querySelector('#root2'));
 
+
+/********************************************** 
+    2. if문이 아닌 조건 표현하기
+    -> 조건식 && JSX표현식
+    조건이 true일때만 && 뒤의 JSX표현식이 출력됨!
+**********************************************/
+
+// 개발자들 취향을 알아보자!!
+
+
+// 2-1. 제목을 찍기위한 타이틀 컴포넌트
+
+function Title(props){ //컴포넌트 호출 시 tit를 셋팅함
+    return <h1>👨‍🔧개발자👩‍🔧가 좋아하는 {props.tit}</h1>
+
+}//////////////////Title 컴포넌트 /////////////
+
+// 음식리스트
+const foods = 
+["스파게티","짜파게티","냉면","짜장면","마라탕"];
+// [];
+
+// 2-2. 반복리스트를 위한 컴포넌트 ///////////
+function FoodList(props){ //음식명은 fname에 담아서 전달한다.
+    return <li>개발자는 {props.fname} 좋아해!</li>;
+} //////////FoodList 컴포넌트 ////////////////
+
+// 2-3. 개발자 선호 음식 리스트 출력 컴포넌트 ///////////
+function WishList(props){ // wlist 속성에 담아서 보내준다.
+    // 위시리스트 담기
+    const myFood = props.wlist;
+    // 코드리턴
+    return(
+        <React.Fragment>
+            <Title tit = "음식" />
+            {/* 음식 위시리스트 길이가 0보다 클 때만 출력 */}
+
+            {
+                myFood.length>0 &&
+                <div>
+                <h2>
+                    개발자가 좋아하는 음식은 모두 
+                    {myFood.length}가지 입니다.
+                </h2>
+                <ul>
+                    {
+                        // 배열변수.map() 메서드 사용
+                        // map(변수=>바로 리턴 컴포넌트)
+                        // 리액트 map()은 JS map()과 다름
+                        // 맵조인 하지 않으니까
+                        myFood.map(x=><FoodList fname={x} />)
+                    }
+                </ul>
+            </div>
+            } 
+            {/* 다른 경우의 출력은 별도의 JSX 출력 중괄호 구역에 코딩한다. */}
+            {
+                myFood.length == 0 &&
+                <h2>아직 개발자음식 리스트가 업데이트 되지 않았습니다.</h2>
+            }
+
+        </React.Fragment>
+    );
+} ////////////WishList 컴포넌트 ///////////////
+
+// 컴포넌트 출력하기 ////////////////
+ReactDOM.render(<WishList wlist={foods} />,document.querySelector('#root3'));
