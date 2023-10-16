@@ -81,6 +81,56 @@ import dFn from "./dom.js";
     문자열 비교를 한다!
     예) 특수문자 x변수를 y변수와 변환후 비교 
     x.localeCompare(y)
+
+    *************************************************************
+
+    [ 배열의 검색 : find() / filter() / indexOf() ]
+
+    1. find() 메서드
+    (1) 검색후 첫번째 일치값 하나만을 리턴
+    (2) 결과가 없으면 undefined 리턴(if문에서 false처리!)
+    (3) 콜백함수구성 : function(val,idx,obj){}
+        1) val : 처리중 배열의 값
+        2) idx : 처리중 배열의 순번
+        3) obj : 처리중 배열전체
+    (4) 리턴데이터 : 배열의 값 하나(값의 데이터형)
+    (5) 활용케이스 : 아이디검사 결과 리턴
+    (6) 코드예 :
+        변수 = 배열.find(v=>{
+            if(v[속성명].indexOf(검색어)!==-1) return true;
+        })
+        -> 배열을 자동순회하여 if문에 해당되는 데이터가 있으면
+        return true 하여 할당된 변수에 저장하고 문장이 바로 끝난다!
+
+
+    2. filter() 메서드
+    (1) 검색후 모든 일치값을 리턴
+    (2) 결과가 없으면 빈배열 리턴([]->배열.length 값이 0)
+    (3) 콜백함수구성 : function(val,idx,obj){}
+        1) val : 처리중 배열의 값
+        2) idx : 처리중 배열의 순번
+        3) obj : 처리중 배열전체
+    (4) 리턴데이터 : 배열형데이터(하나여도 배열값으로 넘어옴!)
+    (5) 활용케이스 : 검색리스트 결과 리턴
+    (6) 코드예 :
+        변수 = 배열.filter(v=>{
+            if(v[속성명].indexOf(검색어)!==-1) return true;
+        })
+        -> 배열을 자동순회하여 if문에 해당되는 데이터가 있으면
+        return true 하여 다른값이 계속 나올때까지 배열로 값을
+        할당변수에 저장한다!(배열을 전체순회함!)
+
+    3. LIKE 검색방법 : 값의 일부만 넣어도 검색되는 방법
+    -> indexOf(값) 을 사용함!
+    결과값으로 문자열의 위치순번을 리턴하는데
+    만약 없으면 -1을 리턴하므로 이것을 이용하여 
+    조건문에 -1이 아닌경우가 검색결과가 있는 경우가 됨!
+    예) 
+    if(문자열.indexOf(검색문자열)!==-1){결과리턴}
+
+    *************************************************
+
+
 ***************************************************/
 
 // 숫자값 배열
@@ -156,7 +206,7 @@ const selBox2 = dFn.qs('#sel2');
 dFn.addEvt(selBox2,'change',function(){
     // 1. 선택 option value값
     let optVal = this.value;
-    console.log(this.value);
+
     // 2. 정렬 분기 : 1 - 오름차순 / 2 - 내림차순
     switch(optVal){
         case "1": 
@@ -182,7 +232,7 @@ dFn.addEvt(selBox2,'change',function(){
 // 3. 객체 데이터 배열의 정렬 ////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
-// (1). 데이터 
+// (1). 데이터 : 객체데이터 배열
 const list1 = [
     {
         idx: 8,
@@ -209,10 +259,12 @@ const list1 = [
 // 출력대상 : .showList3
 const showList3 = dFn.qs('.showList3');
 // (2). html 코드 생성하여 출력하는 함수 만들기
-const upCode = () =>{
+// upCode함수를 공통으로 파라미터 처리함 //////
+const upCode = (data,exBox) =>{
+    // data - 객체데이터배열 / exBox - 출력할 요소
     // 반복코드 만들기
-    // 대상코드 : list1 배열
-    let hcode = list1.map(val=>`
+    // 대상코드 : list1 배열 , list2배열
+    let hcode = data.map(val=>`
     <tr>
         <td>${val.idx}</td>
         <td>${val.tit}</td>
@@ -221,7 +273,7 @@ const upCode = () =>{
     `).join('');
     console.log(hcode);
     // 테이블 생성코드 넣기
-    showList3.innerHTML = `
+    exBox.innerHTML = `
         <table>
             <thead>
                 <tr>
@@ -239,7 +291,8 @@ const upCode = () =>{
 }; /////////////////upCode함수//////////////////////////
 
 // (3). 요소에 데이터 코드 넣기 함수 호출
-upCode();
+upCode(list1,showList3);
+
 
 // (4). 정렬변경 이벤트 발생 시 실제 정렬 변경하기 //
 // 이벤트 대상 : .sel3
@@ -247,22 +300,42 @@ const sel3 = dFn.qs('.sel3');
 // 정렬 기준 대상 : .cta3
 const cta3 = dFn.qs('.cta3');
 
+// 이벤트 설정하기
+// 데이터와 출력 타겟부터 설정 후 정렬함수 호출
+dFn.addEvt(sel3,"change",()=>{
+    targetData =list1;
+    targetEle = showList3;
+}); //////change ///////////
+dFn.addEvt(sel3,"change",sortingFn);
+
+// 정렬변경함수의 데이터 및 출력요소 셋팅변수
+let targetData = list1;
+let targetEle = showList3;
+
+
 dFn.addEvt(sel3,'change',sortingFn);
 
 // 정렬 변경 함수 만들기 ////////
 function sortingFn(){
-    // 선택값 담기
+    // 선택값 담기 : 오름차순(1), 내림차순(2)
     let optVal = this.value;
+
+    console.log("앞에 누구?",this.previousElementSibling);
+    // this -> 콤보박스 자신
+    // 앞에 있는 형제요소 선택 this.previousElementSibling
+    // 뒤에 있는 형제요소 선택 this.nextElementSibling
     
-    // 2. 정렬 기준값 읽기
-    let cta = cta3.value;
+    // 2. 정렬 기준값 읽기 : 
+    // -> idx, tit, cont(객체데이터 배열의 속성명)
+    // let cta = cta3.value;
+    let cta = this.previousElementSibling.value;
     console.log('바꿔 정렬',optVal,cta);
 
     // 3. 분기하기
-    // 데이터 대상 : list1 배열
+    // 데이터 대상 : targetData 배열
     switch(optVal){
         case "1" : //오름차순
-        list1.sort((a,b)=>{
+        targetData.sort((a,b)=>{
             // a,b는 모두 객체 데이터
             // 따라서 내부 속성을 구체적으로 비교함
             // idx, tit, cont 세가지 중 하나로 비교
@@ -270,7 +343,7 @@ function sortingFn(){
         });
         break;
         case "2" : //내림차순
-        list1.sort((a,b)=>{
+        targetData.sort((a,b)=>{
             // a,b는 모두 객체 데이터
             // 따라서 내부 속성을 구체적으로 비교함
             // idx, tit, cont 세가지 중 하나로 비교
@@ -278,7 +351,169 @@ function sortingFn(){
         });
         break;
     }
-    console.log(list1);
     // 리스트 코드 반영하기
-    upCode();
+    upCode(targetData,targetEle);
+    console.log('타겟데이터:',targetData,'\n타겟요소:',targetEle);
 } ////////sortingFn 함수 ///////
+
+////////////////////////////////////////////////
+//////////////// 배열의 검색 ///////////////////
+
+// 4. 객체데이터 검색후 배열의 정렬 ////////////
+
+// (1) 출력대상 : showList4
+const showList4 = dFn.qs('.showList4');
+
+
+// (2) 데이터 셋팅 : 객체 데이터 배열
+const list2 = [
+    {
+        idx: 56,
+        tit: "당근마켓에 가자",
+        cont: "당근마켓이 항상 좋은건 아니라구~!",
+    },
+    {
+        idx: 15,
+        tit: "당근마켓에 가자",
+        cont: "당근마켓이 정말로 싸고 좋다구~!",
+    },
+    {
+        idx: 41,
+        tit: "라이스",
+        cont: "라이스는 정말 좋다구~!",
+    },
+    {
+        idx: 23,
+        tit: "김성현",
+        cont: "상대는 가나다라구~!",
+    },
+    {
+        idx: 74,
+        tit: "점심에 뭐먹지?",
+        cont: "오스틴님 생일 서포트 안내",
+    },
+    {
+        idx: 18,
+        tit: "직돌이는 쉬고싶다~!",
+        cont: "활동정지에 대한 파생글 무통보 삭제 및 경고",
+    },
+    {
+        idx: 109,
+        tit: "올해는 다른 회사로 이직한다!",
+        cont: "⚜️갈라콘 서포트에 많은 참여 부탁드립니다!",
+    },
+]; /////////////// list2 /////////////       
+
+// 검색 / 정렬용변수
+// -> 검색 시 newList 변수 업데이트
+let newList = list2;
+
+// (3) 리스트 초기호출!
+// 위의 upCode() 함수를 호출하여 페이지 찍기
+upCode(list2,showList4);
+
+// (4) sel4 이벤트 설정하기
+// 데이터와 출력 타겟부터 설정 후 정렬함수 호출
+dFn.addEvt(sel4,"change",()=>{
+    // 정렬용 데이터는 원본 list2 쓰지 않고 newList 사용
+    targetData = newList;
+    targetEle = showList4;
+}); ////////change/////////////
+dFn.addEvt(sel4,"change",sortingFn);
+
+// (5) 검색 기능 버튼 클릭 이벤트 설정하기 //////
+// - 이벤트 대상 : .sbtn
+dFn.addEvt(dFn.qs('.sbtn'),'click',searchingFn);
+
+// (6) 검색 함수 만들기 ////////////
+function searchingFn(){
+    // 1. 검색어 읽어오기
+    // 대상 : #stxt
+    let stxt = dFn.qs('#stxt').value;
+    // console.log('입력문자:',stxt);
+
+    // 2. 검색 대상 항목 읽어오기
+    // 대상 : .cta4
+    let cta = dFn.qs('.cta4').value
+    
+    // console.log('입력문자:',stxt,'\n검색기준:',cta);
+
+    // 3. 다중값 리턴 LIKE 검색 : 원본데이터(list2)로 검색
+    // filter() + indexOf() 사용!!!
+    let res = list2.filter(v=>{
+        // v[객체속성명] -> v[cta]
+        // -> cta 변수에 idx/tit/cont 중 하나
+        // indexOf(검색어) -> indexOf(stxt변수값)
+        // 숫자형 데이터일 경우에 에러가 발생하므로
+        // String(숫자데이터) -> 문자형 변환
+        if(String(v[cta]).indexOf(stxt)!= -1) return true;
+    }); /////////////filter ///////////
+    console.log('검색결과:',res);
+    
+    // 4.출력하기 : upCode()
+    upCode(res,showList4);
+
+    // 5. 원본 데이터는 그대로 두고 새로운 변수를 선언하여 
+    // 그 변수에 값은 업데이트한다
+    // 단, 그 변수 데이터는 정렬시에 사용하도록 한다
+    // -> newList 변수
+    newList = res;
+    
+
+}//////////////searchingFn 함수 ////////////////////
+
+// (7) 전체 리스트 돌아가기 버튼 클릭시 기능구현 ////
+// 대상 : .fbtn
+dFn.addEvt(dFn.qs('.fbtn'),'click',()=>{
+    // newList를 원본 리스트2로 업데이트
+    newList = list2;
+    upCode(newList,showList4);
+
+    // 2. 검색 초기화
+    initSearch();
+
+}); ////////////// click /////////////////////
+
+// 초기화 함수 : 검색 선택 박스 초기화
+function initSearch(){
+    // 1.검색어 초기화
+    dFn.qs('#stxt').value = '';
+    
+    // 2. 검색어 기준 선택 초기화
+    dFn.qs('.cta4').value = 'idx';
+    // 3. 정렬 초기화
+    dFn.qs('.sel4').value = '0';
+} ////////////initSearch 함수 //////////////////
+
+
+
+// 샘플버튼으로 데이터를 검색한 결과를 콘솔에 찍어본다.
+dFn.addEvt(dFn.qs('.sample'),'click',()=>{
+    // 1. find메서드 확인하기 : 데이터 정확히 일치해야함
+    let res1 = list2.find(v=>{
+        if(v.tit=='당근마켓에 가자') return true;
+        // 데이터가 일치하면 배열의 값을 리턴
+        // 데이터가 완변하게 일치하지 않으면 undefined 리턴
+    });
+
+    console.log('검색어: "당근마켓에 가자\n" 결과:' ,res1);
+    
+    // 2. find() 메서드 LIKE 검색하기 : 데이터 일부분으로 찾음
+    // indexOf() 결과가 -1이 아니면 내용이 있으므로 처리!
+    // find() 특성상 처음 만나는 데이터 하나만 리턴함
+    let res2 = list2.find(v=>{
+        if(v.tit.indexOf('다') != -1) return true;
+        // 데이터가 일치하면 배열의 값을 리턴
+        // 데이터가 완변하게 일치하지 않으면 undefined 리턴
+    });
+    console.log('검색어: "다" \n결과:' ,res2);
+
+    // 3.filter() 메서드로 LIKE 검색하기
+    // filter()는 해당결과를 배열로 리턴함(여러개 수집)
+    let res3 = list2.filter(v=>{
+        if(v.tit.indexOf('당근')!=-1) return true;
+        // if(v.tit.indexOf('머스캣')!=-1) return true;
+        // 검색 결과가 없으면 빈배열이 리턴됨(배열.length == 0)
+    });
+    console.log('검색어 : "당근"\n 결과',res3)
+}); //////////////////click /////////////////////////
