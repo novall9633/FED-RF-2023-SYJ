@@ -475,3 +475,44 @@ float에 의한 망가짐 방지 */
 .footer .partbox{
     height: 100px;
 }
+
+/* 서브 컨텐츠 박스 */
+.sub-cont{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 99999;
+    overflow: hidden;
+    display: none;
+    color: #fff;
+}
+.sub-cont a{
+    color: #fff;
+}
+.cbtn{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    color: #fff;
+    background: none;
+    border: none;
+    font-size: 80px;
+    cursor: pointer;
+}
+/* 서브 내부 박스 */
+.sub-inbox{
+    outline: 2px dashed yellow;
+    min-height: 100vh;
+}
+/* 제목박스 */
+.sub-inbox h1{
+    font-size: 4rem;
+    text-align: center;
+}
+/* 내용박스 */
+.sub-item{
+    font-size: 3rem;
+}
