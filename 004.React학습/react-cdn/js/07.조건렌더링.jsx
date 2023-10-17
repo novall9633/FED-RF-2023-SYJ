@@ -127,3 +127,145 @@ function WishList(props){ // wlist 속성에 담아서 보내준다.
 
 // 컴포넌트 출력하기 ////////////////
 ReactDOM.render(<WishList wlist={foods} />,document.querySelector('#root3'));
+
+// 3. 좀 더 복잡한 리스트를 출력하는 컴포넌트 //////
+// 전달할 배열변수 ////
+const movs = [
+    {year:"2021",mtit:"모가디슈"},
+    {year:"2022",mtit:"범죄도시2"},
+    {year:"2023",mtit:"가디언즈 오브 갤럭시3"},
+];
+
+// 개발자가 좋아하는 영화 찍기 //////
+// 컴포넌트를 구성하여 찍기 ////
+
+/* [ 출력형태 ]
+    👨‍🔧개발자👩‍🔧가 좋아하는 영화
+    개발자가 좋아하는 영화는 최근 3년간 아래와 같습니다!
+    2021년도 영화1
+    2022년도 영화2
+    2023년도 영화3 
+*/
+
+// 3-1. 제목을 찍기 위한 타이틀 컴포넌트
+// -> 2-1 컴포넌트 재사용
+
+// 3-2. 반복리스트를 위한 컴포넌트
+function MovieList(props){
+    // year - 영화개봉년도 / mname - 영화명
+    return <li>{props.year}년도  {props.mname}</li>;
+}///////////////// MovieList 컴포넌트 ///////////
+
+// 3-3. 개발자 선호 영화 리스트 출력 컴포넌트 //////
+function WishList2(props){
+    // 위시리스트 속성으로 담기
+    const mymv = props.wlist;
+    return(
+        <React.Fragment>
+            <Title tit="영화" />
+            {/* 영화 위시리스트의 길이가 0보다 클때만 출력 */}
+            {
+                mymv.length > 0 &&
+                <div>
+                    <h2>
+                        개발자가 좋아하는 영화는 최근 {mymv.length}년간 아래와 같습니다.
+                    </h2>
+                    <ul>
+                        {
+                            mymv.map(x=><MovieList year={x.year} mname={x.mtit} />)
+                        }
+                    </ul>
+                </div>
+            }
+            {/* 다른 조건은 아랫쪽에 다른 중괄호 안에 표현 */}
+            {
+                mymv.length==0 &&
+                <h2>
+                    아직 개발자 영화 리스트가 업데이트 되지 않았습니다.
+                </h2>
+            }
+        </React.Fragment>
+    );
+} ////////wishList2 컴포넌트 //////////////
+
+// 3-4. 개발자가 좋아하는 영화 출력하기
+ReactDOM.render(<WishList2 wlist={movs} />,document.querySelector('#root4'));
+
+/********************************************************** 
+    4. 조건 연산자(삼항연산자)를 사용하여 조건부 랜더링하기 
+**********************************************************/
+
+// 명화 데이터
+const worksrc = {
+    "피카소":"https://m.theartin.net/web/product/big/201907/30c5a0fdd153bfdfdc8f19b2f4166fa8.jpg",
+    "모네":"https://dimg.donga.com/wps/NEWS/IMAGE/2015/12/11/75316598.3.jpg"
+};
+
+// 개발자가 좋아하는 그림(명화) 찍기
+
+// 4-1. 타이틀과 그림찍기 컴포넌트
+// 구성: 작가이름 + 작품이미지
+// 데이터 : 작가이름(painter), 이미지경로(작가이름의 객체 worksrc), 작품명(wname)
+function MakeWork(props){
+    return(
+        <div>
+            <h2>{props.painter}</h2>
+            <img src={worksrc[props.painter]} alt={props.wname}
+            style={{width:"400px"}} title={props.wname}
+            />
+        </div>
+    );
+}//////////////////// MakeWork 컴포넌트 /////////////
+
+// 4-2. 전체 출력 컴포넌트 /////////////////
+// 구성 : 전체 타이틀(Title 컴포넌트 사용) + 변경버튼
+//  + 작가와 그림출력(MakeWork컴포넌트)
+// 특이사항 : 변경버튼 클릭시 MakeWork 컴포넌트의 데이터를 
+//          변경하여 다시 출력하도록 함(Hook 사용!)
+function ExpComp(props){
+    // 작품변경 전달변수 : props.isChange
+    // isChange의 값은 true / false
+
+    // [일반변수]
+    // let result = props.isChange;
+
+    // [후크 변수]
+    const [result,setResult] = React.useState(props.isChange);
+    // const [변수명, set변수명] = React.useState(초기값)
+    // ->set변수명 : 변수명 첫글자는 대문자로
+    // useState() 메서드가 변수값이 업데이트 되는 여부를 관리하여 변경시 이 변수를 사용하는 컴포넌트를 자동으로 업데이트 한다.
+    // 후크변수 업데이트는 set변수명(값) 형식으로 한다.
+
+    // 변경버튼 호출 함수
+    const againFn = () => {
+        console.log('다시 변경해',result);
+        
+        // Not 연산자 !(느낌표)는 true/false를 반대로 전환
+        // [일반변수 업데이트]
+        // result = !result;
+
+        // [후크변수 업데이트]
+        setResult(!result);
+
+        // 단순히 변수값만 변경한다고 해서
+        // 이변수를 사용하는 컴포넌트를 변경할 수 없다
+        // 이런 변수의 상태를 관리하는 후크를 사용하면 이것을 반영할 수 있다.
+    }; ///////////againFn 함수 ///////////////
+    return(
+        <React.Fragment>
+            {/* 1. 큰제목 */}
+            <Title tit="명화" />
+            {/* 2. 변경버튼 : 클릭시 again 함수를 호출함 */}
+            <button onClick={againFn}>작가 변경</button>
+            {/* 3. 작품출력 : 3항연산자로 작품변경하기 
+            result 변수를 후크변수로 셋팅하면 컴포넌트가 이 변수의 값이 변경됨에 따라 자동으로 재설정된다.*/}
+            {
+                result ? <MakeWork painter = "피카소" wname="우는여인" /> : <MakeWork painter = "모네" wname="양산을쓴여인" />
+            }
+
+        </React.Fragment>
+    );
+}//////////////ExpComp 컴포넌트 ///////////////
+
+// 4-3. 개발자가 좋아하는 명화 출력하기
+ReactDOM.render(<ExpComp isChange={true} />, document.querySelector('#root5'));
