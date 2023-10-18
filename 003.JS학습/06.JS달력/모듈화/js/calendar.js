@@ -1,5 +1,23 @@
 // 달력구현 JS - calendar.js //////////////////
 
+/*****************************************
+ [ 생성자 함수로 변환하여 사용하기 ]
+ 1. 함수명을 첫글자 대문자로 변경
+ (생성자 함수로 사용할 것을 알림)
+
+ 2. 호출하는 곳에서 new 키워드로 인스턴스 생성
+ -> 이때부터 생성자 함수로 사용하는 것
+
+ 3. 만약 생성자 함수의 속성/메서드를 
+  인스턴스 코딩구역에서 활용하고자 할 경우
+  this키워드로 생성자 함수 맴버등록하여 사용함
+  -> 인스턴스 코딩구역에서 생성된 인스턴스를
+   변수에 담아 하위 속성/메서드로 호출이 가능해진다.
+   
+ 4. 유의사항 : 생성자함수 내부에서 this 키워드로 등록된
+  속성/ 메서드는 내부에서 호출시에도 반드시
+  this키워드를 사용하여 호출해야함(안쓰면 에러)
+*****************************************/
 // DOM 메서드
 const dFn = {
     qs: (x) => document.querySelector(x),
@@ -21,6 +39,14 @@ const week = ["일", "월", "화", "수", "목", "금", "토"];
 function MakeDallyeok(selEl) {
     // selEl - 달력넣을 요소(선택자만 보냄)
     dFn.cg("달려",selEl);
+    
+    // [ 생성자 함수 속성/메서드 공개 연습하기 ]///////
+    // 요일변경배열
+    this.week = ["일", "월", "화", "수", "목", "금", "토"];
+
+    // 한자릿수 날짜 앞에 0추가메서드
+    this.addZero = x => x< 10 ? '0' + x : x;
+    //////////////////////////////////////////////////////////////////
 
     // 0. 달력 컴포넌트 HTML 넣기 : 다중처리로
     dFn.qs(selEl).innerHTML = insertHcode();
@@ -40,6 +66,8 @@ function MakeDallyeok(selEl) {
     const dateSet = [];
     // (7) html 코드 저장변수
     let hcode = "";
+    // (8) 날짜정보 저장 히든 필드
+    const dateInfo = dFn.qs(selEl+' .date-info');
 
     // dFn.cg(yearTit);
     // dFn.cg(monthTit);
@@ -197,6 +225,12 @@ function MakeDallyeok(selEl) {
                 // 요일셋팅하기 : 해당날짜의 요일 getDay();
                 let setDay = new Date(setDate).getDay();
 
+                // 히든필드에 날짜정보 넣기: 날짜정보공개
+                // 활용도를 높이기 위해 일반구분자로 정보공개
+                // 예) 년도/월/일/요일 -> 2023/10/20/5
+                dateInfo.value = `${nowY}/${nowM}/${nowD}/${setDay}`;
+                // setDate+`(${week[setDay]})`;
+
                 // 날짜요일 출력 : yyyy-mm-dd(요일)
                 console.log(setDate+`(${week[setDay]})`);
             }); ////////click 함수 ////////////////
@@ -204,7 +238,9 @@ function MakeDallyeok(selEl) {
     }; //////////////// initDallyeok 함수 ////////////
 
     // (2) 이전달력 출력하기 함수 /////////////////////
-    const chgCalendar = (num) => {
+    // 이전/다음달 함수는 this키워드로 생성자함수에 등록하여 
+    // 인스턴스 생성시 접근할 수 있도록 한다
+    this.chgCalendar = (num) => {
         //num(1이면 다음, -1이면 이전)
         console.log("이전 달력 고고");
         // 이전달로 변경하여 initDallyeok() 함수 호출
@@ -215,9 +251,10 @@ function MakeDallyeok(selEl) {
 
     // 3. 이벤트 설정하기 ///////////////////////
     // 이전 버튼에 함수 연결하기 : 달을 빼기위해 -1 전달
-    dFn.addEvt(dFn.qs(selEl+" .btnL"), "click", () => chgCalendar(-1));
+    dFn.addEvt(dFn.qs(selEl+" .btnL"), "click", () => this.chgCalendar(-1));
     // 다음 버튼에 함수 연결하기 : 달을 더하기 위해 1 전달
-    dFn.addEvt(dFn.qs(selEl+" .btnR"), "click", () => chgCalendar(1));
+    dFn.addEvt(dFn.qs(selEl+" .btnR"), "click", () => this.chgCalendar(1));
+    // this키워드로 등록된 생성자함수 속성/메서드는 반드시 this키워드를 사용하여 호출해야함
 
     // 초기셋팅함수 호출
     initDallyeok();
@@ -225,14 +262,14 @@ function MakeDallyeok(selEl) {
 
 
 /***************************************************************************** 
-    하무명 : insertHcode
+    함수명 : insertHcode
     기능 : 달력의 HTML 코드 넣기
 *****************************************************************************/
 function insertHcode(){
     // 달력 html 코드를 리턴함
     return `
     <!-- 달력 전체 박스 -->
-    <div class="calender">
+    <div class="calendar">
         <!-- 달력상단:해당년/월표시 -->
         <header class="header">      
           <!-- 달력이동버튼:이전 -->
@@ -259,7 +296,10 @@ function insertHcode(){
           <!-- 해당월의 달력날짜 구성박스 -->
           <div class="dates">
         </div>
-       <a href="#"><button></button></a>
+        </section>
+        <!-- 달력날짜 저장용 히든필드 : type="hidden" -->
+        <input type="hidden" class="date-info">
+       </div>
     `;
 }/////////////////insertHcode 함수 //////////////////////
 

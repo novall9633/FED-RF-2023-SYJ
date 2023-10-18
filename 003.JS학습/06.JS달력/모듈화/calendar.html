@@ -5,6 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>달력 구현</title>
         <link rel="stylesheet" href="./css/calendar.css" />
+        <!-- 제이쿼리 라이브러리 CDN -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <!-- 제이쿼리 UI CDN -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
         <!-- 메인 JS -->
         <script src="./js/main.js" type="module"></script>
         <style>
@@ -16,6 +21,20 @@
                 height: 50px;
                 border: 3px dotted olivedrab;
             }
+            /* 달력 조정은 트랜스폼으로~! */
+            .calendar{
+                transform: scale(.8);
+                transform-origin: left top;
+                /* display: none; */
+            }
+            /* css자체로 달력보이기
+            -> input에 포커스 가상클래스 
+            -> 그러나 너무 빨리 사라져서
+            css로는 하지 못함*/
+            .dalcom input:focus+div>.calendar{
+                display: block;
+            }
+
         </style>
     </head>
     <body>
@@ -23,12 +42,12 @@
         <div class="dalcom">
             <!-- 달력 첫번째 영역 -->
             <div>
-                <input type="text" />
+                <input type="text" readonly/>
                 <div class="dalcom1"></div>
             </div>
             <!-- 달력 두번째 영역 -->
             <div>
-                <input type="text" />
+                <input type="text" readonly/>
                 <div class="dalcom2"></div>
             </div>
         </div>
