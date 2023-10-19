@@ -59,6 +59,7 @@ body{
 
     /* 트랜지션 */
     transition: .4s ease-in-out;
+    z-index: 999;
 }
 /* -> 동적 높이값은 JS로 함!(+이벤트)
 .gnb>ul>li:hover .smenu{
