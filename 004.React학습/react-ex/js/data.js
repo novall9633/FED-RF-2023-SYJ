@@ -1,3 +1,4 @@
+// [반스 신발 데이터]
 export default [
     {
         "idx":"1",
