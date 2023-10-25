@@ -1,76 +1,91 @@
 // 보그 PJ 메인 페이지 JS - main.js
 
-import dFn from "./dom.js";
+// 카테고리 데이터 불러오기 : 어서써 타입 제이슨
+import catData from "./data/category_data.json" assert { type: "json" };
+
+console.log(catData);
 
 // 부드러운 스크롤 모듈
 import { startSS, setPos } from "./smoothScroll23.js";
-// [1] 부드러운 스크롤 적용 //////////
+// 부드러운 스크롤 적용 //////////
 startSS();
 
-// [1] 메인 페이지 등장액션 클래스 넣기
-// 대상 : .main-area section
-// const hideBox = dFn.qsa('.main-area section');
-const hideBox = $('.main-area section');
+//////////////////////////////////////////////
+// 카테고리 페이지 기능구현하기 ///////////////
+// 요구사항 : url로 전달된 키값을 읽어서
+// 페이지의 데이터를 셋팅한다.
+/////////////////////////////////////////////
 
-// 첫번째 박스 빼고 모두 숨김클래스 넣기
-// JS용 오리지날 코드
-// hideBox.forEach((ele,idx)=>{
-//     if(idx!=0) ele.classList.add('scAct');
-//}); //////////////forEach /////////////////
+// 1. 전체 url 읽기
+let pm = location.href;
+console.log(pm);
 
-// 제이쿼리 사용코드 : each((idx,ele)=>{코드})
-hideBox.each((idx,ele)=>{
-    if(idx!=0) $(ele).addClass('scAct');
-})
+// 값처리함수 호출하기
+setValue();
 
-// 제이쿼리 라이브러리 사용하여 구현해보자 ///
+// 값셋팅하기 함수 /////////
+function setValue() {
+    try {
+        // 2.url에서 키값 분리하기
+        // ? 물음표가 Get방식의 시그널이므로
+        // 이것의 존재여부로 문자자르기를 실행한다.
+        // =(이퀄) 기호도 같이 확인함
+        if (pm.indexOf("?") == -1 || pm.indexOf("=") == -1) {
+            throw "잘못된 접근입니다!";
+        }
+    } catch (err) {
+        //////////// try ///////////////////////
+        //err 메시지 받기
+        // 에러메시지 띄우기
+        alert(err);
+        // 보내기
+        location.href = "index.html";
+    } //////////////catch ////////////////////
 
-//1. 스크롤 등장액션 구현하기 //////
-// 대상 : window
-// 이벤트 : scroll
-// 기준값 사용 : getBoundingClientRect() -> dFn.getBCR
-// console.log(dFn);
-// 스크롤 등장액션 대상 : .main-area section
-// 기준값 : 윈도우 높이값의 2/3 지점
-let winH = $(window).height()/3*2;
-console.log('윈도우 높이값 : ',winH);
+    // 3. url 키값 추출하기
+    pm = pm.split("?")[1].split("=")[1];
+    // 특수문자 변환하기 : time & gem
+    // ' & ' -> '-' 로 변경하기 : time-gem로 변경
+    pm = pm.replace(" & ", "-");
+    pm = decodeURIComponent(pm);
+    console.log("최종 키값 : ", pm);
 
-// 스크롤 메뉴 적용대상: #top-area
-const topArea = $('#top-area');
+    // 4. 카테고리 데이터 매칭하기
+    // 제이슨 파일 객체데이터에서 속성으로 선택함
+    const selData = catData[pm];
+    console.log("선택데이터 : ", selData);
 
-// 탑버튼 : .tbtn
-const tbtn = $('.tbtn');
+    // 5. 데이터 바인딩 하기
+    // 5-1. 배경이미지 셋팅을 위한 main요소에 클래스 넣기
+    // pm에 담아놓은 이름으로 넣어준다.
+    // 대상: .main-area
+    $(".main-area").addClass(pm);
 
-$(window).scroll(()=>{
-    let scTop = $(window).scrollTop();
-    console.log('스크롤~~~!',scTop);
+    // 5-2. 카테고리 타이틀 변경하기
+    $(".cat-tit").text(selData.제목);
 
-    // 1. 스크롤 위치값이 100을 초과하면 슬림 상단 클래스 넣기
-    if(scTop>164) topArea.addClass('on');
-    else topArea.removeClass('on');
+    // 5-3. 메뉴 변경하기 : selData.메뉴
+    // 5-3-1. 대상: .lnb
+    let lnb = $(".lnb");
+    // 5-3-2. 메뉴데이터 : selData.메뉴
+    let mData = selData.메뉴;
+    // 5-3-3. 메뉴 리턴 함수
+    const retMenu = () =>  mData.map(v=>`<li><a href="#">${v}</a></li>`).join('');
 
-    // 2. 맨위로 이동버튼 300초과시 보이고 
-    //      300미만일 때 숨기기
-    // 대상 : .tbtn
-    if(scTop>300) tbtn.addClass('on');
-    else tbtn.removeClass('on');
+    // 5-3-4.메뉴 없음에 따라 분기하기 ////
+    if (mData == "없음") {
+        // lnb없애기
+        lnb.remove();
+    } ///////////////////if ///////////////////
+    else {
+        // 메뉴 만들기
+        lnb.html(`<ul>${retMenu()}</ul>`);
+    } /////////////////else /////////////////////
 
-    // 3. 등장액션 클래스 적용하기
-    hideBox.each((idx,ele)=>{
-        if(idx!=0){
-            // console.log(`대상요소 getBCR().top[${idx}] 값 : `,dFn.getBCR(ele))
-            let val = dFn.getBCR(ele);
-            if(val < winH) $(ele).addClass('on');
-        } ////if값 ////
-    })
-}); ////// scroll ////////
-
-// 맨위로 버튼 클릭시 맨위로 가기 //
-// 부드러운 스크롤 사용하므로 그 쪽함수를 이용함
-tbtn.click((e)=>{
-    // a요소 기본이동 막기
-    e.preventDefault();
-    // 부드러운 스크롤 위치값 변경(0으로)
-    setPos(0);
-    
-})
+    // 5-4. 서브 섹션 타이틀 넣기
+    // $(선택자).each((순번,요소)=>{구현부})
+    // 대상 : .cat-cont-area h2
+    $('.cat-cont-area h2').each((idx,ele)=>{
+        $(ele).html(selData.타이틀[idx]);
+    }); ////////////////////each //////////////
+} /////////////////////set value함수 ///////////////

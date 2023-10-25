@@ -72,5 +72,4 @@ tbtn.click((e)=>{
     e.preventDefault();
     // 부드러운 스크롤 위치값 변경(0으로)
     setPos(0);
-    
-})
+});
