@@ -10,6 +10,62 @@ import { gridData, gnbData, previewData, clipData, linkData } from "./data_drama
 
 startSS();
 
+// 모바일적용 여부 코드 //////////////
+let mob = 0; // 0-DT, 1-모바일
+// 모바일 검사 함수
+const chkMob = () => {
+    if ($(window).width() <= 1024) mob = 1;
+    else mob = 0;
+    console.log('모바일?',mob);
+    // 부가기능 모바일일 때 서브메뉴 기본 스타일 지우기
+    if(mob) $('.smenu').attr('style','');
+} ///////// chkMob함수 /////////
+// 모바일 검사함수 최초호출
+chkMob();
+// 화면 리사이즈 시 모바일 검사함수 호출
+$(window).resize(chkMob);
+//////////////////////////////////////////////
+
+//////////////////////////////////////////////
+// 모바일시 기능구현 //////////////////////////
+//////////////////////////////////////////////
+// 1. 햄버거 버튼 클릭시 메뉴 보이기/숨기기 ////
+// 대상: .ham / .header
+const hEle =$('.header')
+$('.ham').click(()=>{
+    hEle.toggleClass('on');
+
+    // is() 메서드 : 선택요소의 이름확인
+    console.log('지금 .header에 .on있니?',hEle.is('.on'));
+    // 만약 .header.on 이면 body에 스크롤바 숨기기
+    if(hEle.is('.on')) $('html,body').css({overflowY:'hidden'});
+    // 아니면 넣었던 스타일 지우기
+    else $('body').attr('style','');
+}); //////////click ///////
+
+// 2. 메뉴 클릭 시 하위메뉴 보이기 ////////////
+// 대상 : .gnb>li
+$('.gnb li').click(function(){
+    if(!mob) return; //모바일 아니면 나가
+    console.log('나클릭?');
+    // 서브메뉴 슬라이드 애니로 보이기/숨기기
+    // 대상 : .smenu
+    $(this).find('.smenu') // 클릭된 li 하위 .smenu
+
+    .slideToggle(300,'easeInOutQuad') // 열거나 닫거나함
+    .parent()// 부모로 올라감
+    .siblings().find('.smenu') // 다른 li들 하위 .smenu
+    .slideUp(300,'easeInOutQuad') // 스르륵 닫힘 모두
+
+}); ///////////////////// click //////////////
+
+// 3. 스티키 메뉴 박스 드래그 하여 움직여보기
+// 대상 : .dokebi-menu ul
+$('.dokebi-menu ul').draggable({
+    axis:'x' // x축 고정
+}); ////////////draggable ///////////////////
+///////////////////////////////////////////////
+
 // 부드러운 스크롤 때문에 마우스휠 이벤트막기가 작동되어 캐릭터설명박스 작은 스크롤도 작동 안됨 따라서 이벤트 버블링을 막아줘야함
 // event.stopPropagation()
 // 이벤트 객체의 이벤트 버블링 막아주는 메서드임
@@ -127,7 +183,8 @@ gnb.forEach((ele) => {
 
 // 3. 함수 만들기
 function overFn() {
-    //console.log("오버", this);
+    if(mob)return; //모바일이면 나감
+    console.log("오버", this);
     // 하위 .smenu 높이값 알아오기
     let hv = dFn.qsEl(this, ".smbx").clientHeight;
     // //console.log("높이값 : ",hv);
@@ -136,6 +193,7 @@ function overFn() {
 } //////////overFn/////////////////
 
 function outFn() {
+    if(mob)return; //모바일이면 나감
     //console.log("아웃", this);
     // 서브메뉴 박스 높이값 0 만들기
     dFn.qsEl(this, ".smenu").style.height = "0px";
@@ -334,21 +392,24 @@ linkData.brand.forEach((val) => {
 const corpData = Object.keys(linkData.corp);
 
 // 내부초기화
-corpBox.innerHTML = '';
+corpBox.innerHTML = "";
 //console.log(corpData);
 
 // 내부에 option태그를 만들어서 리턴하는 함수
 
-
 corpData.forEach((val) => {
     corpBox.innerHTML += `
     <optgroup label="${val}">
-        ${linkData.corp[val].map(v=>`
+        ${linkData.corp[val]
+            .map(
+                (v) => `
         <option value="${v}">${v}</option>
-        `).join('')}
+        `
+            )
+            .join("")}
     </optgroup>
     `;
-});///////////////////forEach////////////////////////
+}); ///////////////////forEach////////////////////////
 
 // 내부의 option요소는 배열데이터.map().join('')을 사용
 // map()은 배열을 재구성하여 다시 같은 자리에 리턴하여 만들어지고 새로운 배열을 변수에 담거나 그자리에 리턴한다.
@@ -368,17 +429,17 @@ corpData.forEach((val) => {
 
 // 1. 서브컨텐츠 보이기 기능구현 ///////
 // (1) 이벤트 대상 : .sub-view-box 하위 .partbox 또는 li
-const subViewBox = $('.sub-view-box .partbox,.sub-view-box li');
+const subViewBox = $(".sub-view-box .partbox,.sub-view-box li");
 // 변경대상 : .sub-cont
-const subContBox = $('.sub-cont')
+const subContBox = $(".sub-cont");
 // console.log(subContBox);
 
 // (2) 이벤트 함수 만들기 /////////
-subViewBox.click(function(){
+subViewBox.click(function () {
     console.log(this);
 
     // 1. 제목 읽어오기
-    let subTit = $(this).parents('.sub-view-box').prev().text();
+    let subTit = $(this).parents(".sub-view-box").prev().text();
     // 나 자신.부모들(특정클래스).이전형제().글자읽기();
 
     // 2. 내용 읽어오기
@@ -393,9 +454,9 @@ subViewBox.click(function(){
         </div>
     </div>
     `);
-    
+
     // 2. 닫기 버튼 이벤트 설정
-    $('.cbtn').click(()=>subContBox.hide())
+    $(".cbtn").click(() => subContBox.hide());
     // 999. 서브박스 보이기
     subContBox.show();
 }); /////////click/////////

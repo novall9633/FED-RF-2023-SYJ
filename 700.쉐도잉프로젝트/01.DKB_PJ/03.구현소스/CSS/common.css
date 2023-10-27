@@ -71,6 +71,10 @@
     /* 트랜지션 */
     transition: .4s ease-in-out;
 }
+/* 모바일 모드에서 트랜지션 없애기 : 제이쿼리작동이므로 충돌남 */
+.header.on .smenu{
+    transition: none;
+}
 /* 상위메뉴 오버시 서브 메뉴 보이기 */
 
 /* 서브메뉴 속박스 */
@@ -100,6 +104,28 @@ aside.smbx {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* 모바일 햄버거 버튼 */
+.ham {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    font-size: 40px;
+    color: #555;
+    transform: scaleX(1.5);
+
+    /* 처음에 숨기기 */
+    display: none;
+}
+/* 햄버거모양 가상요소넣기 */
+.ham::before{
+    content: '≡';
+}
+
 /************* 2. 메인영역 *************/
 #main {
     /* 본문영역 최소높이 셋팅! */
@@ -109,7 +135,9 @@ aside.smbx {
 #footer {
     /* background-color: lightskyblue; */
     border-top: 1px solid #ccc ;
+    padding-top: 20px;
     padding-bottom: 80px;
+    background: url(../images/footer_bg.png) no-repeat center/cover;
 }
 .footer .partbox {
     /* height: 100px; */
@@ -117,6 +145,7 @@ aside.smbx {
 /* 하단링크박스 */
 .info-link ul{
     display: flex;
+    flex-wrap: wrap;
     gap: 0 15px;
 }
 .info-link a{
@@ -125,6 +154,9 @@ aside.smbx {
     line-height: 2.5;
 }
 /* 바로가기 콤보박스 영역 */
+.combo-area{
+    text-align: right;
+}
 .combo-area select{
     width: 170px;
     height: 35px;
@@ -132,6 +164,7 @@ aside.smbx {
     border: none;
     background-color: rgb(230, 230, 230);
     font-size: 1.5rem;
+    margin: 5px;
 }
 /* 하단로고박스 */
 .footer__logo{
@@ -151,6 +184,8 @@ aside.smbx {
 .sns-box li{
     width: 35px;
     height: 35px;
+    /* 플렉스 강제줄이기 해제 */
+    flex-shrink: 0;
     line-height: 38px;
     font-size: 1.8rem;
     text-align: center;

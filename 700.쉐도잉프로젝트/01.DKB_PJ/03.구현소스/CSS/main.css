@@ -185,7 +185,7 @@ float에 의한 망가짐 방지 */
 #dokebi-menu{
     /* 스티키 포지션 - 상단스크롤 걸림 */
     position: sticky;
-    top: 0;
+    top: 0px;
     background-color: #fff;
 }
 .dokebi-menu ul{
@@ -251,6 +251,7 @@ float에 의한 망가짐 방지 */
 /******************** 방송편성소개파트 : .intro-part ********************/
 .main .intro-part .partbox{
     height: 455px;
+    padding: 10px;
 }
 /* 서브타이틀 */
 .intro-part .stit{
@@ -259,6 +260,7 @@ float에 의한 망가짐 방지 */
 /* 하위제목+아이콘 */
 .intro-desc{
     display: flex;
+    flex-wrap: wrap;
     font-size: 2.5rem;
 }
 .intro-desc h3{
