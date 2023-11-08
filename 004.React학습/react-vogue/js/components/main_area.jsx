@@ -18,6 +18,8 @@ export default function MainCategory(props) {
     console.log(selData);
     const chgMenu = () => {};
 
+    console.log('메인영역실행');
+
     return (
         <div id="main-area">
           <main class="main-area ibx">
