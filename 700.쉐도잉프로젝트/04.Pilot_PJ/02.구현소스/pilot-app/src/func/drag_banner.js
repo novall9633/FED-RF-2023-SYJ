@@ -153,4 +153,7 @@ export function dragBanner() {
             opacity : 1
         },1000,'easeInOutQuart');
     }; ///////////showTit 함수 /////////////
+
+    // 첫 배너 등장호출
+    setTimeout(showTit, 1000);
 } ////////////dragBanner 함수 //////////////////////////
