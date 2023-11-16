@@ -37,9 +37,8 @@ export const Logo = (props) => {
 
     // 자식컴포넌트 처리용함수
     const nayaLogo = (txt) => {
-        // console.log(txt);
         // 라우터 이동하기
-        goNav('/');
+        goNav(txt);
 
     }; ///////// nayaLogo //////////
 
@@ -47,7 +46,7 @@ export const Logo = (props) => {
     return (
         <h1 
             style={myStyle[props.logoStyle]}
-            onClick={()=>nayaLogo('나,로고야!')}>
+            onClick={()=>nayaLogo('/')}>
                 <img   
                     src={isrc.logo} 
                     alt="DC logo"
