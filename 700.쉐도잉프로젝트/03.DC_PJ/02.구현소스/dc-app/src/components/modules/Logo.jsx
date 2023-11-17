@@ -1,13 +1,18 @@
 // DC.com 로고 컴포넌트
 import React from "react";
 import { isrc } from "../data/imgSrc";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { dcCon } from "./dcContext";
+// import { useNavigate } from "react-router-dom";
 
 export const Logo = (props) => {
     // props.logoStyle : 상단,하단구분 로고코드
 
+     // 컨텍스트 API 사용하기
+     const myCon = useContext(dcCon);
+
     // 라우터 이동메서드 셋팅하기 : useNavigate()
-    const goNav = useNavigate();
+    // const goNav = useNavigate();
     // 사용법 : 반드시 useNavigate() 메서드를 변수에 담아
     // 이동할 라우터 주소를 쓰면 이동한다.
     // 예) goNav('/news') -> 뉴스페이지 이동
@@ -36,17 +41,17 @@ export const Logo = (props) => {
     }
 
     // 자식컴포넌트 처리용함수
-    const nayaLogo = (txt) => {
-        // 라우터 이동하기
-        goNav(txt);
+    // const nayaLogo = (txt) => {
+    //     // 라우터 이동하기
+    //     goNav(txt);
 
-    }; ///////// nayaLogo //////////
+    // }; ///////// nayaLogo //////////
 
     // 코드 리턴 //////////////////////////
     return (
         <h1 
             style={myStyle[props.logoStyle]}
-            onClick={()=>nayaLogo('/')}>
+            onClick={()=>myCon.chgPage('/')}>
                 <img   
                     src={isrc.logo} 
                     alt="DC logo"
