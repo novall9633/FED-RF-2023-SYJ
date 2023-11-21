@@ -104,6 +104,8 @@ export function autoScroll() {
 
         // 3. 스크롤 이동하기 + 메뉴에 클래스"on"넣기
         movePg();
+
+        
     } /////////////// wheelFn 함수 ///////////////
 
     /******************************************** 
@@ -131,5 +133,38 @@ export function autoScroll() {
                 700,
                 "easeInOutQuint",
             );
+        // 4. 해당 선택메뉴에 on 넣기
+        addOn();
     } ///////////////// movePg ////////////////
+
+    //////////////////////////////////////////////
+    // GNB 메뉴 + 사이드 인디케이터 클릭이동 기능 //
+    //////////////////////////////////////////////
+    
+    $('.gnb li, .indic li').click(function(){
+        // 1. 순번변수
+        let idx = $(this).index();
+        console.log('나야나',idx);
+
+        // 2. 순번을 페이지 번호에 할당(일치 시킴)
+        pno = idx;
+  
+        // 3. 페이지 이동
+        movePg();
+        
+        // 4. 현재 메뉴에 'on' 넣기
+        addOn();
+    }); //////click //////////////////
+
+    
+    
+    //   GNB + 사이드 인티케이터 해당 페이지에 'on' 넣기 함수
+    // 메뉴 클릭시 + 마우스 휠 이동시에도 모두 이 함수 호출
+    const addOn = () => {
+        // 클릭된 메뉴에 class 'on' 넣기
+        gnb.addClass("on").eq(pno).siblings().removeClass("on");
+        indic.addClass("on").eq(pno).siblings().removeClass("on");
+    }; ///////////////addOn 함수 /////////////////
+  
+
 } /////////////autoScroll 함수 //////////////
