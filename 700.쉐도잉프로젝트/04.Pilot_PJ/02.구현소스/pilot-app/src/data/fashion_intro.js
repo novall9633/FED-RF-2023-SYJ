@@ -16,6 +16,6 @@ export const fsData = {
     style:{
         isrc:["./images/style02.png","./images/style03.png"],
         ialt:["여자스타일","공유스타일"],
-        tit:[["WOMEN'S","STYLE"],["MEN'S","STYLE"]]
+        tit:[["MEN'S","STYLE"],["WOMEN'S","STYLE"]]
     }
 }
