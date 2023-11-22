@@ -46,8 +46,10 @@ function App(){
       // paused 속성 : 동영상 멈춤일 때 true 리턴
       // play() 메서드 : 동영상 재생 메서드
       // pause() 메서드 : 동영상 멈춤 메서드
-    })
-  }); ///////////////useEffect ///////////////////
+    });//////click /////
+
+    // 랜더링구역 한번만 실행 : 옵션 []
+  },[]); ///////////////useEffect ///////////////////
 
   return(
       <pCon.Provider value={{chgPgName}}>

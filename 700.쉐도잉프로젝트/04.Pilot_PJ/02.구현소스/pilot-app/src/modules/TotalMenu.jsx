@@ -13,7 +13,7 @@ export function TotalMenu() {
     const goPage = (txt) => {
         myCon.chgPgName(txt);
         // 전체박스 숨기기
-        document.querySelector('.ham').style.display = 'none';
+        document.querySelector('.mbox').style.display = 'none';
     } //////goPage 메서드 ////////////
     // 리턴 코드 ////////////////////////////////////////
     return (
