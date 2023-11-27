@@ -40,7 +40,9 @@ export function Searching(props) {
                         {/* 검색버튼 돋보기 아이콘 */}
                         <FontAwesomeIcon icon={faSearch} className="schbtn" title="Open search" onClick={schList}/>
                         {/* 입력창 */}
-                        <input id="schin" type="text" placeholder="Filter by Keyword" onKeyUp={enterKey} value={props.kword} />
+                        <input id="schin" type="text" placeholder="Filter by Keyword" onKeyUp={enterKey} defaultValue={props.kword} 
+                        /* input요소에서 리액트 value속성은  defaultValue를 사용한다. */
+                        />
                     </div>
                     {/* 1-2. 체크박스 구역 */}
                     <div className="chkbx">
