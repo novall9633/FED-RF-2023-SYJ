@@ -17,13 +17,14 @@ export function Fashion(props){
     // props.cat - 서브 카테고리명
 
     useEffect(()=>{
-        // 스크롤바 생성하기
-        $('html, body').css({overflow:'visible'});
+        // 스크롤바 생성하기(X축은 숨김)
+        $('html, body').css({overflow:'visible',overflowX:'hidden'});
 
         // 로고 클릭시 페이지 이동 : pgName 변경 -> chgPgName()
         $("#logo a").click(()=>myCon.chgPgName('main'));
 
     },[]);
+    // 리턴코드 /////////////////////////
     return(
         <>
             {/* 1. 배너영역 */}
@@ -31,7 +32,7 @@ export function Fashion(props){
                 <SwiperApp cat={myCon.pgName} />
             </section>
             {/* 2. 신상품영역 */}
-            <section id="c1" className="cont c1 men">
+            <section id="c1" className={"cont c1 "+myCon.pgName}>
                 <SinSang cat={myCon.pgName}/>
             </section>
             {/* 2.5. 상세보기박스 */}
