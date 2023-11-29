@@ -131,7 +131,72 @@ export function Searching(props) {
     }; ///////// showCnt 함수 ///////
     
     // 체크박스검색 함수 ////////
-    const chkSearch = () => {};
+    const chkSearch = (e) => {
+        // 1. 체크박스 아이디 : 검색항목의 값(alignment)
+        const cid = e.target.id;
+        // 2. 체크박스 체크여부 : checked(true/false)
+        const chked = e.target.checked;
+        console.log('아이디',cid,chked);
+
+        // 3. 기존 입력데이터 가져오기
+        //  selData의 첫번째 배열값
+        let temp = selData[0];
+
+        // 결과집합배열변수 : 최종결과 배열
+        let lastList = [];
+
+        // 4. 체크박스 체크개수세기 : 1개 초과시 배열합치기
+        let num = $('.chkhdn:checked').length;
+        console.log('체크개수:',num);
+
+        // 5. 체크박스 체크유무에 따른 분기
+        // (1) 체크박스가 true일 때 해당 검색어로 검색하기
+        if(chked){
+            // 현재 데이터 변수에 담기(수정예정)
+             const nowList = catListData.filter(v=>{
+                if(v.alignment == cid) return true;
+            }); /////////filter ////////////
+            // 체크개수가 1 초과일 때 배열 합치기
+            if(num>1){ // 스프레드 연산자(...) 사용
+                lastList = [...temp,...nowList];
+            } ////////////if /////////////////////
+            else{
+                lastList = nowList;
+            }
+        } //////////////if/////////////////
+        // (2) 체크박스가 false일 때 데이터 지우기
+        else{
+            console.log('지울 데이터:',cid);
+            // for문을 돌면서 배열데이터 중 해당 값을 지운다.
+            for(let i=0;i<temp.length;i++){
+                // -> 삭제 대상: 
+                // 데이터 중 alignment 항목값이 아이디명과 같은 것
+                if(temp[i].alignment == cid){
+                    // 해당 항목 지우기
+                    // 배열지우기 메서드 : splice(순번,갯수)
+                    temp.splice(i,1);
+                    // 주의! 배열을 지우면 전체개수가 1씩 줄어든다
+                    // 반드시 줄임처리할 것
+                    i--;
+
+                    // 참고테스트 : 배열삭제 delete는 무엇인가?
+                    // delete 배열지우기는 값만 지우고 주소는 남는다
+                    // 지운 후 값은 undefined로 남아진다
+                    // delete temp[i];
+                    // -> 리스트 처리시 에러발생함
+                    // 여기서는 splice를 반드시 사용할 것
+                }////////if //////////
+            }//////////for ////////////
+            console.log('삭제 처리된 배열:',temp);
+
+            // 결과처리하기 : 삭제처리된 temp를 결과에 넣기
+            lastList = temp;
+        } ////////else ///////////
+
+        // 6. 검색결과 리스트 업데이트 하기
+        setSelData([lastList,2]);
+        setCnt(lastList.length);
+    }; ///////chkSearch 함수 //////////////////
 
     // 리스트 정렬 함수 /////////
     const sortList = (e) => {
