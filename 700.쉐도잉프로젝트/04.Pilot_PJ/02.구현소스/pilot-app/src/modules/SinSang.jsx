@@ -6,11 +6,12 @@ import { sinsangData } from "../data/sinsang";
 
 import $ from 'jquery';
 
-export function SinSang(props) {
+export function SinSang({cat,chgItemFn}) {
     // props.cat - 카테고리 분류명
+    // props.chgItemFn - 선택상품정보변경 부모함수 
 
     // 선택데이터 : 해당 카테고리 상품데이터만 가져온다!
-    const selData = sinsangData[props.cat];
+    const selData = sinsangData[cat];
     // console.log(selData);
 
     const makeList = () => {
@@ -25,8 +26,11 @@ export function SinSang(props) {
             onMouseEnter={showInfo}
             onMouseLeave={removeInfo}
              >
-            <a href="#">
-                <img src={"./images/goods/"+props.cat+"/m"+(x+1)+".png"} alt="신상품" />
+            <a href="#" onClick={(e)=>{
+                e.preventDefault();
+                chgItemFn('m'+(x+1));
+                }}>
+                <img src={"./images/goods/"+cat+"/m"+(x+1)+".png"} alt="신상품" />
             </a>
         </li>
         }////////////for //////////
@@ -40,7 +44,7 @@ export function SinSang(props) {
         const tg = $(e.currentTarget);
         // 1. 이벤트가 발생한 li의 class읽어오기(상품정보객체의 키)
         let gKey =  tg.attr('class');
-        console.log('나야나',selData[gKey]);
+        // console.log('나야나',selData[gKey]);
         // 2. 상품정보박스를 만들고 보이게하기
         // 마우스 오버된 li자신에 넣어줌
         tg.append(`<div class="ibox"></div>`);
@@ -108,7 +112,7 @@ export function SinSang(props) {
     return (
         <>
             <h2 className="c1tit">
-                NEW {props.cat.toUpperCase()}'S ARRIVAL
+                NEW {cat.toUpperCase()}'S ARRIVAL
                 <button>전체리스트</button>
             </h2>
             <div className="flowbx" onMouseEnter={()=>callSts=0} onMouseLeave={()=>{callSts=1;flowList($('.flist'))}}>

@@ -1,14 +1,72 @@
 // 상품상세보기 컴포넌트
-export function ItemDetail() {
+
+// 신상품 데이터 가져오기
+import { useEffect } from "react";
+import { sinsangData } from "../data/sinsang";
+
+import $ from 'jquery';
+
+
+export function ItemDetail({cat,goods}) {
+    // cat - 카테고리명(man/women.style)
+    // goods - 상품 아이템정보(속성코드 : m1,m2,....)
+
+    // 선택데이터 : 전체데이터[분류명][상품코드].split('^')
+    // -> 개별상품 배열이 된다.
+    // [상품명,상품코드,가격]
+    const selData = sinsangData[cat][goods].split('^');
+    console.log('선택데이터:',selData);
+
+    // 닫기 함수 ////
+    const closebox = (e) => {
+        e.preventDefault();
+        $('.bgbx').slideUp(400);
+    }
+
+    // 랜더링 후 실행구역 //////////////
+    useEffect(()=>{
+        // 숫자출력 input
+        const sum = $('#sum');
+        // 수량증감 이미지 버튼
+        const numBtn = $('.chg_num img');
+        
+
+        numBtn.click(e=>{
+            // 이미지 순번
+            let seq = $(e.currentTarget).index();
+            // 기존값 읽기
+            let num = Number(sum.val());
+            // 윗버튼은 ++,아래버튼은 --
+            seq?num--:num++;
+            // 한계값
+            if(num<1) num=1;
+            console.log(seq,num);
+            // 증감 반영
+            sum.val(num);
+            // 총합계 반영
+            // 기본값 : selData[2]
+            // 출력박스 : #total
+            $('#total').text((selData[2]*num).toLocaleString('en-US')+"원")
+        })
+        
+    },[]); /////한버ㄴ만 실행
+    
+    // 리랜더링 실행구역 //////
+    useEffect(()=>{
+        // 수량 초기화
+        $("#sum").val('1');
+    }); //////////////////useEffect /////////
+
+    // 리턴코드 /////////////////////////////////////
     return (
         <>
-            <a href="#" className="cbtn">
+            <a href="#" className="cbtn" onClick={closebox}>
                 <span className="ir">닫기버튼</span>
             </a>
             <div id="imbx">
                 <div className="inx">
                     <section className="gimg">
-                        <img src="./images/goods/men/m3.png" alt="큰 이미지" />
+                        <img src={"./images/goods/"+cat+"/"+goods+".png"} alt="큰 이미지" />
                         <div className="small">
                             <a href="#">
                                 <img src="./images/goods/men/m1.png" alt="썸네일 이미지" />
@@ -21,13 +79,13 @@ export function ItemDetail() {
                         </div>
                     </section>
                     <section className="gdesc scbar">
-                        <h1>HOME &gt; MEN</h1>
+                        <h1>HOME &gt; {cat}</h1>
                         <div>
                             <ol>
                                 <li>
                                     <img src="./images/dx_ico_new-28143800.gif" alt="new버튼" />
                                 </li>
-                                <li id="gtit">상품명: [남성]빅로고 컬러 블럭 PQ 티셔츠</li>
+                                <li id="gtit">상품명: {selData[0]}</li>
                                 <li>
                                     <img src="./images/icon_type02_social01.gif" alt="페이스북" />
                                     <img src="./images/icon_type02_social02.gif" alt="트위터" />
@@ -36,13 +94,13 @@ export function ItemDetail() {
                                 </li>
                                 <li>
                                     <span>판매가</span>
-                                    <span id="gprice">89,000원</span>
+                                    <span id="gprice">{Number(selData[2]).toLocaleString('en-US') + "원"}</span>
                                 </li>
                                 <li>
                                     <span>적립금</span>
                                     <span>
                                         <img src="./images/icon_my_m02.gif" alt="적립금" />
-                                        4,950(5%적립)
+                                        {(selData[2]*0.05).toLocaleString('en-US')}(5%적립)
                                     </span>
                                 </li>
                                 <li>
@@ -54,7 +112,7 @@ export function ItemDetail() {
                                 </li>
                                 <li>
                                     <span>상품코드</span>
-                                    <span id="gcode">DMTS7G731-WH</span>
+                                    <span id="gcode">{selData[1]}</span>
                                 </li>
                                 <li>
                                     <span>사이즈</span>
@@ -63,7 +121,7 @@ export function ItemDetail() {
                                 <li>
                                     <span>구매수량</span>
                                     <span>
-                                        <input type="text" id="sum" deavalue="1" />
+                                        <input type="text" id="sum" defaultValue="1" />
                                         <b className="chg_num">
                                             <img src="./images/cnt_up.png" alt="증가" />
                                             <img src="./images/cnt_down.png" alt="감소" />
@@ -77,7 +135,7 @@ export function ItemDetail() {
                                     <span>권장계절</span> <span>여름</span>
                                 </li>
                                 <li className="tot">
-                                    <span>총합계</span> <span id="total">13,000</span>
+                                    <span>총합계</span> <span id="total">{Number(selData[2]).toLocaleString('en-US')+"원"}</span>
                                 </li>
                             </ol>
                         </div>

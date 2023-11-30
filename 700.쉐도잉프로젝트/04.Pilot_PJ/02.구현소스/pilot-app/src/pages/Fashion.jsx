@@ -1,6 +1,6 @@
 // 공통패션 서브페이지 컨텐츠 컴포넌트
 
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import "../css/fashion.css"
 import { SwiperApp } from "../plugin/SwiperApp"
 
@@ -8,7 +8,7 @@ import { SwiperApp } from "../plugin/SwiperApp"
 import { pCon } from "../modules/PilotContext"
 
 // 제이쿼리
-import $ from 'jquery'
+import $, { event } from 'jquery'
 import { SinSang } from "../modules/SinSang"
 import { ItemDetail } from "../modules/ItemDetail"
 
@@ -24,7 +24,26 @@ export function Fashion(props){
         // 로고 클릭시 페이지 이동 : pgName 변경 -> chgPgName()
         $("#logo a").click(()=>myCon.chgPgName('main'));
 
-    },[]);
+        // // 상품상세보기 박스 처음에 숨기기
+        // $('.bgbx').hide();
+
+    },[]); /////////////useEffect ////////////////////
+
+
+    // 후크 상태변수
+    const [item,setItem] = useState('m1');
+    
+    // 신상 컴포넌트에서 상세 컴포넌트로 값을 전하기 위한
+    // 상태변수를 세팅하여 함수로 이것을 변경하게 해준다.
+    // 프롭스 펑션다운~!!
+    const chgItem = (v) => {
+        console.log('상품정보:',v);
+        // 상태변수 업데이트
+        setItem(v);
+        // 상품상세보기 박스 보이기
+        $('.bgbx').slideDown(400);
+    }; ///////////chgItem ////////////////////////
+
     // 리턴코드 /////////////////////////
     return(
         <>
@@ -34,11 +53,11 @@ export function Fashion(props){
             </section>
             {/* 2. 신상품영역 */}
             <section id="c1" className={"cont c1 "+myCon.pgName}>
-                <SinSang cat={myCon.pgName}/>
+                <SinSang cat={myCon.pgName} chgItemFn={chgItem}/>
             </section>
             {/* 2.5. 상세보기박스 */}
             <div className="bgbx">
-                <ItemDetail />
+                <ItemDetail cat={props.cat} goods={item} />
             </div>
             {/* 3. 패럴렉스 영역 */}
             <section id="c2" className={"cont c2 "+myCon.pgName}></section>
