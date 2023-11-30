@@ -4,58 +4,62 @@
 import { useEffect } from "react";
 import { sinsangData } from "../data/sinsang";
 
-import $ from 'jquery';
+import $ from "jquery";
 
-
-export function ItemDetail({cat,goods}) {
+export function ItemDetail({ cat, goods }) {
     // cat - 카테고리명(man/women.style)
     // goods - 상품 아이템정보(속성코드 : m1,m2,....)
 
     // 선택데이터 : 전체데이터[분류명][상품코드].split('^')
     // -> 개별상품 배열이 된다.
     // [상품명,상품코드,가격]
-    const selData = sinsangData[cat][goods].split('^');
-    console.log('선택데이터:',selData);
+    const selData = sinsangData[cat][goods].split("^");
+    console.log("선택데이터:", selData);
 
     // 닫기 함수 ////
     const closebox = (e) => {
         e.preventDefault();
-        $('.bgbx').slideUp(400);
-    }
+        $(".bgbx").slideUp(400);
+    };
 
     // 랜더링 후 실행구역 //////////////
-    useEffect(()=>{
+    useEffect(() => {
         // 숫자출력 input
-        const sum = $('#sum');
+        const sum = $("#sum");
         // 수량증감 이미지 버튼
-        const numBtn = $('.chg_num img');
-        
+        const numBtn = $(".chg_num img");
 
-        numBtn.click(e=>{
+        numBtn.click((e) => {
             // 이미지 순번
             let seq = $(e.currentTarget).index();
             // 기존값 읽기
             let num = Number(sum.val());
             // 윗버튼은 ++,아래버튼은 --
-            seq?num--:num++;
+            seq ? num-- : num++;
             // 한계값
-            if(num<1) num=1;
-            console.log(seq,num);
+            if (num < 1) num = 1;
+            console.log(seq, num);
             // 증감 반영
             sum.val(num);
             // 총합계 반영
             // 기본값 : selData[2]
             // 출력박스 : #total
-            $('#total').text((selData[2]*num).toLocaleString('en-US')+"원")
-        })
-        
-    },[]); /////한버ㄴ만 실행
-    
+            $("#total").text(addComma(selData[2] * num) + "원");
+        });
+    }, []); /////한번만 실행
+
     // 리랜더링 실행구역 //////
-    useEffect(()=>{
+    useEffect(() => {
         // 수량 초기화
-        $("#sum").val('1');
+        $("#sum").val("1");
+        // 총합계 초기화
+        $('#total').text(addComma(selData[2])+"원");
     }); //////////////////useEffect /////////
+
+    //정규식함수(숫자 세자리마다 콤마해주는 기능)
+    function addComma(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     // 리턴코드 /////////////////////////////////////
     return (
@@ -66,7 +70,7 @@ export function ItemDetail({cat,goods}) {
             <div id="imbx">
                 <div className="inx">
                     <section className="gimg">
-                        <img src={"./images/goods/"+cat+"/"+goods+".png"} alt="큰 이미지" />
+                        <img src={"./images/goods/" + cat + "/" + goods + ".png"} alt="큰 이미지" />
                         <div className="small">
                             <a href="#">
                                 <img src="./images/goods/men/m1.png" alt="썸네일 이미지" />
@@ -94,13 +98,13 @@ export function ItemDetail({cat,goods}) {
                                 </li>
                                 <li>
                                     <span>판매가</span>
-                                    <span id="gprice">{Number(selData[2]).toLocaleString('en-US') + "원"}</span>
+                                    <span id="gprice">{addComma(selData[2]) + "원"}</span>
                                 </li>
                                 <li>
                                     <span>적립금</span>
                                     <span>
                                         <img src="./images/icon_my_m02.gif" alt="적립금" />
-                                        {(selData[2]*0.05).toLocaleString('en-US')}(5%적립)
+                                        {addComma(selData[2] * 0.05)}(5%적립)
                                     </span>
                                 </li>
                                 <li>
@@ -135,7 +139,8 @@ export function ItemDetail({cat,goods}) {
                                     <span>권장계절</span> <span>여름</span>
                                 </li>
                                 <li className="tot">
-                                    <span>총합계</span> <span id="total">{Number(selData[2]).toLocaleString('en-US')+"원"}</span>
+                                    <span>총합계</span>{" "}
+                                    <span id="total">{addComma(selData[2]) + "원"}</span>
                                 </li>
                             </ol>
                         </div>
