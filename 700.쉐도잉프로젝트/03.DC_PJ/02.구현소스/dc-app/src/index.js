@@ -3,7 +3,7 @@
 // 메인페이지 CSS 불러오기
 import "./css/index.css";
 
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import { Layout } from "./components/layout/Layout";
@@ -18,6 +18,7 @@ import { SwiperApp } from "./components/plugin/SwiperApp";
 import { CatDetail } from "./components/pages/CatDetail";
 import { Series } from "./components/pages/Series";
 import { SchPage } from "./components/pages/SchPage";
+import { Member } from "./components/pages/Member";
 
 /********************************************* 
     [ 리액트 라우터 ]
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="board" element={<SwiperApp />} />
           <Route path="detail" element={<CatDetail />} />
           <Route path="schpage" element={<SchPage />} />
+          <Route path="member" element={<Member />} />
         </Route>
       </Routes>
     </BrowserRouter>

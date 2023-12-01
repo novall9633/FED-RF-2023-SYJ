@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { sinsangData } from "../data/sinsang";
 
 import $ from 'jquery';
+import { useRef } from "react";
 
 export function SinSang({cat,chgItemFn}) {
     // props.cat - 카테고리 분류명
