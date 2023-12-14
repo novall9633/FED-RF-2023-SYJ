@@ -18,6 +18,8 @@ let orgData;
 if (localStorage.getItem("bdata")) orgData = JSON.parse(localStorage.getItem("bdata"));
 // 로컬스 없으면 제이슨 데이터 넣기
 else orgData = baseData;
+// else orgData = [];
+
 
 // console.log(org);
 // **************************Board 컴포넌트 ******************************************** //
@@ -26,7 +28,7 @@ export function Board() {
     // 1. 페이지 단위수 : 한페이지 당 레코드 수
     const pgBlock = 7;
     // 2. 전체 레코드 수 : 배열 데이터 총 갯수
-    const totNum = baseData.length;
+    const totNum = orgData.length;
 
     console.log("페이지단위수:", pgBlock, "\n전체 레코드수:", totNum);
     
@@ -69,6 +71,16 @@ export function Board() {
         } ///////////for //////
         console.log("결과셋 : ",tempData);
 
+        // 데이터가 없는 경우 출력
+        if(tempData.length ===0){
+            return (
+            <tr>
+                <td colSpan="5">There is no data.</td>
+            </tr>
+            );
+        }////////////if////////////////
+
+        // if문에 들어가지 않으면 여기를 리턴함
         return tempData.map((v, i) => (
             <tr key={i}>
                 {/* 1. 일련번호 */}
@@ -87,9 +99,6 @@ export function Board() {
                 <td>{v.cnt}</td>
             </tr>
         ));
-        // <tr>
-        //     <td colSpan="5">There is no data.</td>
-        // </tr>
     }; //////////bindList 함수 ///////////////////
 
     /******************************************************* 
@@ -119,7 +128,10 @@ export function Board() {
         for(let i=0; i<limit; i++){
             pgCode[i] = 
             <Fragment key={i}>
-                <a href="#" onClick={chgList}>{i+1}</a> {i<limit-1?' | ':""}
+                {
+                    pgNum-1===i?(<b>{i+1}</b>):(<a href="#" onClick={chgList}>{i+1}</a>)               
+                }
+                {i<limit-1?' | ':""}
             </Fragment>
         }//////////for /////////
         return (
