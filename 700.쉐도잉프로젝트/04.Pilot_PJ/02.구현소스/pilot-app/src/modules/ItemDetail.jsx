@@ -11,6 +11,7 @@ import { CartList } from "./CartList";
 export function ItemDetail({ cat, goods }) {
   // cat - 카테고리명(men/women/style)
   // goods - 상품 아이템정보(속성코드: m1,m2,...)
+  
 
   
   // 자식 컴포넌트와 함께 상태값 공유할 변수
@@ -26,9 +27,13 @@ export function ItemDetail({ cat, goods }) {
 
   // 카트셋팅에 필요한 데이터를 로컬스에 따라 셋팅함
   if(localStorage.getItem('cart')) {
-    stsVal=1;
+    // 로컬스가 있으므로 객체화하기
     transVal = JSON.parse(localStorage.getItem('cart'));
+    // 로컬스 객체화 데이터 개수가 0이 아닐때만 상태값 1로 노출하기
+    if(transVal.length!==0) stsVal=1;
   }; /////// if ////////////
+
+  console.log("로컬스 있니?",stsVal);
 
   // 로컬스 변환값 변수 - 상태변수로 리랜더링시 값을 유지하게함!
   const [transData, setTransData] = useState(transVal);
@@ -191,6 +196,14 @@ export function ItemDetail({ cat, goods }) {
       // 출력박스 : #total
       $("#total").text(addComma(ginfo[3] * num) + "원");
     });
+    // 카트가 생성된 경우 버튼 보이기(카트 부모 박스.bgbx 보이기)
+    if(csts===1){
+      // 전체 보여라
+      $('.bgbx').show();
+      // 카트 사이드에 나와라
+      $('#mycart').addClass('on');
+    }
+
   }, []); ////  한번만 실행 /////
 
   // 리랜더링 실행구역 /////
