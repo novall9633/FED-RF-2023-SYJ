@@ -126,3 +126,18 @@
     width: 34px;
     transition: none;
 }
+
+/* 페이징 파트 */
+.paging{
+    text-align: center;
+    padding: 20px 0;
+}
+
+.paging a{
+    color: #222;
+    text-decoration: none;
+    font-size: 18px;
+}
+.paging b{
+    font-size: 16px;
+}

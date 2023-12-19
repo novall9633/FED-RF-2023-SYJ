@@ -42,7 +42,7 @@ export function Board() {
     console.log("로그인 상태 : ", myCon.logSts);
     // [컴포넌트 전체 공통변수] /////////////
     // 1. 페이지 단위수 : 한 페이지 당 레코드수
-    const pgBlock = 7;
+    const pgBlock = 5;
     // 2. 전체 레코드수 : 배열데이터 총개수
     const totNum = orgData.length;
     // console.log("페이지단위수:", pgBlock, "\n전체 레코드수:", totNum);
