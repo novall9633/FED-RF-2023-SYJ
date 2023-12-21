@@ -19,4 +19,5 @@ export const gnbData = {
         "CAMPING STYLE",
         "SPORT STYLE",
     ],
+    "glist":["Filter List","Paging List","More List"],
 }; /////////// gnbData ////////////////

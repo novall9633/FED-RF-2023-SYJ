@@ -26,13 +26,22 @@ let orgData;
 // 로컬스가 있으면 그것 넣기
 if (localStorage.getItem("bdata")) orgData = JSON.parse(localStorage.getItem("bdata"));
 // 로컬스 없으면 제이슨 데이터 넣기
-else orgData = baseData;
+else {
+    // 기본 데이터 제이슨에서 가져온것 넣기
+    orgData = baseData;
+} //////////////////else////////////
 // else orgData = [];
 
 // // console.log(org);
 
 // ******* Borad 컴포넌트 ******* //
 export function Board() {
+    // 보드 데이터가 로컬스에 없으면 생성하기
+    if (!localStorage.getItem("bdata")) { // !연산자로 false일 때 실행
+        // 로컬스 'bdata'가 없으므로 여기서 최초생성하기
+        // -> 조회수 증가 시 로컬스 데이터로 확인하기 때문
+        localStorage.setItem("bdata", JSON.stringify(baseData));
+    } /////////if///////////////////
     // 기본사용자 정보 셋업 함수 호출
     initData();
 
@@ -456,7 +465,6 @@ export function Board() {
                 }); /////// Array some /////
             } //////////if ///////////////
 
-            
             // 2. 로컬스에 반영하기
             localStorage.setItem("bdata", JSON.stringify(orgData));
 
@@ -554,15 +562,15 @@ export function Board() {
 
         // 3-2. 로그인한 사용자일 경우 로그인 사용자계정과 같은
         // 글이면 증가하지 않는다.
-        if(localStorage.getItem('minfo')){
-            let minfo = JSON.parse(localStorage.getItem('minfo'));
+        if (localStorage.getItem("minfo")) {
+            let minfo = JSON.parse(localStorage.getItem("minfo"));
             let cUid = minfo.uid;
-            console.log('로그인 사용자 검사',cUid);
+            console.log("로그인 사용자 검사", cUid);
             // 로그인 아이디 === 현재글 아이디
-            if(cUid===cData.current.uid){
-                isOK= false;
+            if (cUid === cData.current.uid) {
+                isOK = false;
             }
-        }/////////////if ////////////////
+        } /////////////if ////////////////
 
         // 4.[ 카운트 증가하기 ]///////////
         if (isOK) {
@@ -577,23 +585,23 @@ export function Board() {
                 } ///////if//////////
             }); ////////some///////////
             // 원본데이터에 반영하기 : 꼭해야만 리스트가 업데이트됨
-            orgData=data;
+            orgData = data;
 
             // 반영된 배열 데이터를 다시 'bdata' 로컬스토리지에 넣기
-            localStorage.setItem('bdata',JSON.stringify(data));
+            localStorage.setItem("bdata", JSON.stringify(data));
         } /////////////if///////////////
 
         // 5. [ 현재글 세션스 처리하기 ] //////////
-        if(isOK){///조회수 증가일 경우에만 글번호 세션스 등록
+        if (isOK) {
+            ///조회수 증가일 경우에만 글번호 세션스 등록
             // 세션스 배열에 idx 값 넣기
             cntIdx.push(Number(cidx));
-    
+
             console.log("넣은 후:", cntIdx);
-    
+
             // 세션스에 저장하기
             sessionStorage.setItem("cnt-idx", JSON.stringify(cntIdx));
-        }///////////if/////////////////////////
-
+        } ///////////if/////////////////////////
     }; //////////plusCnt 함수 /////////////////
 
     // 리턴코드 ////////////////////

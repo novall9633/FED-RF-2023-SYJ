@@ -1,6 +1,10 @@
 // 신상품 컴포넌트 ////////////////////////////////
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+
+// 컨텍스트 API 불러오기
+import { pCon } from "./PilotContext";
+
 // 신상품 데이터 가져오기
 import { sinsangData } from "../data/sinsang";
 
@@ -10,6 +14,9 @@ import { useRef } from "react";
 export function SinSang({cat,chgItemFn}) {
     // props.cat - 카테고리 분류명
     // props.chgItemFn - 선택상품정보변경 부모함수 
+
+    // 컨텍스트 API사용하기
+    const myCon = useContext(pCon);
 
     // 선택데이터 : 해당 카테고리 상품데이터만 가져온다!
     const selData = sinsangData[cat];
@@ -103,10 +110,6 @@ export function SinSang({cat,chgItemFn}) {
         if(callSts) setTimeout(()=>flowList(ele),40);
     }; ///////////flowList /////////////////
 
-    // 오버/아웃 시 이동제어함수 //
-    const flowOut=()=>{
-        
-    };//////////////////////////
     
     // 랜더링 후 한번만 실행구역 ////////
     useEffect(()=>{
@@ -121,7 +124,7 @@ export function SinSang({cat,chgItemFn}) {
         <>
             <h2 className="c1tit">
                 NEW {cat.toUpperCase()}'S ARRIVAL
-                <button>전체리스트</button>
+                <button onClick={()=>myCon.chgPgName('glist')}>전체리스트</button>
             </h2>
             <div className="flowbx" onMouseEnter={()=>callSts=0} onMouseLeave={()=>{callSts=1;flowList($('.flist'))}}>
                 <ul className="flist">
