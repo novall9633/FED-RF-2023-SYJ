@@ -626,7 +626,7 @@ export function Board() {
                                 <option value="1">Ascending</option>
                                 <option value="2">Descending</option>
                             </select>
-                            <input id="stxt" type="text" maxlength="50" />
+                            <input id="stxt" type="text" maxLength="50" />
                             <button className="sbtn">Search</button>
                         </div>
                         {/* 리스트 테이블 */}
