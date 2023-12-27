@@ -95,11 +95,19 @@ function App() {
         window.scrollTo(0, 0);
     }, []); ///////useLayoutEffect ////////////
 
+    useEffect(()=>{
+      // 전체 상품 리스트 페이지를 위한 초기화 변수
+      console.log('초기화 상태값 : ',gInit.current);
+    });
+
     // GList 페이지에서 사용하는 모드구분 참조변수
     const [gMode, setGMode] = useState("F");
     // 처음값은 'F' -> Filter List임
     // "P" -> Paging List
     // "M" -> More List
+
+    // 전체 리스트 페이지에서 초기화 상태변수를 참조변수로 생성
+    const gInit = useRef(false);
 
     /***************************************************** 
       [ 컨텍스트 API 공개 변수들]
@@ -110,11 +118,12 @@ function App() {
       5. transData - 카트 사용 데이터
       6. setTransData - 카트 사용 데이터  셋업
       7. gMode,setGMode - 전체 리스트 페이지 뷰모드 구분
+      8. gInit - 초기화 여부를 결정하는 변수
     *****************************************************/
 
     // 리턴코드 //////////////////////////
     return (
-        <pCon.Provider value={{ pgName, chgPgName, flag, setCsts, transData, setTransData, gMode, setGMode }}>
+        <pCon.Provider value={{ pgName, chgPgName, flag, setCsts, transData, setTransData, gMode, setGMode, gInit }}>
             <TopArea cat={pgName} />
             <MainArea page={pgName} />
             <FooterArea />
