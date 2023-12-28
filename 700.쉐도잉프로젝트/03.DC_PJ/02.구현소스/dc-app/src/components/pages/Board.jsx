@@ -63,7 +63,7 @@ export function Board() {
     // 1. 현재 페이지 번호 : 가장중요한 리스트 바인딩의 핵심!
     const [pgNum, setPgNum] = useState(1);
     // 1. 데이터 변경변수 : 리스트에 표시되는 실제 데이터셋
-    const [currData, setCurrData] = useState(null);
+    // const [currData, setCurrData] = useState(null);
     // 2. 게시판 모드관리변수
     const [bdMode, setBdMode] = useState("L");
     // 모드구분값 : CRUD (Create/Read/Update/Delete)
@@ -73,6 +73,9 @@ export function Board() {
 
     // 3. 버튼공개 여부 관리변수 : 수정버튼
     const [btnSts, setBtnSts] = useState(false);
+
+    // 4. 강제 리랜더링 관리 변수 : 값을 랜덤값으로 업데이트 변경하여 사용
+    const [force, setForce] = useState(null);
 
     // 리랜더링 루프에 빠지지 않도록 랜더링후 실행구역에
     // 변경코드를 써준다! 단, logSts에 의존성을 설정해준다!
@@ -263,7 +266,7 @@ export function Board() {
         if (modeTxt === "R") {
             // 1. a링크의 'data-idx'값 읽어오기
             let cidx = $(e.target).attr("data-idx");
-            console.log("읽기처리", cidx);
+            // console.log("읽기처리", cidx);
 
             // 2. 해당정보 가져오기 : orgData에서 조회함
             // 전역 참조변수에 저장하여 리랜더링시 리턴코드에
@@ -605,6 +608,50 @@ export function Board() {
         } ///////////if/////////////////////////
     }; //////////plusCnt 함수 /////////////////
 
+    // 검색 기능 수행 함수 ////////
+    const searchList = () => {
+        // 1. 검색기준값 읽어오기
+        const cta = $("#cta").val();
+
+        // 2. 검색어 읽어오기
+        const inpVal = $("#stxt").val().toLowerCase().trim();
+
+        // 3. 검색어입력 안한 경우 경고창과 return
+        if (inpVal === "") {
+            alert("검색어를 입력하세요");
+            return;
+        } ///////// if////////////
+
+        console.log("검색시작~", cta, inpVal);
+
+        // 원본데이터로 검색하지 않고 로컬스토리지 데이터 사용
+        console.log("원본데이터 : ", orgData);
+
+        // 로컬쓰 데이터 가져오기
+        const storageData = JSON.parse(localStorage.getItem("bdata"));
+        console.log("로컬스 : ", storageData);
+
+        // 4. 전체 원본 데이터에서 검색기준값으로 검색하기
+        const resData = storageData.filter((v) => {
+            // 원본데이터 소문자변환
+            let compTxt = v[cta].toLowerCase();
+            // 검색 기준이 동적으로 변수에 담기므로
+            // 대괄호로 객체값을 읽어온다
+            // indexOf() 로 like 검색함
+            if (compTxt.indexOf(inpVal) !== -1) {
+                return true;
+            }
+        });
+
+        console.log("검색데이터 : ", resData);
+
+        // 5. 리스트 업데이트하기
+        orgData = resData;
+
+        // 6. 강제 리랜더링
+        setForce(Math.random());
+    }; ////////////////searchList 함수 //////////////
+
     // 리턴코드 ////////////////////
     return (
         <>
@@ -612,7 +659,7 @@ export function Board() {
                 /* 1. 게시판 리스트 : 게시판 모드 'L'일때 출력 */
                 bdMode === "L" && (
                     <>
-                    {/* 전체 타이틀 */}
+                        {/* 전체 타이틀 */}
                         <h1 className="tit">OPINION</h1>
                         {/* 검색옵션 박스 */}
                         <div className="selbx">
@@ -627,7 +674,9 @@ export function Board() {
                                 <option value="2">Descending</option>
                             </select>
                             <input id="stxt" type="text" maxLength="50" />
-                            <button className="sbtn">Search</button>
+                            <button className="sbtn" onClick={searchList}>
+                                Search
+                            </button>
                         </div>
                         {/* 리스트 테이블 */}
                         <table className="dtbl" id="board">
@@ -790,9 +839,16 @@ export function Board() {
                             {
                                 // 리스트 모드(L)
                                 bdMode === "L" && myCon.logSts !== null && (
-                                    <button onClick={chgMode}>
-                                        <a href="#">Write</a>
-                                    </button>
+                                    <>
+                                    {/* List 버튼은 검색실행시에만 나타남
+                                    클릭시 전체리스트로 돌아감, 이때 버튼 사라짐 */}
+                                        <button onClick={chgMode}>
+                                            <a href="#">List</a>
+                                        </button>
+                                        <button onClick={chgMode}>
+                                            <a href="#">Write</a>
+                                        </button>
+                                    </>
                                 )
                             }
                             {
