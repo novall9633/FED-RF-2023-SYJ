@@ -44,7 +44,7 @@ export function TopArea(props) {
         console.log("GNB리스트:", data);
         return gnbData[data].map((v, i) => (
             <li key={i} className={props.cat === "glist" && i === 0 ? "on" : ""} onClick={clickGnb}>
-                <a href="#">{v}</a>
+                <a href={"#c"+(i+1)}>{v}</a>
             </li>
         ));
     }; ///////// makeList /////////
