@@ -10,7 +10,11 @@ export function Banner() {
 
     // 리스트를 만드는 함수 ////
     const makeList = (gubun) => {
-        // gubun : 1 - 배너 / 0 - 블릿
+        // gubun : true - 배너 / false - 블릿
+
+        // 참고)
+        // 0/1로 false/true를 대신하면 리액트에서는
+        // 이숫자를 하단에 출력함
         // for문을 돌려서 태그를 생성할때 배열에 담는다!
         // -> 문자형이 아닌 JSX의 태그이므로 배열에 담고
         // for문 없이 그대로 태그를 출력할 수 있다!

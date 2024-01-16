@@ -18,29 +18,33 @@ export function MainCont() {
   useEffect(() => {
     // 랜더링 후 한번만 적용!
     // console.log("랜더링OK!");
+     // 모바일은 가로크기 800px 이하
+     if($(window).width()>800){
+       // 스크롤바 없애기
+       $('html').css({overflow:'hidden'});
+       $('body').css({overflowX:'visible'});
+       
+       // (((중요!!!))) /////////////////////////////
+       // 특정이벤트를 설정해제하고자 할때
+       // 반드시 그 이벤트 설정은 JS파일 내부에서 하지 말고
+       // 리액트 함수에서 JS함수를 호출하는 형태로해야
+       // 해제 메서드인 removeEventListener 가 유효함!
+       
+       // 자동스크롤 이벤트 설정하기 /////
+       window.addEventListener('wheel',wheelFn);
+       
+       // 메뉴+인디케이터 이벤트 기능설정함수 호출 ////
+       evtFn();
+       
+       // 초기화 함수 호출 : 조건(모바일 아닐때)
+       initSet();
+   
+       
+       // 페이지번호 초기화 호출
+       zeroPno();
+    }
     
     
-    // 스크롤바 없애기
-    $('html').css({overflow:'hidden'});
-    $('body').css({overflowX:'visible'});
-    
-    // (((중요!!!))) /////////////////////////////
-    // 특정이벤트를 설정해제하고자 할때
-    // 반드시 그 이벤트 설정은 JS파일 내부에서 하지 말고
-    // 리액트 함수에서 JS함수를 호출하는 형태로해야
-    // 해제 메서드인 removeEventListener 가 유효함!
-    
-    // 자동스크롤 이벤트 설정하기 /////
-    window.addEventListener('wheel',wheelFn);
-    
-    // 메뉴+인디케이터 이벤트 기능설정함수 호출 ////
-    evtFn();
-    
-    // 초기화 함수 호출
-    initSet();
-    
-    // 페이지번호 초기화 호출
-    zeroPno();
 
     //드래그배너 호출
     dragBanner();
