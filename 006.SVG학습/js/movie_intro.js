@@ -12,21 +12,29 @@ let logoAni = document.querySelector("#mlogo");
 
 // [2] 시차로 애니메이션 대상에 클래스 넣기
 // 공통 적용 클래스명 : anion
+const setTime = (ele,time)=>{
+    setTimeout(() => {
+        ele.classList.add('anion');
+    }, time);
+}
 
 // 1. 2초후 라인애니
-setTimeout(() => {
-    lineAni.classList.add("anion");
-}, 2000);
+setTime(lineAni,2000);
+// setTimeout(() => {
+//     lineAni.classList.add("anion");
+// }, 2000);
 
 // 2. 6초후 스틸컷 애니
-setTimeout(() => {
-    stcAni.classList.add("anion");
-}, 6000);
+setTime(stcAni,6000);
+// setTimeout(() => {
+//     stcAni.classList.add("anion");
+// }, 6000);
 
 // 3. 12초후 스틸컷 애니
-setTimeout(() => {
-    logoAni.classList.add("anion");
-}, 12000);
+setTime(logoAni,12000);
+// setTimeout(() => {
+//     logoAni.classList.add("anion");
+// }, 12000);
 
 // 오디오 컨트롤하기
 // 대상 : .play-box
