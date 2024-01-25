@@ -9,6 +9,22 @@ import store from "./store.js";
 // 등록방법 : new Vue({el:"",store,methods:{}})
 // -> 스토아 변수를 그대로 써주면 된다
 
+// 리스트 만들기함수
+const makeList = (x) => {
+    console.log('메뉴배열:',x);
+    // x 메뉴 배열
+    return x.map(
+        (v) => `
+        <li>
+            <a href="#"
+            v-on:click="changeData('${v}')"
+            >${v=='처음'?'💒':v}</a>
+        </li>
+    `
+    ).join('');
+    // map으로 만든 배열값에 사이콤마제거는 join
+}; /////////makeList 함수 /////////
+
 // [1] 컴포넌트 셋팅하기 /////
 // 1. 상단영역 컴포넌트 셋팅
 Vue.component("top-area", {
@@ -16,26 +32,7 @@ Vue.component("top-area", {
     template: `
         <header>
             <ul class="gnb">
-                <li>
-                    <a href="#"
-                    v-on:click="changeData('처음')"
-                    >🏠</a>
-                </li>
-                <li>
-                    <a href="#"
-                    v-on:click="changeData('서울')"
-                    >서울</a>
-                </li>
-                <li>
-                    <a href="#"
-                    v-on:click="changeData('부산')"
-                    >부산</a>
-                </li>
-                <li>
-                    <a href="#"
-                    v-on:click="changeData('제주')"
-                    >제주</a>
-                </li>
+                ${makeList(Object.keys(store.state.cityData))}
             </ul>
         </header>
     `,
@@ -57,7 +54,6 @@ Vue.component("top-area", {
             // 2. 설명 변수 : desc
             // 이 위치에서 접근하려면 store.state로 접근
             store.state.desc = store.state.cityData[pm].설명;
-
         }, ////////chageData 메서드 ////////
     },
 });
@@ -115,7 +111,7 @@ new Vue({
         // 메서드(){}
     },
     // 데이터 셋팅구역 : 인스턴스 생성직후(created)
-    created(){
+    created() {
         // 스토어에 있는 initSet 메서드는 어떻게 호출하지?
         // 스토어 호출 메서드가 따로 있음!
         // store.commit("메서드명",파라미터값)
@@ -123,41 +119,45 @@ new Vue({
         // 2. 파라미터는 단일값 또는 객체형식을 보낼 수 있음
         // 인스턴스 내부구역 코딩시 store에 $없음!
 
-        store.commit('initSet',{
-            url:"https://img.freepik.com/premium-vector/city-illustration_23-2147514701.jpg",
-            txt:"도시소개에 오신것을 환영합니다",
-        })
+        store.commit("initSet", {
+            url: "https://img.freepik.com/premium-vector/city-illustration_23-2147514701.jpg",
+            txt: "도시소개에 오신것을 환영합니다",
+        });
     }, ////created /////////
     // DOM 생성 후 실행구역(mounted) : 제이쿼리(JS) 코드
-    mounted(){
+    mounted() {
         // 1. 메뉴 클릭시 클릭된 li의 a요소에 .on주기
         // 나머지는 .on지우고 home은 적용제외
-        $('.gnb a').click(function(){
-            if($(this).parent().index() !==0){
-                $(this).addClass('on');
+        $(".gnb a").click(function () {
+            if ($(this).parent().index() !== 0) {
+                $(this).addClass("on");
             }
-                $(this).parent().siblings().find('a').removeClass('on');
-                // 박스 나타나기 함수 호출
-                showBox();
+            $(this).parent().siblings().find("a").removeClass("on");
+            // 박스 나타나기 함수 호출
+            showBox();
         });
 
-        function showBox(){
+        function showBox() {
             // 이미지와 설명박스 순서대로 나타나기
             // 대상: main img
-            $('main img').css({
-                opacity:0
-            }).stop()
-            .delay(500)
-            .fadeTo(500,1)
+            $("main img")
+                .css({
+                    opacity: 0,
+                })
+                .stop()
+                .delay(500)
+                .fadeTo(500, 1);
             // stop() - 기존 애니메이션 지움
             // fadeTo(시간,투명도)
 
             // 대상: main p
-            $('main p').css({
-                opacity:0
-            }).stop()
-            .delay(1000)
-            .fadeTo(500,1)
-        }//////////// showBox ///////////////////////////////////
+            $("main p")
+                .css({
+                    opacity: 0,
+                })
+                .stop()
+                .delay(1000)
+                .fadeTo(500, 1);
+        } //////////// showBox ///////////////////////////////////
     },
 });
