@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import TopArea from "./component/TopComp.vue";
-import MainArea from "./component/MainComp.vue";
-import InfoArea from "./component/InfoComp.vue";
+import TopArea from "./components/TopComp.vue";
+import MainArea from "./components/MainComp.vue";
+import InfoArea from "./components/InfoComp.vue";
 
 export default {
   name: 'App',
