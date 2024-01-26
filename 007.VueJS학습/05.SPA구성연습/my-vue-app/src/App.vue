@@ -27,6 +27,7 @@ export default {
 </script>
 
 <style> 
+/* <style scoped> */
 /* ==> 전역 스타일시트 (scoped가 있으면 지역CSS) */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

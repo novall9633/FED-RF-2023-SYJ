@@ -162,7 +162,7 @@ new Vue({
         // actions 메서드 호출하기 : dispatch(메서드명,전달값)
         store.dispatch('myAct','나야나');
     }, ////created /////////
-    // DOM 생성 후 실행구역(mounted) : 제이쿼리(JS) 코드
+    // DOM 생성 후 실행구역(mounted) : 제이쿼리(JS)
     mounted() {
         // 1. 메뉴 클릭시 클릭된 li의 a요소에 .on주기
         // 나머지는 .on지우고 home은 적용제외
